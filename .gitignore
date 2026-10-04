@@ -1,0 +1,12 @@
+node_modules/
+.env
+.env.local
+dist/
+# Student data — never commit
+*.csv
+import-report.json
+# Secrets / local tooling
+cmm_deploy_key*
+# graft's generated repo index (see .ignore)
+graft/
+.DS_Store
