@@ -31,7 +31,7 @@ Owner: **Claude** = can be done by the agent · **You** = needs your accounts or
 | 10 | E. Local run | Google sign-in + local end-to-end smoke test | You | 7, 9 | ⬜ |
 | 11 | F. Containers | Dockerfiles + nginx (D2, D3); test images locally | Claude | 9 | 🟨 server image ✅ (built + run against the Supabase project); web image waits for mockups |
 | 12 | F. Containers | Droplet compose file + CI/deploy workflow | Claude | 11 | 🟨 compose file ✅, workflow = server tests + API image; web/deploy steps wait for client |
-| 13 | G. Go-live | Clear test data; register advisors; import the form CSV | You + Claude | 6, 10 | 🟨 reset script written + tested; waiting for Task 10 and the CSV |
+| 13 | G. Go-live | Clear test data; register advisors; import the form CSV | You + Claude | 6, 10 | 🟨 reset script tested; `response.csv` dry run clean (29 students); real import waits for Task 10 |
 | 14 | G. Go-live | DNS: `cmm27.cmm.works` → droplet | Maintainer | — | ⬜ |
 | 15 | G. Go-live | Droplet folder `/opt/cmm27` + `.env` | You (deploy key) | 13 | ⬜ |
 | 16 | G. Go-live | Caddy site block (PR to CMM Hub server repo) | Maintainer | 14 | ⬜ |
@@ -1039,10 +1039,12 @@ Do this once, after Task 10's testing and **before any real student signs in**: 
 - [ ] **Step 1: Clear test data (confirm with the user first).** In `supabase/admin/reset_test_data.sql`, change `'no'` to `'yes'` on the `set local app.confirm_reset` line, then run the file in the SQL Editor (or psql). Expected last result: `advisors_kept | 0 | 0 | 0`. **Don't commit the `'yes'`**: run `git checkout supabase/admin/reset_test_data.sql` afterwards.
 - [ ] **Step 2:** Remove any test advisors (advisors have no timeline rows, so they delete normally): `delete from public.users where role = 'ADVISOR' and email = '<test email>';`. Register the real advisors (README Setup 1.3).
 - [ ] **Step 3:** Re-run `supabase/tests/rules.sql` (it rolls back) and the Task 7 lockdown check. Both must pass.
-- [ ] **Step 4:** Google Sheets → File → Download → CSV, saved as `responses.csv` in the repo root. Do not open it in Excel.
-- [ ] **Step 5: Dry run:** `cd server && npm run import -- ../responses.csv`. Check that "Columns used" shows a non-null `studentId` and `checklist`. Review every *Skipped row* and *Note*, fix the sheet and re-export if needed.
-- [ ] **Step 6: Commit to the DB (confirm with the user first):** `npm run import -- ../responses.csv --commit` → `Imported: N new, 0 existing updated`.
+- [x] **Step 4:** Google Sheets → File → Download → CSV, saved as `response.csv` in the repo root. Do not open it in Excel.
+- [x] **Step 5: Dry run:** `cd server && npm run import -- ../response.csv`. Check that "Columns used" shows a non-null `studentId` and `checklist`. Review every *Skipped row* and *Note*, fix the sheet and re-export if needed.
+- [ ] **Step 6: Commit to the DB (confirm with the user first):** `npm run import -- ../response.csv --commit` → `Imported: N new, 0 existing updated`.
 - [ ] **Step 7: Idempotency:** run the same command again → `0 new, N existing updated`.
+
+> **Dry run result (2026-10-05):** 29 students; 7 Resume, 3 Portfolio, 0 valid ยื่นแล้ว. Fixed in the CSV: one 10-digit ID on line 4 corrected to 11 digits (confirmed by the user). The importer now skips the blank `,,` row above the header. Notes: line 4 ticked ยื่นแล้ว without Portfolio (stays at preparation); lines 9, 10, 11, 22 said ยังไม่เตรียมตัว but ticked items (checklist wins).
 
 ---
 
