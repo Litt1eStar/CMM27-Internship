@@ -18,7 +18,8 @@ app.use(
 );
 app.use(express.json({ limit: '100kb' }));
 
-app.get('/health', (_req, res) => res.json({ ok: true }));
+// /api/health is what Caddy can reach; /health is kept for local checks.
+app.get(['/health', '/api/health'], (_req, res) => res.json({ ok: true }));
 
 // Everything under /api requires a signed-in Google account.
 app.use('/api', authenticate);
