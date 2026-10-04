@@ -1,0 +1,21 @@
+name: cmm27
+
+services:
+  cmm27-web:
+    image: ghcr.io/${GHCR_OWNER}/cmm27-web:latest
+    restart: unless-stopped
+    expose:
+      - "80"
+
+  cmm27-api:
+    image: ghcr.io/${GHCR_OWNER}/cmm27-api:latest
+    restart: unless-stopped
+    env_file:
+      - .env
+    expose:
+      - "4000"
+
+networks:
+  default:
+    name: cmm_default
+    external: true
