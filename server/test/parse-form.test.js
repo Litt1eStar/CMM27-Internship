@@ -87,6 +87,17 @@ test('keeps only student-domain emails, lowercased', () => {
   assert.equal(out.rows[1].email, null);
 });
 
+test('skips blank rows above the header and keeps line numbers true to the file', () => {
+  // line 1: ",,"  line 2: ""  line 3: header  line 4: valid row  line 5: bad ID
+  const out = parseFormCsv(
+    ',,\n\n' + form(['67080500209', 'เริ่มแล้ว', 'ทำ Resume แล้ว'], ['12345', 'เริ่มแล้ว', ''])
+  );
+  assert.equal(out.rows.length, 1);
+  assert.equal(out.rows[0].student_id, '67080500209');
+  assert.equal(out.rows[0].resume, true);
+  assert.equal(out.problems[0].line, 5);
+});
+
 test('throws when required columns are missing', () => {
   assert.throws(() => parseFormCsv('a,b\n1,2'), /Could not find the required columns/);
 });

@@ -17,7 +17,15 @@ import { parse } from 'csv-parse/sync';
  *   หาข้อมูลที่ฝึกงานแล้ว     -> ignored
  */
 export function parseFormCsv(text, { studentEmailDomain = 'mail.kmutt.ac.th' } = {}) {
+  // The header is the first line with any content; sheets sometimes export
+  // stray blank rows (",,") above it.
+  const headerIndex = Math.max(
+    0,
+    text.replace(/^﻿/, '').split(/\r?\n/).findIndex((l) => l.replace(/[,"\s]/g, '') !== '')
+  );
+
   const records = parse(text, {
+    from_line: headerIndex + 1,
     columns: true,
     bom: true,
     skip_empty_lines: true,
@@ -48,7 +56,7 @@ export function parseFormCsv(text, { studentEmailDomain = 'mail.kmutt.ac.th' } =
   const notes = [];
 
   records.forEach((rec, i) => {
-    const line = i + 2; // +1 header, +1 human counting
+    const line = headerIndex + i + 2; // +1 header, +1 human counting
     const rawId = rec[col.studentId] ?? '';
 
     if (/e\+/i.test(rawId)) {
