@@ -30,8 +30,8 @@ Owner: **Claude** = can be done by the agent · **You** = needs your accounts or
 | 9 | D. Fixes | D4–D6: same-origin `/api`, PKCE, `/api/health` | Claude | 8 | 🟨 server ✅ (`/api/health`), client parts wait for mockups |
 | 10 | E. Local run | Google sign-in + local end-to-end smoke test | You | 7, 9 | ⬜ |
 | 11 | F. Containers | Dockerfiles + nginx (D2, D3); test images locally | Claude | 9 | 🟨 server image ✅ (built + run against dev DB); web image waits for mockups |
-| 12 | F. Containers | Droplet compose file + CI/deploy workflow | Claude | 11 | ⬜ |
-| 13 | G. Go-live | Create **prod** Supabase project; import the form CSV | You | 6 | ⬜ |
+| 12 | F. Containers | Droplet compose file + CI/deploy workflow | Claude | 11 | 🟨 compose file ✅, workflow = server tests + API image; web/deploy steps wait for client |
+| 13 | G. Go-live | Create **prod** Supabase project; import the form CSV | You | 6 | 🟨 `.env.prod` + `import:prod` ready; waiting for prod project + CSV |
 | 14 | G. Go-live | DNS: `cmm27.cmm.works` → droplet | Maintainer | — | ⬜ |
 | 15 | G. Go-live | Droplet folder `/opt/cmm27` + `.env` | You (deploy key) | 13 | ⬜ |
 | 16 | G. Go-live | Caddy site block (PR to CMM Hub server repo) | Maintainer | 14 | ⬜ |
@@ -1031,14 +1031,13 @@ git commit -m "ci: test, build to GHCR and deploy cmm27 to the droplet"
 **Files:** none committed (`*.csv` and `import-report.json` are git-ignored because they contain student data).
 
 - [ ] **Step 1:** Create `cmm27-prod` in the same region. Run `supabase/migrations/001_schema.sql`, then `supabase/tests/rules.sql` once (it rolls back). Register the real advisors (README Setup 1.3).
-- [ ] **Step 2:** Enable Google under Authentication → Providers, using the same OAuth client. Add `https://<prod-ref>.supabase.co/auth/v1/callback` to that client's *Authorized redirect URIs* in Google Cloud.
+- [ ] **Step 2:** Enable Google under Authentication → Providers, using the same OAuth client. Add `https://<prod-ref>.supabase.co/auth/v1/callback` to that client's *Authorized redirect URIs* in Google Cloud. (Can wait until the OAuth client exists from Task 10; the import doesn't need it.)
 - [ ] **Step 3:** Repeat Task 7 against the prod URL and key. Every request must be refused.
-- [ ] **Step 4:** Temporarily point `server/.env` at the prod URL and secret key, and keep a copy of the dev values.
+- [ ] **Step 4:** Put the prod credentials in their own git-ignored file, `server/.env.prod` (`SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `SUPABASE_DB_URL`). `server/.env` stays on dev, so no swapping is needed.
 - [ ] **Step 5:** Google Sheets → File → Download → CSV, saved as `responses.csv` in the repo root. Do not open it in Excel.
-- [ ] **Step 6: Dry run:** `cd server && npm run import -- ../responses.csv`. Check that "Columns used" shows a non-null `studentId` and `checklist`. Review every *Skipped row* and *Note*, fix the sheet and re-export if needed.
-- [ ] **Step 7: Commit to the DB:** `npm run import -- ../responses.csv --commit` → `Imported: N new, 0 existing updated`.
+- [ ] **Step 6: Dry run:** `cd server && npm run import:prod -- ../responses.csv`. Check that "Columns used" shows a non-null `studentId` and `checklist`. Review every *Skipped row* and *Note*, fix the sheet and re-export if needed.
+- [ ] **Step 7: Commit to the DB (confirm with the user first):** `npm run import:prod -- ../responses.csv --commit` → `Imported: N new, 0 existing updated`.
 - [ ] **Step 8: Idempotency:** run the same command again → `0 new, N existing updated`.
-- [ ] **Step 9:** Restore the dev values in `server/.env`.
 
 ---
 

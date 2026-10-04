@@ -8,6 +8,7 @@
     "dev": "node --watch --env-file=.env src/index.js",
     "start": "node --env-file=.env src/index.js",
     "import": "node --env-file=.env scripts/import-students.js",
+    "import:prod": "node --env-file=.env.prod scripts/import-students.js",
     "test": "node --test"
   },
   "engines": {
