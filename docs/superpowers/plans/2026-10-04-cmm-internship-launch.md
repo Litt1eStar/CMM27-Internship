@@ -19,17 +19,17 @@ Owner: **Claude** = can be done by the agent · **You** = needs your accounts or
 
 | # | Phase | Task | Owner | Needs | Status |
 |---|---|---|---|---|---|
-| 1 | A. Foundation | Put the project under git | Claude | — | ⬜ |
-| 2 | A. Foundation | Install dependencies; prove both apps build | Claude | 1 | ⬜ |
-| 3 | B. Tests | Test harness + CSV parser tests | Claude | 2 | ⬜ |
-| 4 | B. Tests | DB-error → HTTP mapping tests | Claude | 3 | ⬜ |
+| 1 | A. Foundation | Put the project under git | Claude | — | ✅ |
+| 2 | A. Foundation | Install dependencies; prove both apps build | Claude | 1 | 🟨 server ✅, client build waits for mockups |
+| 3 | B. Tests | Test harness + CSV parser tests | Claude | 2 | ✅ |
+| 4 | B. Tests | DB-error → HTTP mapping tests | Claude | 3 | ✅ |
 | 5 | C. Database | Create **dev** Supabase project, apply schema | You | 2 | ⬜ |
 | 6 | C. Database | SQL test script for every business rule | Claude + You | 5 | ⬜ |
 | 7 | C. Database | Verify browser keys can't touch data | Claude | 5 | ⬜ |
-| 8 | D. Fixes | D1: don't auto-link rejected sign-ins | Claude | 4 | ⬜ |
-| 9 | D. Fixes | D4–D6: same-origin `/api`, PKCE, `/api/health` | Claude | 8 | ⬜ |
+| 8 | D. Fixes | D1: don't auto-link rejected sign-ins | Claude | 4 | ✅ (live check in Task 10) |
+| 9 | D. Fixes | D4–D6: same-origin `/api`, PKCE, `/api/health` | Claude | 8 | 🟨 server ✅ (`/api/health`), client parts wait for mockups |
 | 10 | E. Local run | Google sign-in + local end-to-end smoke test | You | 7, 9 | ⬜ |
-| 11 | F. Containers | Dockerfiles + nginx (D2, D3); test images locally | Claude | 9 | ⬜ |
+| 11 | F. Containers | Dockerfiles + nginx (D2, D3); test images locally | Claude | 9 | ⛔ server Dockerfile written; needs Docker Desktop running to test |
 | 12 | F. Containers | Droplet compose file + CI/deploy workflow | Claude | 11 | ⬜ |
 | 13 | G. Go-live | Create **prod** Supabase project; import the form CSV | You | 6 | ⬜ |
 | 14 | G. Go-live | DNS: `cmm27.cmm.works` → droplet | Maintainer | — | ⬜ |
@@ -120,7 +120,7 @@ Outside this repo (Maintainer): DNS record at GoDaddy, and the `infra/caddy/Cadd
 **Files:**
 - Create: `.gitignore`
 
-- [ ] **Step 1: Create `.gitignore` at the repo root**
+- [x] **Step 1: Create `.gitignore` at the repo root**
 
 ```gitignore
 node_modules/
@@ -136,7 +136,7 @@ graft/.cache/
 .DS_Store
 ```
 
-- [ ] **Step 2: Initialise and make the first commit**
+- [x] **Step 2: Initialise and make the first commit**
 
 ```bash
 cd "C:/Users/krittin pragopdee/OneDrive/Desktop/University/CMM27-Internship"
@@ -156,12 +156,12 @@ Expected: commit succeeds; `git status` is clean afterwards.
 
 **Files:** none changed.
 
-- [ ] **Step 1: Check Node version**
+- [x] **Step 1: Check Node version**
 
 Run: `node --version`
 Expected: `v20.6.0` or newer (this machine has v26.1.0 ✔).
 
-- [ ] **Step 2: Install server deps and syntax-check every file**
+- [x] **Step 2: Install server deps and syntax-check every file**
 
 ```bash
 cd server
@@ -181,7 +181,7 @@ npm run build
 
 Expected: `✓ built in …`; `client/dist/index.html` exists. No env vars are needed to build.
 
-- [ ] **Step 4: Commit lockfile changes, if any**
+- [x] **Step 4: Commit lockfile changes, if any**
 
 ```bash
 cd ..
@@ -199,7 +199,7 @@ The parser (`server/scripts/parse-form.js`) decides every student's starting sta
 - Modify: `server/package.json` (scripts)
 - Create: `server/test/parse-form.test.js`
 
-- [ ] **Step 1: Add the `test` script to `server/package.json`**
+- [x] **Step 1: Add the `test` script to `server/package.json`**
 
 ```json
   "scripts": {
@@ -210,7 +210,7 @@ The parser (`server/scripts/parse-form.js`) decides every student's starting sta
   },
 ```
 
-- [ ] **Step 2: Write `server/test/parse-form.test.js`**
+- [x] **Step 2: Write `server/test/parse-form.test.js`**
 
 ```js
 import { test } from 'node:test';
@@ -307,12 +307,12 @@ test('throws when required columns are missing', () => {
 });
 ```
 
-- [ ] **Step 3: Run the tests**
+- [x] **Step 3: Run the tests**
 
 Run: `cd server && npm test`
 Expected: `# pass 10`, `# fail 0`. If a test fails, do **not** edit it to match. The README's import table is the spec, so use superpowers:systematic-debugging to decide which side is wrong.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add server/package.json server/test/parse-form.test.js
@@ -328,7 +328,7 @@ git commit -m "test: pin Google Form CSV parsing rules"
 **Files:**
 - Create: `server/test/errors.test.js`
 
-- [ ] **Step 1: Write the test**
+- [x] **Step 1: Write the test**
 
 ```js
 import { test } from 'node:test';
@@ -363,12 +363,12 @@ for (const [input, status, code, message] of cases) {
 }
 ```
 
-- [ ] **Step 2: Run**
+- [x] **Step 2: Run**
 
 Run: `cd server && npm test`
 Expected: `# fail 0` (23 tests total).
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add server/test/errors.test.js
@@ -575,7 +575,7 @@ Expected: every table prints `401` or `403`, and the RPC returns `permission den
 **Files:**
 - Modify: `server/src/middleware/auth.js:36-48`
 
-- [ ] **Step 1: Replace the auto-link block**
+- [x] **Step 1: Replace the auto-link block**
 
 Old:
 
@@ -613,12 +613,12 @@ New:
   }
 ```
 
-- [ ] **Step 2: Syntax check + unit tests**
+- [x] **Step 2: Syntax check + unit tests**
 
 Run: `cd server && node --check src/middleware/auth.js && npm test`
 Expected: no output from `--check`; `# fail 0`.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add server/src/middleware/auth.js
@@ -700,7 +700,7 @@ export const supabase = createClient(
 );
 ```
 
-- [ ] **Step 5: `server/src/index.js:21` — health on both paths** (this line already sits before `app.use('/api', authenticate)`, so the check stays public)
+- [x] **Step 5: `server/src/index.js:21` — health on both paths** (this line already sits before `app.use('/api', authenticate)`, so the check stays public)
 
 ```js
 // /api/health is what Caddy can reach; /health is kept for local checks.
@@ -752,7 +752,7 @@ git commit -m "fix: same-origin /api, PKCE sign-in and /api/health for Caddy rou
 - Create: `server/Dockerfile`, `server/.dockerignore`
 - Create: `client/Dockerfile`, `client/nginx.conf`, `client/.dockerignore`
 
-- [ ] **Step 1: `server/Dockerfile`** (runs `node` directly, so no `.env` file is needed; the env comes from compose)
+- [x] **Step 1: `server/Dockerfile`** (runs `node` directly, so no `.env` file is needed; the env comes from compose)
 
 ```dockerfile
 FROM node:22-alpine
@@ -766,7 +766,7 @@ EXPOSE 4000
 CMD ["node", "src/index.js"]
 ```
 
-- [ ] **Step 2: `server/.dockerignore`**
+- [x] **Step 2: `server/.dockerignore`**
 
 ```
 node_modules
