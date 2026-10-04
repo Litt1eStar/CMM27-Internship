@@ -35,16 +35,16 @@ export const authenticate = asyncHandler(async (req, _res, next) => {
 
   // First sign-in: link automatically if the email is already on file
   // (pre-registered advisors, or students whose email came from the roster).
+  // Outside the student domain only advisor rows can be claimed, so a
+  // sign-in that is about to be rejected never attaches to a student record.
   if (!profile) {
-    profile = unwrap(
-      await supabase
-        .from('users')
-        .update({ auth_user_id: authUser.id })
-        .eq('email', authUser.email)
-        .is('auth_user_id', null)
-        .select('*')
-        .maybeSingle()
-    );
+    let link = supabase
+      .from('users')
+      .update({ auth_user_id: authUser.id })
+      .eq('email', authUser.email)
+      .is('auth_user_id', null);
+    if (!isStudentEmail(authUser.email)) link = link.eq('role', 'ADVISOR');
+    profile = unwrap(await link.select('*').maybeSingle());
   }
 
   const allowed = isStudentEmail(authUser.email) || profile?.role === 'ADVISOR';
