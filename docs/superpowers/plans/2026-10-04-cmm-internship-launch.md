@@ -23,15 +23,15 @@ Owner: **Claude** = can be done by the agent · **You** = needs your accounts or
 | 2 | A. Foundation | Install dependencies; prove both apps build | Claude | 1 | 🟨 server ✅, client build waits for mockups |
 | 3 | B. Tests | Test harness + CSV parser tests | Claude | 2 | ✅ |
 | 4 | B. Tests | DB-error → HTTP mapping tests | Claude | 3 | ✅ |
-| 5 | C. Database | Create **dev** Supabase project, apply schema | You | 2 | ✅ |
+| 5 | C. Database | Create the Supabase project, apply schema | You | 2 | ✅ |
 | 6 | C. Database | SQL test script for every business rule | Claude + You | 5 | ✅ |
 | 7 | C. Database | Verify browser keys can't touch data | Claude | 5 | ✅ |
 | 8 | D. Fixes | D1: don't auto-link rejected sign-ins | Claude | 4 | ✅ (live check in Task 10) |
 | 9 | D. Fixes | D4–D6: same-origin `/api`, PKCE, `/api/health` | Claude | 8 | 🟨 server ✅ (`/api/health`), client parts wait for mockups |
 | 10 | E. Local run | Google sign-in + local end-to-end smoke test | You | 7, 9 | ⬜ |
-| 11 | F. Containers | Dockerfiles + nginx (D2, D3); test images locally | Claude | 9 | 🟨 server image ✅ (built + run against dev DB); web image waits for mockups |
+| 11 | F. Containers | Dockerfiles + nginx (D2, D3); test images locally | Claude | 9 | 🟨 server image ✅ (built + run against the Supabase project); web image waits for mockups |
 | 12 | F. Containers | Droplet compose file + CI/deploy workflow | Claude | 11 | 🟨 compose file ✅, workflow = server tests + API image; web/deploy steps wait for client |
-| 13 | G. Go-live | Create **prod** Supabase project; import the form CSV | You | 6 | 🟨 `.env.prod` + `import:prod` ready; waiting for prod project + CSV |
+| 13 | G. Go-live | Clear test data; register advisors; import the form CSV | You + Claude | 6, 10 | 🟨 reset script written + tested; waiting for Task 10 and the CSV |
 | 14 | G. Go-live | DNS: `cmm27.cmm.works` → droplet | Maintainer | — | ⬜ |
 | 15 | G. Go-live | Droplet folder `/opt/cmm27` + `.env` | You (deploy key) | 13 | ⬜ |
 | 16 | G. Go-live | Caddy site block (PR to CMM Hub server repo) | Maintainer | 14 | ⬜ |
@@ -51,12 +51,13 @@ Owner: **Claude** = can be done by the agent · **You** = needs your accounts or
 flowchart LR
   T1[1 git] --> T2[2 build]
   T2 --> T3[3 parser tests] --> T4[4 error tests] --> T8[8 auth fix] --> T9[9 same-origin + PKCE]
-  T2 --> T5[5 dev Supabase] --> T6[6 rules.sql]
+  T2 --> T5[5 Supabase project] --> T6[6 rules.sql]
   T5 --> T7[7 RLS check]
   T7 --> T10[10 local E2E]
   T9 --> T10
   T9 --> T11[11 Docker images] --> T12[12 compose + workflow]
-  T6 --> T13[13 prod Supabase + import] --> T15[15 droplet folder]
+  T6 --> T13[13 reset + import] --> T15[15 droplet folder]
+  T10 --> T13
   T14[14 DNS] --> T16[16 Caddy block]
   T12 --> T17[17 first deploy]
   T15 --> T17
@@ -80,6 +81,7 @@ Phases A–F do not depend on the Maintainer. Ask them for **Tasks 14 and 16 and
 | `<HEALTH_PATH>` | `/api/health` |
 
 > **Extra (done):** `csv-parse` upgraded 5 → 7.0.3 for advisory GHSA-8cw4-87c7-c6xx; parser tests and an importer dry run pass.
+> **Decision (2026-10-05):** one Supabase project for testing and production. See Tasks 5 and 13.
 
 ## Defects found during code review (fixed in this plan)
 
@@ -379,21 +381,21 @@ git commit -m "test: pin DB error to HTTP status mapping"
 
 ---
 
-### Task 5: Create the **dev** Supabase project and apply the schema (manual)
+### Task 5: Create the Supabase project and apply the schema (manual)
 
-**Why two projects:** the timeline log is immutable and references `users` with `on delete restrict`, so a student row can never be deleted once created. Tasks 5–10 create test students, so they must live in a throwaway **dev** project. The **prod** project is created in Task 13. The free tier allows two projects.
+**One project for testing and the live site** (decided 2026-10-05). The timeline log is immutable and references `users` with `on delete restrict`, so the test students created in Task 10 can't be deleted normally. Task 13 clears them with the one-off `supabase/admin/reset_test_data.sql` before the real cohort is imported.
 
 **Files:** none.
 
-- [x] **Step 1:** Create a project named `cmm27-dev` at supabase.com, in the Singapore region (`ap-southeast-1`). Save the DB password in a password manager.
+- [x] **Step 1:** Create the project at supabase.com, in the Singapore region (`ap-southeast-1`). Save the DB password in a password manager.
 - [x] **Step 2:** SQL Editor → paste all of `supabase/migrations/001_schema.sql` → Run. Expected: `Success. No rows returned`.
 - [x] **Step 3:** Verify the seed data: `select count(*) from public.business_types;` → `12`.
 - [x] **Step 4:** Collect keys from **Project Settings → API Keys**. If the dashboard shows *Publishable* / *Secret* keys rather than *anon* / *service_role*, use the publishable key for `VITE_SUPABASE_ANON_KEY` and the secret key for `SUPABASE_SERVICE_ROLE_KEY`.
 - [x] **Step 5:** Create the env files (both are git-ignored):
 
 ```bash
-cp server/.env.example server/.env   # fill SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY (dev)
-cp client/.env.example client/.env   # fill VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY (dev)
+cp server/.env.example server/.env   # fill SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
+cp client/.env.example client/.env   # fill VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY
 ```
 
 - [x] **Step 6:** `cd server && npm run dev`, then `curl http://localhost:4000/health` → `{"ok":true}`, and `curl http://localhost:4000/api/auth/me` → 401 `UNAUTHENTICATED`.
@@ -533,10 +535,10 @@ end $$;
 rollback;
 ```
 
-- [x] **Step 2: Run it against the dev project** (connection string from **Project Settings → Database → Connection string → URI**, session pooler)
+- [x] **Step 2: Run it against the project** (connection string from **Project Settings → Database → Connection string → URI**, session pooler)
 
 ```bash
-psql "postgresql://postgres.<dev-ref>:<password>@aws-0-ap-southeast-1.pooler.supabase.com:5432/postgres" \
+psql "postgresql://postgres.<ref>:<password>@aws-0-ap-southeast-1.pooler.supabase.com:5432/postgres" \
   -v ON_ERROR_STOP=1 -f supabase/tests/rules.sql
 ```
 
@@ -560,8 +562,8 @@ git commit -m "test: SQL checks for progress, timeline and import rules"
 - [x] **Step 1: Try every table, view and RPC with the browser key**
 
 ```bash
-URL=https://<dev-ref>.supabase.co
-KEY=<dev anon or publishable key>
+URL=https://<ref>.supabase.co
+KEY=<anon or publishable key>
 for t in users companies status_timeline_logs business_types company_directory student_roster student_timeline; do
   echo "$t: $(curl -s -o /dev/null -w '%{http_code}' "$URL/rest/v1/$t?select=*" -H "apikey: $KEY" -H "Authorization: Bearer $KEY")"
 done
@@ -728,11 +730,13 @@ git commit -m "fix: same-origin /api, PKCE sign-in and /api/health for Caddy rou
 
 ---
 
-### Task 10: Google sign-in + local end-to-end smoke test (manual, dev project)
+### Task 10: Google sign-in + local end-to-end smoke test (manual)
+
+Everything this task creates (test students, companies, the D1 check row) is test data. Task 13 clears it before the real import.
 
 **Files:** none.
 
-- [ ] **Step 1:** Configure Google OAuth as in README "Setup → 2. Google sign-in", using the **dev** project's callback `https://<dev-ref>.supabase.co/auth/v1/callback`. In Supabase, set the Site URL and a Redirect URL to `http://localhost:5173`.
+- [ ] **Step 1:** Configure Google OAuth as in README "Setup → 2. Google sign-in", using the project's callback `https://<ref>.supabase.co/auth/v1/callback`. In Supabase, set the Site URL and a Redirect URL to `http://localhost:5173`.
 - [ ] **Step 2:** Register yourself as an advisor with a non-KMUTT email you own (README Setup 1.3).
 - [ ] **Step 3:** Start both apps: `cd server && npm run dev` and `cd client && npm run dev`. Open http://localhost:5173.
 - [ ] **Step 4: Advisor path.** Sign in as the advisor. The dashboard loads with a zero funnel. Add student `67000000001`; it appears as not linked.
@@ -1026,18 +1030,19 @@ git commit -m "ci: test, build to GHCR and deploy cmm27 to the droplet"
 
 ---
 
-### Task 13: Create the **prod** Supabase project and import the form CSV (manual)
+### Task 13: Clear test data, register advisors, import the form CSV
 
-**Files:** none committed (`*.csv` and `import-report.json` are git-ignored because they contain student data).
+**Files:** none committed (`*.csv` and `import-report.json` are git-ignored because they contain student data). Uses `supabase/admin/reset_test_data.sql` (committed, tested).
 
-- [ ] **Step 1:** Create `cmm27-prod` in the same region. Run `supabase/migrations/001_schema.sql`, then `supabase/tests/rules.sql` once (it rolls back). Register the real advisors (README Setup 1.3).
-- [ ] **Step 2:** Enable Google under Authentication → Providers, using the same OAuth client. Add `https://<prod-ref>.supabase.co/auth/v1/callback` to that client's *Authorized redirect URIs* in Google Cloud. (Can wait until the OAuth client exists from Task 10; the import doesn't need it.)
-- [ ] **Step 3:** Repeat Task 7 against the prod URL and key. Every request must be refused.
-- [ ] **Step 4:** Put the prod credentials in their own git-ignored file, `server/.env.prod` (`SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `SUPABASE_DB_URL`). `server/.env` stays on dev, so no swapping is needed.
-- [ ] **Step 5:** Google Sheets → File → Download → CSV, saved as `responses.csv` in the repo root. Do not open it in Excel.
-- [ ] **Step 6: Dry run:** `cd server && npm run import:prod -- ../responses.csv`. Check that "Columns used" shows a non-null `studentId` and `checklist`. Review every *Skipped row* and *Note*, fix the sheet and re-export if needed.
-- [ ] **Step 7: Commit to the DB (confirm with the user first):** `npm run import:prod -- ../responses.csv --commit` → `Imported: N new, 0 existing updated`.
-- [ ] **Step 8: Idempotency:** run the same command again → `0 new, N existing updated`.
+Do this once, after Task 10's testing and **before any real student signs in**: the reset deletes every student, company and timeline row, and real history can't be recovered.
+
+- [ ] **Step 1: Clear test data (confirm with the user first).** In `supabase/admin/reset_test_data.sql`, change `'no'` to `'yes'` on the `set local app.confirm_reset` line, then run the file in the SQL Editor (or psql). Expected last result: `advisors_kept | 0 | 0 | 0`. **Don't commit the `'yes'`**: run `git checkout supabase/admin/reset_test_data.sql` afterwards.
+- [ ] **Step 2:** Remove any test advisors (advisors have no timeline rows, so they delete normally): `delete from public.users where role = 'ADVISOR' and email = '<test email>';`. Register the real advisors (README Setup 1.3).
+- [ ] **Step 3:** Re-run `supabase/tests/rules.sql` (it rolls back) and the Task 7 lockdown check. Both must pass.
+- [ ] **Step 4:** Google Sheets → File → Download → CSV, saved as `responses.csv` in the repo root. Do not open it in Excel.
+- [ ] **Step 5: Dry run:** `cd server && npm run import -- ../responses.csv`. Check that "Columns used" shows a non-null `studentId` and `checklist`. Review every *Skipped row* and *Note*, fix the sheet and re-export if needed.
+- [ ] **Step 6: Commit to the DB (confirm with the user first):** `npm run import -- ../responses.csv --commit` → `Imported: N new, 0 existing updated`.
+- [ ] **Step 7: Idempotency:** run the same command again → `0 new, N existing updated`.
 
 ---
 
@@ -1069,12 +1074,12 @@ sudo mkdir -p /opt/cmm27 && sudo chown deploy:deploy /opt/cmm27
 nano /opt/cmm27/.env && chmod 600 /opt/cmm27/.env
 ```
 
-Contents (prod values; `GHCR_OWNER` is your GitHub username in lowercase):
+Contents (the Supabase project's values; `GHCR_OWNER` is your GitHub username in lowercase):
 
 ```
 GHCR_OWNER=<your-github-username-lowercase>
-SUPABASE_URL=https://<prod-ref>.supabase.co
-SUPABASE_SERVICE_ROLE_KEY=<prod secret key>
+SUPABASE_URL=https://<ref>.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=<secret key>
 PORT=4000
 STUDENT_EMAIL_DOMAIN=mail.kmutt.ac.th
 ALLOW_SELF_REGISTER=false
@@ -1135,8 +1140,8 @@ The push runs the workflow. The `test` job must pass. The `deploy` job is expect
 | `DROPLET_HOST` | `139.59.100.44` |
 | `DROPLET_USER` | `deploy` |
 | `DROPLET_SSH_KEY` | full private key text of `cmm_deploy_key` |
-| `VITE_SUPABASE_URL` | prod project URL |
-| `VITE_SUPABASE_ANON_KEY` | prod anon / publishable key |
+| `VITE_SUPABASE_URL` | Supabase project URL |
+| `VITE_SUPABASE_ANON_KEY` | publishable key |
 
 - [ ] **Step 3: Let the droplet pull your images.** Packages under a personal account are private by default. The droplet's GHCR login belongs to the CMM maintainer, so it can't read them. Docker also keeps only one login per registry, so running `docker login ghcr.io` with your token would **break the CMM Hub's pulls**. Instead, re-run the workflow (Actions → failed run → Re-run all jobs). After the images are pushed and the deploy step fails with `unauthorized`, open github.com → your profile → Packages, and for both `cmm27-api` and `cmm27-web` go to Package settings → Change visibility → **Public**. The images contain no secrets: the anon key is public by design and server secrets live only in `/opt/cmm27/.env`.
 - [ ] **Step 4:** Re-run the failed jobs. Expected: all steps green, and the smoke check prints `{"ok":true}`.
@@ -1150,7 +1155,7 @@ The push runs the workflow. The `test` job must pass. The `deploy` job is expect
 
 **Files:** none.
 
-- [ ] **Step 1:** In the **prod** Supabase project, go to Authentication → URL Configuration. Set the Site URL to `https://cmm27.cmm.works` and add `https://cmm27.cmm.works/**` to Redirect URLs. Google Cloud needs no change unless its *Authorized JavaScript origins* lists sites; if it does, add `https://cmm27.cmm.works`.
+- [ ] **Step 1:** In Supabase, go to Authentication → URL Configuration. Set the Site URL to `https://cmm27.cmm.works` and add `https://cmm27.cmm.works/**` to Redirect URLs. Keep `http://localhost:5173` in Redirect URLs so local sign-in still works. Google Cloud needs no change unless its *Authorized JavaScript origins* lists sites; if it does, add `https://cmm27.cmm.works`.
 - [ ] **Step 2: Smoke test**
   - `curl https://cmm27.cmm.works/api/health` → `{"ok":true}`
   - Sign in as an advisor → the dashboard shows the imported cohort counts from Task 13.
@@ -1179,8 +1184,9 @@ psql "$SUPABASE_DB_URL" -v ON_ERROR_STOP=1 -f supabase/tests/rules.sql   # busin
 `rules.sql` can also be pasted into the Supabase SQL Editor; success means no error.
 The same tests run on every push and PR in GitHub Actions.
 
-Use the separate **dev** Supabase project for manual testing: student rows can never be
-deleted (their timeline is immutable), so test accounts would stay in the real roster.
+One Supabase project serves local work and the live site. Student rows can't be deleted
+(their timeline is immutable), so don't create test students now that the cohort is live.
+`supabase/admin/reset_test_data.sql` was a one-off for clearing test data before go-live.
 ~~~
 
 - [ ] **Step 2: In "Setup → 4. Client"**, the dev server proxies `/api` to `http://localhost:4000`, so no API URL is configured. Make sure the README doesn't mention `VITE_API_URL` anywhere (`grep -n VITE_API_URL README.md` → no output).
@@ -1200,8 +1206,8 @@ Production runs at **https://cmm27.cmm.works** on the shared CMM droplet, set up
   `cmm27-web:80`. The client calls `/api` on its own origin, so there is no API URL or CORS to set.
 - Runtime secrets live only in `/opt/cmm27/.env` on the droplet. Build-time `VITE_SUPABASE_URL`
   and `VITE_SUPABASE_ANON_KEY` are GitHub repo secrets.
-- Supabase: `cmm27-dev` for local work, `cmm27-prod` for the live site. Prod's Site URL is
-  `https://cmm27.cmm.works`.
+- One Supabase project serves local work and the live site. Its Site URL is
+  `https://cmm27.cmm.works`, and `http://localhost:5173` stays in Redirect URLs for local work.
 ```
 
 - [ ] **Step 4: Commit**
@@ -1220,5 +1226,5 @@ Expected: the push redeploys, and the workflow is green.
 
 - Automated browser E2E tests (Playwright). The Task 10 and 18 checklists cover a one-cohort app.
 - Express route integration tests with a mocked Supabase client. The rules live in SQL and Task 6 covers them.
-- A staging site on the droplet. The dev Supabase project plus local Docker (Task 11) are enough.
+- A staging site or a second Supabase project. Local runs plus local Docker (Task 11) are enough, and the reset script covers pre-launch test data.
 - Advisor editing of student progress, notifications, CSV export.

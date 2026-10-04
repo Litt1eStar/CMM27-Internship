@@ -8,8 +8,10 @@ Guidance for Claude Code when working in this repository.
   values (domains, usernames, keys, student data), or which option to take. A short question is
   always better than a wrong assumption. This applies to design choices, deployment steps, and anything
   that touches real student data or shared infrastructure.
-- Actions on shared infrastructure (the CMM droplet, `/opt/cmm`, the shared Caddy, DNS, the prod
-  Supabase project) affect other people's projects. Confirm before doing any of them.
+- Actions on shared infrastructure (the CMM droplet, `/opt/cmm`, the shared Caddy, DNS) affect other
+  people's projects. Confirm before doing any of them.
+- There is **one Supabase project** for both local work and the live site. Confirm before any write
+  to it beyond rolled-back tests: imports with `--commit`, the reset script, adding or removing users.
 
 ## Project
 
@@ -48,10 +50,13 @@ cd client && npm run build
 - **The browser never touches data directly.** The client uses Supabase only for Google sign-in; all
   data goes through the Express API. Never add RLS policies or grants for `anon`/`authenticated`.
 - The service-role/secret key is server-only. Never put it in `client/` or any `VITE_*` variable.
-- Student rows can never be deleted (the immutable log references them). Do manual testing in the
-  **dev** Supabase project, never in prod.
-- Never commit `.env`, `*.csv`, `import-report.json` or `cmm_deploy_key`. They hold secrets or
-  student data.
+- Student rows can't be deleted (the immutable log references them). Test data created before go-live
+  is cleared once with `supabase/admin/reset_test_data.sql`. After real students sign in, never create
+  test students, and never run that script.
+- Database tests (`supabase/tests/rules.sql`) must stay wrapped in `begin; … rollback;`, because they
+  run against the live database.
+- Never commit `.env` / `.env.*` (except `.env.example`), `*.csv`, `import-report.json` or
+  `cmm_deploy_key`. They hold secrets or student data.
 - The client calls the API with relative `/api/...` paths. Don't reintroduce a hostname in the build.
 
 ## Conventions
