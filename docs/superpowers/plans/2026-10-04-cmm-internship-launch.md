@@ -23,13 +23,13 @@ Owner: **Claude** = can be done by the agent · **You** = needs your accounts or
 | 2 | A. Foundation | Install dependencies; prove both apps build | Claude | 1 | 🟨 server ✅, client build waits for mockups |
 | 3 | B. Tests | Test harness + CSV parser tests | Claude | 2 | ✅ |
 | 4 | B. Tests | DB-error → HTTP mapping tests | Claude | 3 | ✅ |
-| 5 | C. Database | Create **dev** Supabase project, apply schema | You | 2 | ⬜ |
-| 6 | C. Database | SQL test script for every business rule | Claude + You | 5 | ⬜ |
-| 7 | C. Database | Verify browser keys can't touch data | Claude | 5 | ⬜ |
+| 5 | C. Database | Create **dev** Supabase project, apply schema | You | 2 | ✅ |
+| 6 | C. Database | SQL test script for every business rule | Claude + You | 5 | ✅ |
+| 7 | C. Database | Verify browser keys can't touch data | Claude | 5 | ✅ |
 | 8 | D. Fixes | D1: don't auto-link rejected sign-ins | Claude | 4 | ✅ (live check in Task 10) |
 | 9 | D. Fixes | D4–D6: same-origin `/api`, PKCE, `/api/health` | Claude | 8 | 🟨 server ✅ (`/api/health`), client parts wait for mockups |
 | 10 | E. Local run | Google sign-in + local end-to-end smoke test | You | 7, 9 | ⬜ |
-| 11 | F. Containers | Dockerfiles + nginx (D2, D3); test images locally | Claude | 9 | ⛔ server Dockerfile written; needs Docker Desktop running to test |
+| 11 | F. Containers | Dockerfiles + nginx (D2, D3); test images locally | Claude | 9 | 🟨 server image ✅ (built + run against dev DB); web image waits for mockups |
 | 12 | F. Containers | Droplet compose file + CI/deploy workflow | Claude | 11 | ⬜ |
 | 13 | G. Go-live | Create **prod** Supabase project; import the form CSV | You | 6 | ⬜ |
 | 14 | G. Go-live | DNS: `cmm27.cmm.works` → droplet | Maintainer | — | ⬜ |
@@ -43,7 +43,7 @@ Owner: **Claude** = can be done by the agent · **You** = needs your accounts or
 
 | Milestone | Reached when | Status |
 |---|---|---|
-| M1 Rules proven | Tasks 1–7 ✅: unit tests green, `rules.sql` passes, RLS verified | ⬜ |
+| M1 Rules proven | Tasks 1–7 ✅: unit tests green, `rules.sql` passes, RLS verified | ✅ |
 | M2 Runs locally | Tasks 8–12 ✅: fixes merged, full flow works locally, images run | ⬜ |
 | M3 Live | Tasks 13–19 ✅: cohort imported, `https://cmm27.cmm.works` signed in and smoke-tested | ⬜ |
 
@@ -78,6 +78,8 @@ Phases A–F do not depend on the Maintainer. Ask them for **Tasks 14 and 16 and
 | `<IMAGE>` | `cmm27-web`, `cmm27-api` |
 | `<PORT>` | `80` (web), `4000` (api) |
 | `<HEALTH_PATH>` | `/api/health` |
+
+> **Extra (done):** `csv-parse` upgraded 5 → 7.0.3 for advisory GHSA-8cw4-87c7-c6xx; parser tests and an importer dry run pass.
 
 ## Defects found during code review (fixed in this plan)
 
@@ -383,18 +385,18 @@ git commit -m "test: pin DB error to HTTP status mapping"
 
 **Files:** none.
 
-- [ ] **Step 1:** Create a project named `cmm27-dev` at supabase.com, in the Singapore region (`ap-southeast-1`). Save the DB password in a password manager.
-- [ ] **Step 2:** SQL Editor → paste all of `supabase/migrations/001_schema.sql` → Run. Expected: `Success. No rows returned`.
-- [ ] **Step 3:** Verify the seed data: `select count(*) from public.business_types;` → `12`.
-- [ ] **Step 4:** Collect keys from **Project Settings → API Keys**. If the dashboard shows *Publishable* / *Secret* keys rather than *anon* / *service_role*, use the publishable key for `VITE_SUPABASE_ANON_KEY` and the secret key for `SUPABASE_SERVICE_ROLE_KEY`.
-- [ ] **Step 5:** Create the env files (both are git-ignored):
+- [x] **Step 1:** Create a project named `cmm27-dev` at supabase.com, in the Singapore region (`ap-southeast-1`). Save the DB password in a password manager.
+- [x] **Step 2:** SQL Editor → paste all of `supabase/migrations/001_schema.sql` → Run. Expected: `Success. No rows returned`.
+- [x] **Step 3:** Verify the seed data: `select count(*) from public.business_types;` → `12`.
+- [x] **Step 4:** Collect keys from **Project Settings → API Keys**. If the dashboard shows *Publishable* / *Secret* keys rather than *anon* / *service_role*, use the publishable key for `VITE_SUPABASE_ANON_KEY` and the secret key for `SUPABASE_SERVICE_ROLE_KEY`.
+- [x] **Step 5:** Create the env files (both are git-ignored):
 
 ```bash
 cp server/.env.example server/.env   # fill SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY (dev)
 cp client/.env.example client/.env   # fill VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY (dev)
 ```
 
-- [ ] **Step 6:** `cd server && npm run dev`, then `curl http://localhost:4000/health` → `{"ok":true}`, and `curl http://localhost:4000/api/auth/me` → 401 `UNAUTHENTICATED`.
+- [x] **Step 6:** `cd server && npm run dev`, then `curl http://localhost:4000/health` → `{"ok":true}`, and `curl http://localhost:4000/api/auth/me` → 401 `UNAUTHENTICATED`.
 
 ---
 
@@ -405,7 +407,7 @@ This script proves each row of the README's "How the rules are enforced" table d
 **Files:**
 - Create: `supabase/tests/rules.sql`
 
-- [ ] **Step 1: Write the script**
+- [x] **Step 1: Write the script**
 
 ```sql
 -- Business-rule tests. Self-checking; everything is rolled back.
@@ -531,7 +533,7 @@ end $$;
 rollback;
 ```
 
-- [ ] **Step 2: Run it against the dev project** (connection string from **Project Settings → Database → Connection string → URI**, session pooler)
+- [x] **Step 2: Run it against the dev project** (connection string from **Project Settings → Database → Connection string → URI**, session pooler)
 
 ```bash
 psql "postgresql://postgres.<dev-ref>:<password>@aws-0-ap-southeast-1.pooler.supabase.com:5432/postgres" \
@@ -540,9 +542,9 @@ psql "postgresql://postgres.<dev-ref>:<password>@aws-0-ap-southeast-1.pooler.sup
 
 Expected: `NOTICE:  ALL RULE TESTS PASSED`, then `ROLLBACK`. Without psql, paste the script into the SQL Editor; the expected result is no error.
 
-- [ ] **Step 3: Confirm nothing leaked:** `select count(*) from public.users where student_id like '999999999%';` → `0`.
+- [x] **Step 3: Confirm nothing leaked:** `select count(*) from public.users where student_id like '999999999%';` → `0`.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add supabase/tests/rules.sql
@@ -555,7 +557,7 @@ git commit -m "test: SQL checks for progress, timeline and import rules"
 
 **Files:** none.
 
-- [ ] **Step 1: Try every table, view and RPC with the browser key**
+- [x] **Step 1: Try every table, view and RPC with the browser key**
 
 ```bash
 URL=https://<dev-ref>.supabase.co
@@ -831,7 +833,7 @@ dist
 .env.local
 ```
 
-- [ ] **Step 6: Build and run the API image** (Docker Desktop must be running)
+- [x] **Step 6: Build and run the API image** (Docker Desktop must be running)
 
 ```bash
 docker build -t cmm27-api:local server
