@@ -7,6 +7,9 @@ import { useAuth } from '../../lib/auth';
 import { EMPTY_FILTERS, MODES, directoryQuery, hasAnyFilter, sheetFilterCount } from '../../lib/companies';
 import { errorText } from '../../lib/errors';
 import CompanyCard from './CompanyCard';
+import CompanyFilterSheet from './CompanyFilterSheet';
+import CompanyFormSheet from './CompanyFormSheet';
+import DeleteCompanySheet from './DeleteCompanySheet';
 
 function EmptyState({ filtered, onAdd }) {
   return (
@@ -60,6 +63,10 @@ export default function DirectoryPage() {
   const clearAll = () => {
     setSearch('');
     setFilters(EMPTY_FILTERS);
+  };
+  const closeAndReload = () => {
+    setSheet(null);
+    load();
   };
 
   return (
@@ -137,6 +144,17 @@ export default function DirectoryPage() {
         </>
       )}
 
+      {sheet?.kind === 'filter' && (
+        <CompanyFilterSheet filters={filters} types={types} onClose={() => setSheet(null)}
+          onApply={(f) => { setFilters(f); setSheet(null); }} />
+      )}
+      {sheet?.kind === 'form' && (
+        <CompanyFormSheet key={sheet.company?.id ?? 'new'} company={sheet.company} types={types}
+          onClose={() => setSheet(null)} onSaved={closeAndReload} />
+      )}
+      {sheet?.kind === 'delete' && (
+        <DeleteCompanySheet company={sheet.company} onClose={() => setSheet(null)} onDeleted={closeAndReload} />
+      )}
       <Fab label="เพิ่มบริษัท" onClick={() => setSheet({ kind: 'form' })} />
     </>
   );

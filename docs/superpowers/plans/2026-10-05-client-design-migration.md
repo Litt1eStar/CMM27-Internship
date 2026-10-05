@@ -38,7 +38,7 @@ Owner: **Claude** = agent · **You** = needs your confirmation, accounts or eyes
 | 15 | C. Screens | 3a–3c Student home | Claude | 12 | ✅ |
 | 16 | C. Screens | 3d/3e action sheets, toast, 3f celebration | Claude | 15 | ✅ |
 | 17 | C. Screens | 4a/4c/4f Directory + company card | Claude | 12 | ✅ |
-| 18 | C. Screens | 4b filter sheet, 4d add/edit sheet, delete sheet | Claude | 17 | ⬜ |
+| 18 | C. Screens | 4b filter sheet, 4d add/edit sheet, delete sheet | Claude | 17 | ✅ |
 | 19 | C. Screens | 5a–5c Advisor home + filter sheet | Claude | 12 | ⬜ |
 | 20 | C. Screens | 5e add student, 5d student detail, unlink sheet | Claude | 19 | ⬜ |
 | 21 | C. Screens | 6a/6b Profile | Claude | 12 | ⬜ |
@@ -3476,7 +3476,7 @@ export default function DirectoryPage() {
 - Create: `client/src/pages/companies/CompanyFilterSheet.jsx`, `CompanyFormSheet.jsx`, `DeleteCompanySheet.jsx`
 - Modify: `client/src/pages/companies/DirectoryPage.jsx`
 
-- [ ] **Step 1: Write `client/src/pages/companies/CompanyFilterSheet.jsx`** (4b)
+- [x] **Step 1: Write `client/src/pages/companies/CompanyFilterSheet.jsx`** (4b)
 
 ```jsx
 import { useEffect, useState } from 'react';
@@ -3549,7 +3549,7 @@ export default function CompanyFilterSheet({ filters, types, onApply, onClose })
 }
 ```
 
-- [ ] **Step 2: Write `client/src/pages/companies/CompanyFormSheet.jsx`** (4d)
+- [x] **Step 2: Write `client/src/pages/companies/CompanyFormSheet.jsx`** (4d)
 
 ```jsx
 import { useState } from 'react';
@@ -3670,7 +3670,7 @@ export default function CompanyFormSheet({ company, types, onClose, onSaved }) {
 }
 ```
 
-- [ ] **Step 3: Write `client/src/pages/companies/DeleteCompanySheet.jsx`** (extrapolated)
+- [x] **Step 3: Write `client/src/pages/companies/DeleteCompanySheet.jsx`** (extrapolated)
 
 ```jsx
 import { useState } from 'react';
@@ -3715,7 +3715,7 @@ export default function DeleteCompanySheet({ company, onClose, onDeleted }) {
 }
 ```
 
-- [ ] **Step 4: Wire the sheets into `DirectoryPage.jsx`.** Add imports:
+- [x] **Step 4: Wire the sheets into `DirectoryPage.jsx`.** Add imports:
 
 ```jsx
 import CompanyFilterSheet from './CompanyFilterSheet';
@@ -3748,9 +3748,9 @@ and render just before `<Fab …/>`:
       )}
 ```
 
-- [ ] **Step 5: Build:** `npm run build` → `✓ built`.
+- [x] **Step 5: Build:** `npm run build` → `✓ built`.
 
-- [ ] **Step 6: Commit:** `git add client/src/pages/companies && git commit -m "feat(client): directory filter, add/edit and delete sheets (4b/4d)"`
+- [x] **Step 6: Commit:** `git add client/src/pages/companies && git commit -m "feat(client): directory filter, add/edit and delete sheets (4b/4d)"`
 
 ---
 
