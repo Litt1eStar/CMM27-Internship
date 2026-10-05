@@ -42,7 +42,7 @@ Owner: **Claude** = agent · **You** = needs your confirmation, accounts or eyes
 | 19 | C. Screens | 5a–5c Advisor home + filter sheet | Claude | 12 | ✅ |
 | 20 | C. Screens | 5e add student, 5d student detail, unlink sheet | Claude | 19 | ✅ |
 | 21 | C. Screens | 6a/6b Profile | Claude | 12 | ✅ |
-| 22 | D. Finish | Remove the old client, build, tests | Claude | 13–21 | ⬜ |
+| 22 | D. Finish | Remove the old client, build, tests | Claude | 13–21 | ✅ |
 | 23 | D. Finish | Visual check against the design, 390×844 and desktop | Claude + You | 22 | ⬜ |
 | 24 | D. Finish | Update CLAUDE.md and the launch plan | Claude | 23 | ⬜ |
 
@@ -4448,7 +4448,7 @@ export default function ProfilePage() {
 - Delete: `client/src/components/{CompanyCard,CompanyFilterBar,CompanyFormModal,ConfirmCompanyModal,Modal,Navbar,StatusBadge,StatusChecklist,StudentDetailModal,Timeline}.jsx`
 - Delete: `client/src/pages/{AdvisorDashboardPage,CompaniesPage,StudentProgressPage}.jsx`, `client/src/lib/constants.js`
 
-- [ ] **Step 1: Delete them**
+- [x] **Step 1: Delete them**
 
 ```bash
 cd client/src
@@ -4456,11 +4456,11 @@ git rm components/{CompanyCard,CompanyFilterBar,CompanyFormModal,ConfirmCompanyM
        pages/{AdvisorDashboardPage,CompaniesPage,StudentProgressPage}.jsx lib/constants.js
 ```
 
-- [ ] **Step 2: Nothing may still reference them:** `grep -rnE "lib/constants|StatusChecklist|ConfirmCompanyModal|Navbar|company_id|confirmed_company|react-router-dom" client/src` → no output. Then drop the compatibility package: `cd client && npm uninstall react-router-dom`.
+- [x] **Step 2: Nothing may still reference them:** `grep -rnE "lib/constants|StatusChecklist|ConfirmCompanyModal|Navbar|company_id|confirmed_company|react-router-dom" client/src` → no output. Then drop the compatibility package: `cd client && npm uninstall react-router-dom`.
 
-- [ ] **Step 3: Full check:** `cd client && npm test && npm run build` → tests pass, `✓ built`. Then `cd ../server && npm test` → `# fail 0`.
+- [x] **Step 3: Full check:** `cd client && npm test && npm run build` → tests pass, `✓ built`. Then `cd ../server && npm test` → `# fail 0`.
 
-- [ ] **Step 4: Commit:** `git commit -m "chore(client): remove the pre-design client"`
+- [x] **Step 4: Commit:** `git commit -m "chore(client): remove the pre-design client"`
 
 ---
 
