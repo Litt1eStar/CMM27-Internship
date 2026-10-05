@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Sheet from '../../components/Sheet';
+import Sheet, { SheetCloseButton } from '../../components/Sheet';
 import Sprout from '../../components/Sprout';
 import { WarningIcon } from '../../components/Icons';
 import { ErrorBanner } from '../../components/ui';
@@ -55,7 +55,7 @@ export default function ActionSheet({ action, progress, onClose, onDone }) {
         {error && <div className="mt-3 self-stretch text-left"><ErrorBanner>{error}</ErrorBanner></div>}
         <div className={`flex flex-col gap-[10px] self-stretch ${confirm ? 'mt-5' : 'mt-[22px]'}`}>
           <button type="button" className="btn btn-primary" disabled={busy} onClick={go}>ยืนยัน</button>
-          <button type="button" className="btn btn-secondary" disabled={busy} onClick={onClose}>ยกเลิก</button>
+          <SheetCloseButton className="btn btn-secondary" disabled={busy}>ยกเลิก</SheetCloseButton>
         </div>
       </div>
     </Sheet>

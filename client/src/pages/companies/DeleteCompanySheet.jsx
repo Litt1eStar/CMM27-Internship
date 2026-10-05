@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Sheet from '../../components/Sheet';
+import Sheet, { SheetCloseButton } from '../../components/Sheet';
 import Sprout from '../../components/Sprout';
 import { ErrorBanner } from '../../components/ui';
 import { api } from '../../lib/api';
@@ -32,7 +32,7 @@ export default function DeleteCompanySheet({ company, onClose, onDeleted }) {
         {error && <div className="mt-3 self-stretch text-left"><ErrorBanner>{error}</ErrorBanner></div>}
         <div className="mt-[22px] flex flex-col gap-[10px] self-stretch">
           <button type="button" className="btn btn-danger" disabled={busy} onClick={remove}>ลบ</button>
-          <button type="button" className="btn btn-secondary" disabled={busy} onClick={onClose}>ยกเลิก</button>
+          <SheetCloseButton className="btn btn-secondary" disabled={busy}>ยกเลิก</SheetCloseButton>
         </div>
       </div>
     </Sheet>

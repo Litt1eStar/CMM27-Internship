@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
-import Sheet from '../../components/Sheet';
+import Sheet, { SheetCloseButton } from '../../components/Sheet';
 import Sprout from '../../components/Sprout';
 import { BackIcon, LeafIcon } from '../../components/Icons';
 import { ErrorBanner, Pill } from '../../components/ui';
@@ -55,7 +55,7 @@ function UnlinkSheet({ studentId, onClose, onDone }) {
         {error && <div className="mt-3 self-stretch text-left"><ErrorBanner>{error}</ErrorBanner></div>}
         <div className="mt-[22px] flex flex-col gap-[10px] self-stretch">
           <button type="button" className="btn btn-danger" disabled={busy} onClick={unlink}>ยกเลิกการผูก</button>
-          <button type="button" className="btn btn-secondary" disabled={busy} onClick={onClose}>ปิด</button>
+          <SheetCloseButton className="btn btn-secondary" disabled={busy}>ปิด</SheetCloseButton>
         </div>
       </div>
     </Sheet>

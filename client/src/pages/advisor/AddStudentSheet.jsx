@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Sheet from '../../components/Sheet';
+import Sheet, { SheetCloseButton } from '../../components/Sheet';
 import StudentIdField from '../../components/StudentIdField';
 import { ErrorBanner } from '../../components/ui';
 import { api } from '../../lib/api';
@@ -35,7 +35,7 @@ export default function AddStudentSheet({ onClose, onAdded }) {
         </div>
         {error && <ErrorBanner>{error}</ErrorBanner>}
         <div className="mt-1 grid grid-cols-[1fr_1.6fr] gap-[10px]">
-          <button type="button" className="btn btn-secondary" disabled={busy} onClick={onClose}>ยกเลิก</button>
+          <SheetCloseButton className="btn btn-secondary" disabled={busy}>ยกเลิก</SheetCloseButton>
           <button type="button" className="btn btn-primary" disabled={studentId.length !== 11 || busy} onClick={add}>เพิ่ม</button>
         </div>
       </div>

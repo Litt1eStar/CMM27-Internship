@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Sheet from '../../components/Sheet';
+import Sheet, { SheetCloseButton } from '../../components/Sheet';
 import { ChevronDownIcon, CloseIcon } from '../../components/Icons';
 import { Chip, ErrorBanner } from '../../components/ui';
 import { api } from '../../lib/api';
@@ -69,9 +69,9 @@ export default function CompanyFormSheet({ company, types, onClose, onSaved }) {
       footer={<button type="button" className="btn btn-primary" disabled={!canSave || busy} onClick={save}>บันทึก</button>}>
       <div className="mb-2 flex items-center justify-between">
         <h2 className="title-sheet">{title}</h2>
-        <button type="button" aria-label="ปิด" onClick={onClose} className="flex size-11 items-center justify-center rounded-[14px] bg-cream">
+        <SheetCloseButton aria-label="ปิด" className="flex size-11 items-center justify-center rounded-[14px] bg-cream">
           <CloseIcon />
-        </button>
+        </SheetCloseButton>
       </div>
       <div className="flex flex-col gap-[14px] pt-1 pb-3">
         <Field label="ชื่อบริษัท" required error={nameError}>
