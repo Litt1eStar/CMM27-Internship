@@ -1,10 +1,13 @@
 import { useEffect } from 'react';
 import Sprout from './Sprout';
+import { feedback } from '../lib/feedback';
 
 /** Dark green success toast (3c). toast = { id, title, sub?, stage } */
 export default function Toast({ toast, onDone, bottom }) {
   useEffect(() => {
     if (!toast) return undefined;
+    feedback.haptic('success');
+    feedback.sound('success');
     const t = setTimeout(onDone, 3500);
     return () => clearTimeout(t);
   }, [toast, onDone]);

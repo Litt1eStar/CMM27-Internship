@@ -18,6 +18,7 @@ export const EditIcon = (p) => <Svg size={16} color="#3B2F2F" {...p}><path d="M4
 export const TrashIcon = (p) => <Svg size={16} color="#B42318" {...p}><path d="M4 7 L20 7 M9 7 L9 4 L15 4 L15 7 M6 7 L7 20 L17 20 L18 7" /></Svg>;
 export const SendIcon = (p) => <Svg color="#0F3D2E" {...p}><path d="M21 3 L10 14 M21 3 L14 21 L10 14 L3 10 Z" /></Svg>;
 export const LogoutIcon = (p) => <Svg size={22} color="#B42318" {...p}><path d="M14 4 L18 4 C19.1 4 20 4.9 20 6 L20 18 C20 19.1 19.1 20 18 20 L14 20 M10 16 L6 12 L10 8 M6 12 L16 12" /></Svg>;
+export const SoundIcon = (p) => <Svg size={22} color="#3B2F2F" {...p}><path d="M4 9 L8 9 L13 5 L13 19 L8 15 L4 15 Z M16.5 9.5 C17.8 10.8 17.8 13.2 16.5 14.5 M19 7 C21.7 9.7 21.7 14.3 19 17" /></Svg>;
 export const WarningIcon = (p) => <Svg size={18} color="#8A5A00" {...p}><path d="M12 3 L22 20 L2 20 Z M12 10 L12 14 M12 17 L12 17.01" /></Svg>;
 export const InfoIcon = (p) => <Svg size={18} color="#8A7B76" width={2} {...p}><circle cx="12" cy="12" r="9" /><path d="M12 11 L12 16 M12 8 L12 8.01" /></Svg>;
 export const PlusIcon = (p) => <Svg size={22} color="#D6F5E6" width={2.8} {...p}><path d="M12 5 L12 19 M5 12 L19 12" /></Svg>;

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { PlusIcon } from './Icons';
+import { feedback } from '../lib/feedback';
 
 export function Pill({ bg, fg, small = false, className = '', children }) {
   return (
@@ -21,6 +22,9 @@ export function Chip({ selected, onClick, className = '', children }) {
 
 /** Red "!" banner (1b, 2b/2c). */
 export function ErrorBanner({ title, children }) {
+  useEffect(() => {
+    feedback.haptic('error');
+  }, []);
   return (
     <div role="alert" className="flex items-start gap-[10px] rounded-[14px] bg-danger-soft px-[14px] py-3 text-danger">
       <div className="mt-px flex size-[22px] flex-none items-center justify-center rounded-full bg-danger text-sm font-bold text-danger-soft">!</div>
