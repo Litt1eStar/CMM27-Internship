@@ -33,7 +33,7 @@ export default function Celebration({ at, onClose }) {
   }, []);
 
   return createPortal(
-    <div role="dialog" aria-modal="true" aria-label="ยินดีด้วย" className="fixed inset-y-0 inset-x-0 z-[60] mx-auto max-w-[430px] overflow-hidden bg-cream">
+    <div role="dialog" aria-modal="true" aria-label="ยินดีด้วย" className="fixed inset-y-0 inset-x-0 z-[60] mx-auto max-w-[430px] overflow-hidden app-surface">
       <div data-anim="glow" className="absolute left-1/2 size-[520px] -translate-x-1/2 rounded-full"
         style={{ top: top(73), background: 'radial-gradient(circle,#D6F5E6 0%,rgba(214,245,230,0) 68%)' }} />
       {CONFETTI.map((c, i) => (

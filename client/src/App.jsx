@@ -10,10 +10,10 @@ import DirectoryPage from './pages/companies/DirectoryPage';
 import AdvisorHomePage from './pages/advisor/AdvisorHomePage';
 import StudentDetailPage from './pages/advisor/StudentDetailPage';
 
-// Boot screen: the growing-seed loader in the night garden (same scene as login).
+// Boot screen: the growing-seed loader on the app background.
 function Splash() {
   return (
-    <div className="night-surface mx-auto flex min-h-dvh max-w-[430px] items-center justify-center">
+    <div className="app-surface mx-auto flex min-h-dvh max-w-[430px] items-center justify-center">
       <SeedLoader />
     </div>
   );

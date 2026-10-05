@@ -31,7 +31,7 @@ export default function LinkStudentPage() {
   return (
     <form
       onSubmit={submit}
-      className="mx-auto flex min-h-dvh max-w-[430px] flex-col bg-cream px-4"
+      className="mx-auto flex min-h-dvh max-w-[430px] flex-col app-surface px-4"
       style={{ paddingTop: 'calc(env(safe-area-inset-top) + 20px)' }}
     >
       <div className="flex flex-col gap-[14px]">

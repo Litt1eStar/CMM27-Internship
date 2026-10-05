@@ -240,3 +240,5 @@ The user compared three previews (Golden hour, Night garden, Candy bloom) and ch
 - **Night garden** for the login page and the boot splash: deep forest gradient with mint and violet glow and
   stars. This replaces the "Palette" bullet in section 1 (cream to peach) and sets the base for phases 2–4.
 
+**Update (2026-10-05, later):** the user then asked for Candy bloom on every page. Login, the boot splash,
+the link-student page and the celebration all use the Candy bloom background; Night garden is dropped.

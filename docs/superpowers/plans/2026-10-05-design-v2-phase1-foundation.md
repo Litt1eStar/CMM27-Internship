@@ -27,7 +27,7 @@
 | 9 | Haptics and sound in toasts, errors and Profile | ✅ |
 | 10 | Mock API harness for visual checks | ✅ |
 | 11 | Docs, version 1.1.0 | ✅ |
-| 12a | Colour: Candy bloom base, Night garden login + loading (your choice 2026-10-05) | 🟨 built; waiting for your approval |
+| 12a | Colour: Candy bloom on every page (your choice 2026-10-05) | 🟨 built; waiting for your approval |
 | 12 | Visual check (user approval) | 🟨 walked 2026-10-05; waiting for your approval |
 | 13 | Ship phase 1 (user confirms deploy) | ⬜ |
 
@@ -1735,7 +1735,8 @@ for every screen and **Night garden** for the login page and the loading screen.
 - [x] Build, tests, then re-run the walkthroughs and add login screenshots; show the user.
 - [x] Also: shared neutrals (cream, line, dash, sand) moved from warm beige to lilac-grey so cards match the mesh.
 
-> Screenshots: .playwright-mcp/c-*.png (login, splash, home, sheet, directory, company form, profile, advisor).
+> Later the same day the user chose Candy bloom for every page: login, splash, link and celebration now use
+> .app-surface and the night surface was removed. Screenshots: .playwright-mcp/k-*.png and c-*.png (login, splash, home, sheet, directory, company form, profile, advisor).
 
 ### Task 13: Ship phase 1 (ask the user first)
 
