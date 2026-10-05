@@ -14,10 +14,10 @@ data rules or Thai copy (except the new microcopy listed below).
 | Design source | Designed directly in code. The Claude Design bundle in `docs/design/` becomes the historical reference; this spec is the new source of truth. |
 | Concept | Keep the sprout (seed → resume/portfolio → both → bud → bloom), warm cream and mint palette family. Push it further. |
 | Approach | Illustrated SVG scene + spring physics (Motion library). No Rive, no 3D. |
-| Focus screens | Student home and progress; first impression (login, link ID, loading/empty states, page transitions). |
+| Focus screens | Company directory (where students spend most time); student home and progress; first impression (login, link ID, loading/empty states, page transitions). |
 | Reach | Foundation polish (tokens, buttons, sheets, transitions, loader, skeletons) applies app-wide, advisors included. Advisor screens get no new scenes. |
 | Senses | Haptics (Android, `navigator.vibrate`) + optional sound, off by default, toggle on Profile. |
-| Out of scope | Celebration screen redesign, advisor dashboard scenes, company directory layout. |
+| Out of scope | Celebration screen redesign, advisor dashboard scenes. Directory features needing server work (bookmarks, "I applied here", showing who added a company). |
 
 ## 1. Foundation (app-wide)
 
@@ -53,7 +53,34 @@ data rules or Thai copy (except the new microcopy listed below).
 - Springs → short fades. Parallax, tilt, confetti, petals and the grow moment's motion are off (the end state
   appears directly). Sound still follows the toggle.
 
-## 2. Student home and progress
+## 2. Company directory
+
+Uses only data the API already returns (`company_directory` includes `created_at`). No server or database changes.
+Notes and "added by" stay hidden (Q6).
+
+**Look**
+- `CompanyCard` becomes a seed packet: a top band in the company's avatar colour (`avatarColors(id)`), the
+  Thai initial as a stamp, work mode as a tag, business type and source pill as today, website row as today.
+  Owner edit/delete buttons unchanged in function.
+- Header: the sprout as librarian holding the magnifying glass (`hold="glass"`), peering left/right while
+  the search input is focused and being typed in.
+
+**Feel**
+- List changes (search, mode chips, filter sheet) use Motion layout animations: cards slide to new
+  positions, removed cards shrink out, new matches pop in. Reduced motion: instant.
+- Matching characters of the search term are highlighted in company names (case-insensitive, plain
+  substring; no regex from user input).
+- Work-mode chips: the selected background is one shared element that springs between chips.
+- Collapsing header: on scroll the title and description collapse; a compact title joins the sticky
+  search bar.
+- Pull to refresh: pulling down at the top stretches the sprout; release past the threshold reloads.
+  `overscroll-behavior-y: contain` on the page so the browser's own pull-to-refresh doesn't fire twice.
+- "ใหม่" badge on companies whose `created_at` is within the last 7 days.
+- After adding a company: the sheet closes, the new card plants into the list with a glow, then a toast
+  "ขอบคุณที่ช่วยเพื่อน ๆ 🌱" with `haptic('success')`. Editing and deleting: list animates, no new toast.
+- Skeleton cards while loading (replaces today's centred seed).
+
+## 3. Student home and progress
 
 Page structure stays: hero, steps card, history card, sticky action bar.
 
@@ -84,7 +111,7 @@ existing `Celebration` opens (unchanged).
 **Steps card:** state changes animate; a padlock pops open and springs away when a step unlocks.
 **History card:** vine timeline; each event's leaf in its colour, drawn in sequence on load.
 
-## 3. First impression
+## 4. First impression
 
 **Login (1a, 1b)**: night-before-dawn garden, seed in soil, fireflies. Title and tagline rise in. Tapping
 Google sign-in brightens the sky toward dawn while the redirect starts. Wrong-domain error (1b): seed
@@ -101,7 +128,7 @@ holding an unplugged cord, existing "ลองใหม่" button.
 
 **Page transitions**: as in Foundation.
 
-## 4. Units
+## 5. Units
 
 | Unit | Responsibility |
 |---|---|
@@ -115,18 +142,22 @@ holding an unplugged cord, existing "ลองใหม่" button.
 | `lib/transitions.js` | `navigateWithTransition(navigate, to)` wrapper. |
 | `lib/tilt.js` | Device-orientation subscription, started after first tap; iOS permission handled; no-op if refused. |
 | `public/sfx/` | pop, chime, rustle. |
+| `lib/highlight.js` | Pure: split a name into matched/unmatched parts for a search term. |
+| `components/PullToRefresh.jsx` | Pull gesture with sprout stretch and threshold; calls `onRefresh`. |
+| `lib/companies.js` (extended) | `isNew(company, now)` for the 7-day badge. |
 
-## 5. Performance
+## 6. Performance
 
 - At most ~60 KB extra gzipped JS (Motion ~30 KB included).
 - Idle loops and parallax pause when `document.hidden`.
 - Tilt listener only after first tap; removed on unmount.
 - Scene is SVG; no raster images except the noise texture (inline).
 
-## 6. Testing
+## 7. Testing
 
 - Vitest: `sky.js` boundaries (time-of-day edges), `feedback.js` (sound default off, toggle persistence,
-  storage failure falls back to off, reduced-motion), `HoldButton` timing helper.
+  storage failure falls back to off, reduced-motion), `HoldButton` timing helper, `highlight.js` (Thai text,
+  repeated matches, special characters treated literally), `isNew()` (7-day boundary).
 - Playwright walkthrough at 390×844 of every changed screen, with reduced motion off and on; desktop check of
   the 430px column. Screenshots in `.playwright-mcp/` for user approval.
 - Any DB writes use the guarded test accounts and cleanup from the earlier visual check, and only after the
@@ -134,10 +165,10 @@ holding an unplugged cord, existing "ลองใหม่" button.
   then the walkthrough uses API mocking in the browser instead.
 - Existing tests (client 25, server 24) still pass; `npm run build` clean; `npm audit` 0.
 
-## 7. Rollout
+## 8. Rollout
 
-- All work on `design-v2`. Three phases, each releasable: (1) Foundation, (2) Student home and progress,
-  (3) First impression.
+- All work on `design-v2`. Four phases, each releasable: (1) Foundation, (2) Company directory,
+  (3) Student home and progress, (4) First impression.
 - Each phase: local check → screenshots → user approval → merge to `main` → normal deploy workflow.
 - Rollback: redeploy the previous image tag.
 - Update CLAUDE.md: the old bundle is historical reference; this spec is the UI source of truth.
@@ -146,3 +177,5 @@ holding an unplugged cord, existing "ลองใหม่" button.
 
 - "เสียงเอฟเฟกต์" (Profile sound toggle)
 - "กดค้างเพื่อยืนยัน" (HoldButton label and hint)
+- "ใหม่" (new-company badge)
+- "ขอบคุณที่ช่วยเพื่อน ๆ 🌱" (toast after adding a company)
