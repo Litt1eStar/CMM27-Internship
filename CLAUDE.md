@@ -31,9 +31,13 @@ the plan along with the work.
 Deployment target: `https://cmm27.cmm.works` on the shared CMM droplet, following
 `DEPLOYMENT_GUIDE.md` (project slug `cmm27`, images under the user's personal GitHub account).
 
-Client UI follows the Claude Design bundle in `docs/design/cmm-internship-tracker-mobile/`. The decisions
-where the design and the system differed, and every extrapolated state, are recorded in
-`docs/superpowers/plans/2026-10-05-client-design-migration.md`. Match the design; ask before changing it.
+Client UI follows the design v2 spec, `docs/superpowers/specs/2026-10-05-design-v2-design.md`, built in
+phases (`docs/superpowers/plans/2026-10-05-design-v2-phase*.md`). The Claude Design bundle in
+`docs/design/cmm-internship-tracker-mobile/` and `docs/superpowers/plans/2026-10-05-client-design-migration.md`
+are the record of v1. Ask before changing a decision in the spec.
+
+Visual checks use the mocked API in `client/e2e/mock-api.js` (Playwright MCP, dev server on port 5180).
+The live database has real students, so never create test students for screenshots.
 
 ## Commands
 
@@ -44,6 +48,7 @@ cd server && npm run import -- ../responses.csv [--commit]   # dry run unless --
 cd server && npm run smoke      # end-to-end API check; WRITES test data: ask first
 cd client && npm run dev        # http://localhost:5173
 cd client && npm test           # Vitest logic tests
+cd client && node scripts/make-sfx.mjs   # regenerate the UI sounds in src/assets/sfx
 cd client && npm run build
 ```
 

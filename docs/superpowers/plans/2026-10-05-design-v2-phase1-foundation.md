@@ -16,18 +16,18 @@
 
 | # | Task | Status |
 |---|---|---|
-| 1 | Add the Motion library | ⬜ |
-| 2 | Generate the UI sounds | ⬜ |
-| 3 | `lib/feedback.js` (haptics, sound, setting) | ⬜ |
-| 4 | `lib/transitions.js` (direction logic) | ⬜ |
-| 5 | New look: tokens, surfaces, press, glass, titles | ⬜ |
-| 6 | Sheet: spring, drag to dismiss, animated close | ⬜ |
-| 7 | Page transitions wired in | ⬜ |
-| 8 | Seed loader and skeletons | ⬜ |
-| 9 | Haptics and sound in toasts, errors and Profile | ⬜ |
-| 10 | Mock API harness for visual checks | ⬜ |
-| 11 | Docs, version 1.1.0 | ⬜ |
-| 12 | Visual check (user approval) | ⬜ |
+| 1 | Add the Motion library | ✅ |
+| 2 | Generate the UI sounds | ✅ |
+| 3 | `lib/feedback.js` (haptics, sound, setting) | ✅ |
+| 4 | `lib/transitions.js` (direction logic) | ✅ |
+| 5 | New look: tokens, surfaces, press, glass, titles | ✅ |
+| 6 | Sheet: spring, drag to dismiss, animated close | ✅ |
+| 7 | Page transitions wired in | ✅ |
+| 8 | Seed loader and skeletons | ✅ |
+| 9 | Haptics and sound in toasts, errors and Profile | ✅ |
+| 10 | Mock API harness for visual checks | ✅ |
+| 11 | Docs, version 1.1.0 | ✅ |
+| 12 | Visual check (user approval) | 🟨 |
 | 13 | Ship phase 1 (user confirms deploy) | ⬜ |
 
 ## Decisions made while planning (recorded in the spec in Task 11)
@@ -77,17 +77,17 @@ All commands below run from `client/` unless they say otherwise.
 **Files:**
 - Modify: `client/package.json`, `client/package-lock.json`
 
-- [ ] **Step 1: Install**
+- [x] **Step 1: Install**
 
 Run: `npm install motion@^14`
 Expected: `added 1 package` (or a few), no errors.
 
-- [ ] **Step 2: Check audit and build**
+- [x] **Step 2: Check audit and build**
 
 Run: `npm audit` then `npm run build`
 Expected: `found 0 vulnerabilities`; build succeeds.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add package.json package-lock.json
@@ -104,7 +104,7 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 - Create: `client/scripts/make-sfx.mjs`
 - Create (generated): `client/src/assets/sfx/pop.wav`, `chime.wav`, `rustle.wav`
 
-- [ ] **Step 1: Write the generator**
+- [x] **Step 1: Write the generator**
 
 `client/scripts/make-sfx.mjs`:
 
@@ -170,18 +170,18 @@ for (const [name, samples] of Object.entries({ pop, chime, rustle })) {
 console.log('wrote pop.wav, chime.wav, rustle.wav');
 ```
 
-- [ ] **Step 2: Run it**
+- [x] **Step 2: Run it**
 
 Run: `node scripts/make-sfx.mjs && ls -l src/assets/sfx`
 Expected: `wrote pop.wav, chime.wav, rustle.wav`; sizes about 4 KB, 26 KB and 15 KB.
 
-- [ ] **Step 3: Listen once**
+- [x] **Step 3: Listen once**
 
 Open each file in the OS player. The pop should be short and soft, the chime two bright notes, the rustle a
 gentle whoosh. None should click or clip. If one sounds harsh, lower its final multiplier (0.6 / 0.32 /
 0.9) and re-run.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add scripts/make-sfx.mjs src/assets/sfx
@@ -198,7 +198,7 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 - Create: `client/src/lib/feedback.js`
 - Test: `client/src/lib/feedback.test.js`
 
-- [ ] **Step 1: Write the failing tests**
+- [x] **Step 1: Write the failing tests**
 
 `client/src/lib/feedback.test.js`:
 
@@ -270,12 +270,12 @@ test('a vibrate call that throws is swallowed', () => {
 });
 ```
 
-- [ ] **Step 2: Run the tests to see them fail**
+- [x] **Step 2: Run the tests to see them fail**
 
 Run: `npx vitest run src/lib/feedback.test.js`
 Expected: FAIL, `Failed to resolve import "./feedback"`.
 
-- [ ] **Step 3: Implement**
+- [x] **Step 3: Implement**
 
 `client/src/lib/feedback.js`:
 
@@ -349,17 +349,17 @@ export const feedback = createFeedback({
 });
 ```
 
-- [ ] **Step 4: Run the tests to see them pass**
+- [x] **Step 4: Run the tests to see them pass**
 
 Run: `npx vitest run src/lib/feedback.test.js`
 Expected: 7 passed.
 
-- [ ] **Step 5: Run all client tests**
+- [x] **Step 5: Run all client tests**
 
 Run: `npm test`
 Expected: all pass (25 existing + 7 new).
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add src/lib/feedback.js src/lib/feedback.test.js
@@ -376,7 +376,7 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 - Create: `client/src/lib/transitions.js`
 - Test: `client/src/lib/transitions.test.js`
 
-- [ ] **Step 1: Write the failing tests**
+- [x] **Step 1: Write the failing tests**
 
 `client/src/lib/transitions.test.js`:
 
@@ -407,12 +407,12 @@ test('same depth outside the tab order slides forward', () => {
 });
 ```
 
-- [ ] **Step 2: Run to see it fail**
+- [x] **Step 2: Run to see it fail**
 
 Run: `npx vitest run src/lib/transitions.test.js`
 Expected: FAIL, `Failed to resolve import "./transitions"`.
 
-- [ ] **Step 3: Implement**
+- [x] **Step 3: Implement**
 
 `client/src/lib/transitions.js`:
 
@@ -463,12 +463,12 @@ export function routeCommitted() {
 }
 ```
 
-- [ ] **Step 4: Run to see it pass**
+- [x] **Step 4: Run to see it pass**
 
 Run: `npx vitest run src/lib/transitions.test.js`
 Expected: 4 passed.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/lib/transitions.js src/lib/transitions.test.js
@@ -487,7 +487,7 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
   `client/src/pages/student/ProgressParts.jsx`, `client/src/pages/companies/DirectoryPage.jsx`,
   `client/src/pages/advisor/AdvisorHomePage.jsx`
 
-- [ ] **Step 1: Replace the three shadow tokens in `@theme`**
+- [x] **Step 1: Replace the three shadow tokens in `@theme`**
 
 Replace:
 
@@ -506,7 +506,7 @@ with:
   --shadow-bar: 0 -1px 0 rgba(120, 80, 40, 0.06), 0 -10px 30px rgba(120, 80, 40, 0.08);
 ```
 
-- [ ] **Step 2: Add the spring easing and grain to `@layer base`**
+- [x] **Step 2: Add the spring easing and grain to `@layer base`**
 
 At the top of `@layer base { … }`, before `html,`, add:
 
@@ -518,7 +518,7 @@ At the top of `@layer base { … }`, before `html,`, add:
   }
 ```
 
-- [ ] **Step 3: Replace the primary button rules**
+- [x] **Step 3: Replace the primary button rules**
 
 Replace:
 
@@ -564,7 +564,7 @@ with:
   }
 ```
 
-- [ ] **Step 4: Replace the card rule**
+- [x] **Step 4: Replace the card rule**
 
 Replace:
 
@@ -608,7 +608,7 @@ with:
   }
 ```
 
-- [ ] **Step 5: Replace the three title rules**
+- [x] **Step 5: Replace the three title rules**
 
 Replace:
 
@@ -645,7 +645,7 @@ with:
   }
 ```
 
-- [ ] **Step 6: Add reduced-motion rules at the end of the file**
+- [x] **Step 6: Add reduced-motion rules at the end of the file**
 
 ```css
 @media (prefers-reduced-motion: reduce) {
@@ -657,7 +657,7 @@ with:
 }
 ```
 
-- [ ] **Step 7: Use the new classes**
+- [x] **Step 7: Use the new classes**
 
 `client/src/components/AppFrame.jsx`: in the outer div's className replace `bg-cream` with `app-surface`.
 
@@ -676,19 +676,19 @@ with:
 - replace `className="pt-1 text-[34px] leading-none font-medium"` with `className="num-display pt-1 text-[34px] leading-none"`;
 - replace `className="text-[34px] leading-none font-medium text-mint-ink"` with `className="num-display text-[34px] leading-none text-mint-ink"`.
 
-- [ ] **Step 8: Build and test**
+- [x] **Step 8: Build and test**
 
 Run: `npm run build && npm test`
 Expected: build succeeds; all tests pass.
 
-- [ ] **Step 9: Quick look**
+- [x] **Step 9: Quick look**
 
 Run `npx vite --port 5180 --strictPort` in the background, open `http://localhost:5180/` with Playwright at
 390×844 and screenshot the login page to `.playwright-mcp/p1-look-login.png`. The background should show
 the soft gradient, and the Google button the new gradient. Stop the server (only the one on 5180; the
 user's own server on 5173 must keep running).
 
-- [ ] **Step 10: Commit**
+- [x] **Step 10: Commit**
 
 ```bash
 git add src/index.css src/components/AppFrame.jsx src/components/TabBar.jsx src/pages/student/ProgressParts.jsx src/pages/companies/DirectoryPage.jsx src/pages/advisor/AdvisorHomePage.jsx
@@ -707,7 +707,7 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
   `client/src/pages/companies/DeleteCompanySheet.jsx`, `client/src/pages/advisor/AddStudentSheet.jsx`,
   `client/src/pages/advisor/StudentDetailPage.jsx`
 
-- [ ] **Step 1: Rewrite `Sheet.jsx`**
+- [x] **Step 1: Rewrite `Sheet.jsx`**
 
 ```jsx
 import { createContext, useCallback, useContext, useEffect, useLayoutEffect, useRef } from 'react';
@@ -815,7 +815,7 @@ export default function Sheet({ open, onClose, label, full = false, grabberGap =
 }
 ```
 
-- [ ] **Step 2: Use `SheetCloseButton` for cancel buttons**
+- [x] **Step 2: Use `SheetCloseButton` for cancel buttons**
 
 In each file below, change the `Sheet` import to `import Sheet, { SheetCloseButton } from '<same path>';`
 and replace the cancel button.
@@ -865,12 +865,12 @@ Check nothing else still passes `onClick={onClose}` to a cancel button:
 Run: `grep -rn "onClick={onClose}" src/pages`
 Expected: only `src/pages/student/Celebration.jsx` (not a sheet).
 
-- [ ] **Step 3: Build and test**
+- [x] **Step 3: Build and test**
 
 Run: `npm run build && npm test`
 Expected: build succeeds; all tests pass.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add src/components/Sheet.jsx src/pages
@@ -889,7 +889,7 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
   `client/src/pages/advisor/StudentDetailPage.jsx`, `client/src/pages/student/ProgressParts.jsx`,
   `client/src/pages/ProfilePage.jsx`
 
-- [ ] **Step 1: View-transition CSS**
+- [x] **Step 1: View-transition CSS**
 
 Append to `client/src/index.css` (outside any `@layer`, before the reduced-motion block):
 
@@ -952,7 +952,7 @@ Append to `client/src/index.css` (outside any `@layer`, before the reduced-motio
 }
 ```
 
-- [ ] **Step 2: AppFrame tells the transition when the route has rendered**
+- [x] **Step 2: AppFrame tells the transition when the route has rendered**
 
 `client/src/components/AppFrame.jsx`:
 
@@ -978,7 +978,7 @@ export default function AppFrame({ tabs, children }) {
 }
 ```
 
-- [ ] **Step 3: Tab bar navigates with a transition**
+- [x] **Step 3: Tab bar navigates with a transition**
 
 `client/src/components/TabBar.jsx`: change the import line to
 
@@ -1031,7 +1031,7 @@ export default function TabBar({ role }) {
 }
 ```
 
-- [ ] **Step 4: Advisor roster row expands into the detail page**
+- [x] **Step 4: Advisor roster row expands into the detail page**
 
 `client/src/pages/advisor/AdvisorHomePage.jsx`: add the import
 `import { navigateWithTransition } from '../../lib/transitions';` and replace
@@ -1065,7 +1065,7 @@ with
 and on the header block `<div className="flex items-center gap-3 px-1">` (the one holding the name and the
 large sprout) add `style={{ viewTransitionName: `student-${id}` }}`.
 
-- [ ] **Step 5: The student's sprout is one shared element**
+- [x] **Step 5: The student's sprout is one shared element**
 
 `client/src/pages/student/ProgressParts.jsx` (`HeroCard`): on
 `<div data-anim="pop" className="flex size-[124px] flex-none items-center justify-center rounded-full bg-cream">`
@@ -1075,12 +1075,12 @@ add `style={{ viewTransitionName: 'my-sprout' }}`.
 `<div className="absolute -right-1.5 -bottom-1 flex size-[46px] items-center justify-center rounded-full bg-white shadow-[0_4px_12px_rgba(120,80,40,.15)]">`
 add `style={{ viewTransitionName: 'my-sprout' }}`.
 
-- [ ] **Step 6: Build and test**
+- [x] **Step 6: Build and test**
 
 Run: `npm run build && npm test`
 Expected: build succeeds; all tests pass.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add src/index.css src/components src/pages
@@ -1099,7 +1099,7 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
   `client/src/pages/companies/DirectoryPage.jsx`, `client/src/pages/advisor/AdvisorHomePage.jsx`,
   `client/src/pages/advisor/StudentDetailPage.jsx`
 
-- [ ] **Step 1: CSS for shimmer and the loader bar**
+- [x] **Step 1: CSS for shimmer and the loader bar**
 
 Add inside `@layer components` (after `.no-scrollbar::-webkit-scrollbar`):
 
@@ -1137,7 +1137,7 @@ and inside the existing `@media (prefers-reduced-motion: reduce)` block add:
   }
 ```
 
-- [ ] **Step 2: `SeedLoader.jsx`**
+- [x] **Step 2: `SeedLoader.jsx`**
 
 ```jsx
 import { useEffect, useState } from 'react';
@@ -1180,7 +1180,7 @@ export default function SeedLoader({ size = 96 }) {
 }
 ```
 
-- [ ] **Step 3: `Skeleton.jsx`**
+- [x] **Step 3: `Skeleton.jsx`**
 
 ```jsx
 /** Shimmering placeholder block. */
@@ -1206,7 +1206,7 @@ export function SkeletonCards({ count = 3, height = 120 }) {
 }
 ```
 
-- [ ] **Step 4: Splash uses the loader**
+- [x] **Step 4: Splash uses the loader**
 
 `client/src/App.jsx`: replace the `Sprout` import with `import SeedLoader from './components/SeedLoader';`
 and replace the `Splash` function with:
@@ -1222,7 +1222,7 @@ function Splash() {
 }
 ```
 
-- [ ] **Step 5: Student home loading state**
+- [x] **Step 5: Student home loading state**
 
 `client/src/pages/student/StudentHomePage.jsx`: add `import SeedLoader from '../../components/SeedLoader';`
 and replace the `if (!progress) { … }` block with:
@@ -1245,7 +1245,7 @@ and replace the `if (!progress) { … }` block with:
   }
 ```
 
-- [ ] **Step 6: Directory skeleton**
+- [x] **Step 6: Directory skeleton**
 
 `client/src/pages/companies/DirectoryPage.jsx`: add `import { SkeletonCards } from '../../components/Skeleton';`
 and replace
@@ -1260,7 +1260,7 @@ with
         !error && <div className="px-4"><SkeletonCards count={4} height={132} /></div>
 ```
 
-- [ ] **Step 7: Advisor home skeletons**
+- [x] **Step 7: Advisor home skeletons**
 
 `client/src/pages/advisor/AdvisorHomePage.jsx`: add
 `import { Skeleton, SkeletonCards } from '../../components/Skeleton';`. Directly after the closing
@@ -1281,7 +1281,7 @@ and inside `<div className="flex flex-col gap-[10px] px-4 pb-[120px]">`, before 
         {rows === null && !error && <SkeletonCards count={4} height={108} />}
 ```
 
-- [ ] **Step 8: Student detail skeleton**
+- [x] **Step 8: Student detail skeleton**
 
 `client/src/pages/advisor/StudentDetailPage.jsx`: add
 `import { Skeleton, SkeletonCards } from '../../components/Skeleton';` and directly before `{s && (` add:
@@ -1301,13 +1301,13 @@ and inside `<div className="flex flex-col gap-[10px] px-4 pb-[120px]">`, before 
       )}
 ```
 
-- [ ] **Step 9: Build and test**
+- [x] **Step 9: Build and test**
 
 Run: `npm run build && npm test`
 Expected: build succeeds (no unused-import errors; `Sprout` is still used by `EmptyState` in
 `DirectoryPage.jsx` and by the error state in `StudentHomePage.jsx`); all tests pass.
 
-- [ ] **Step 10: Commit**
+- [x] **Step 10: Commit**
 
 ```bash
 git add src
@@ -1324,7 +1324,7 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 - Modify: `client/src/components/Toast.jsx`, `client/src/components/ui.jsx`, `client/src/components/Icons.jsx`,
   `client/src/pages/ProfilePage.jsx`
 
-- [ ] **Step 1: Toasts buzz and chime**
+- [x] **Step 1: Toasts buzz and chime**
 
 `client/src/components/Toast.jsx`: add `import { feedback } from '../lib/feedback';` and replace the effect with:
 
@@ -1338,7 +1338,7 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
   }, [toast, onDone]);
 ```
 
-- [ ] **Step 2: Errors buzz**
+- [x] **Step 2: Errors buzz**
 
 `client/src/components/ui.jsx`: add `import { feedback } from '../lib/feedback';` and at the start of
 `ErrorBanner`'s body add:
@@ -1351,7 +1351,7 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 
 (`useEffect` is already imported in this file.)
 
-- [ ] **Step 3: Sound icon**
+- [x] **Step 3: Sound icon**
 
 `client/src/components/Icons.jsx`: after `LogoutIcon` add:
 
@@ -1359,7 +1359,7 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 export const SoundIcon = (p) => <Svg size={22} color="#3B2F2F" {...p}><path d="M4 9 L8 9 L13 5 L13 19 L8 15 L4 15 Z M16.5 9.5 C17.8 10.8 17.8 13.2 16.5 14.5 M19 7 C21.7 9.7 21.7 14.3 19 17" /></Svg>;
 ```
 
-- [ ] **Step 4: Profile sound toggle**
+- [x] **Step 4: Profile sound toggle**
 
 `client/src/pages/ProfilePage.jsx`: change the icons import to
 `import { LogoutIcon, SoundIcon } from '../components/Icons';`, add
@@ -1392,12 +1392,12 @@ function SoundToggle() {
 
 Then in the page, directly before the `ออกจากระบบ` button, add `<SoundToggle />`.
 
-- [ ] **Step 5: Build and test**
+- [x] **Step 5: Build and test**
 
 Run: `npm run build && npm test`
 Expected: build succeeds; all tests pass.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add src/components src/pages/ProfilePage.jsx
@@ -1416,7 +1416,7 @@ signed-in session and answers every `/api` call in the browser, with obviously f
 **Files:**
 - Create: `client/e2e/mock-api.js`
 
-- [ ] **Step 1: Write the harness**
+- [x] **Step 1: Write the harness**
 
 `client/e2e/mock-api.js`:
 
@@ -1555,7 +1555,7 @@ async (page) => {
 }
 ```
 
-- [ ] **Step 2: Check the API paths match the client**
+- [x] **Step 2: Check the API paths match the client**
 
 Run: `grep -n "request('" src/lib/api.js`
 Expected: every GET path the pages call (`/api/auth/me`, `/api/business-types`, `/api/companies`,
@@ -1563,7 +1563,7 @@ Expected: every GET path the pages call (`/api/auth/me`, `/api/business-types`, 
 `/api/advisor/students/:id`) and the POSTs used in Task 12 (`/api/me/actions`) appear in the harness.
 Anything else answers 500 `NOT_MOCKED`, which shows up in the console.
 
-- [ ] **Step 3: Smoke-run it**
+- [x] **Step 3: Smoke-run it**
 
 Start `npx vite --port 5180 --strictPort` in the background. With Playwright MCP: resize to 390×844, run the
 harness with `SCENARIO = 'student-seed'`, take a snapshot.
@@ -1574,7 +1574,7 @@ Also confirm nothing reached a real server: run `browser_network_requests`. Ever
 `*.supabase.co/auth/v1/...` request should be answered by the harness (Playwright marks them as fulfilled
 by a route). Any other request to `*.supabase.co` means the harness missed something: stop and fix it.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add e2e/mock-api.js
@@ -1591,12 +1591,12 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 - Modify: `CLAUDE.md`, `docs/superpowers/specs/2026-10-05-design-v2-design.md`, `client/package.json`,
   `client/package-lock.json`, this plan
 
-- [ ] **Step 1: Version**
+- [x] **Step 1: Version**
 
 Run: `npm version 1.1.0 --no-git-tag-version`
 Expected: `v1.1.0`. The Profile footer will show "เวอร์ชัน 1.1.0".
 
-- [ ] **Step 2: CLAUDE.md**
+- [x] **Step 2: CLAUDE.md**
 
 Replace the paragraph
 
@@ -1624,7 +1624,7 @@ In the Commands block, after `cd client && npm test           # Vitest logic tes
 cd client && node scripts/make-sfx.mjs   # regenerate the UI sounds in src/assets/sfx
 ```
 
-- [ ] **Step 3: Record the planning decisions in the spec**
+- [x] **Step 3: Record the planning decisions in the spec**
 
 Append to `docs/superpowers/specs/2026-10-05-design-v2-design.md`:
 
@@ -1645,9 +1645,9 @@ Append to `docs/superpowers/specs/2026-10-05-design-v2-design.md`:
 - New microcopy: "กำลังโหลด…" (screen-reader label for loaders and skeletons).
 ```
 
-- [ ] **Step 4: Update this plan's progress table**, ticking tasks 1–11 ✅.
+- [x] **Step 4: Update this plan's progress table**, ticking tasks 1–11 ✅.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add ../CLAUDE.md ../docs/superpowers package.json package-lock.json

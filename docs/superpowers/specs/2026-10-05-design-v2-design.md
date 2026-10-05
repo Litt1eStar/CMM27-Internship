@@ -208,3 +208,20 @@ holding an unplugged cord, existing "ลองใหม่" button.
 - "ใช้บ่อย" (frequent business types)
 - "ค้นหาประเภทธุรกิจ…" (business type search placeholder)
 - "ทิ้งการแก้ไข?", "ทิ้ง", "แก้ไขต่อ" (discard-changes confirm)
+
+## Changes made while planning and building phase 1 (2026-10-05)
+
+- The live database already holds real imported students, so all visual checks use the mocked API
+  (`client/e2e/mock-api.js`); no test students are created. This replaces the test-account approach in
+  section 7.
+- Sounds live in `client/src/assets/sfx/` (hashed and cached by nginx), not `public/sfx/`.
+- Primary buttons use a lighter-to-leaf gradient with an inner highlight and deeper edge instead of a
+  darker forest background, to keep forest text at 4.5:1 or better.
+- Cards get a hairline warm ring instead of a top inner highlight.
+- `lib/transitions.js` calls `document.startViewTransition` directly, because React Router's
+  `viewTransition` option needs data mode and is deprecated.
+- Reduced motion is read with Motion's `useReducedMotion()` and CSS media queries, not in `feedback.js`.
+- Motion is used through `LazyMotion` + `m` components (features in `lib/motionFeatures.js`, loaded
+  after first render). Components must import `m` from `motion/react-m`; `motion.div` throws in strict mode.
+  Size: +27 KB gzipped in the first download, +19 KB in the lazy chunk (46 KB of the 60 KB budget).
+- New microcopy: "กำลังโหลด…" (screen-reader label for loaders and skeletons).
