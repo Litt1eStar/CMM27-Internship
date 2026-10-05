@@ -29,7 +29,7 @@ Owner: **Claude** = agent · **You** = needs your confirmation, accounts or eyes
 | 6 | B. Foundation | Tooling: Vitest, version, same-origin `/api`, PKCE | Claude | — | ✅ |
 | 7 | B. Foundation | Design tokens, Kanit, base CSS | Claude | 6 | ✅ |
 | 8 | B. Foundation | Logic: status, dates, initials, colours | Claude | 6 | ✅ |
-| 9 | B. Foundation | Logic: timeline/history, companies, roster queries | Claude | 8 | ⬜ |
+| 9 | B. Foundation | Logic: timeline/history, companies, roster queries | Claude | 8 | ✅ |
 | 10 | B. Foundation | Sprout mascot + motion engine | Claude | 7 | ⬜ |
 | 11 | B. Foundation | Shared UI: icons, sheet, toast, banner, FAB, chips, ID field, count-up | Claude | 10 | ⬜ |
 | 12 | B. Foundation | App frame, tab bar, auth state, routes | Claude | 11 | ⬜ |
@@ -1515,7 +1515,7 @@ export function avatarColors(key) {
 **Files:**
 - Create: `client/src/lib/timeline.js` + `.test.js`, `client/src/lib/companies.js` + `.test.js`, `client/src/lib/roster.js` + `.test.js`
 
-- [ ] **Step 1: Write the three tests**
+- [x] **Step 1: Write the three tests**
 
 `client/src/lib/timeline.test.js`:
 
@@ -1609,9 +1609,9 @@ test('filter count and tile percentages (design 5a: 9/42 = 21%, 13/42 = 31%, 8/4
 });
 ```
 
-- [ ] **Step 2: Run, expect failure:** `npm test` → fails to resolve `./timeline`, `./companies`, `./roster`.
+- [x] **Step 2: Run, expect failure:** `npm test` → fails to resolve `./timeline`, `./companies`, `./roster`.
 
-- [ ] **Step 3: Write `client/src/lib/timeline.js`**
+- [x] **Step 3: Write `client/src/lib/timeline.js`**
 
 ```js
 import { formatThaiDateTime } from './format';
@@ -1661,7 +1661,7 @@ export function eventView(e) {
 }
 ```
 
-- [ ] **Step 4: Write `client/src/lib/companies.js`**
+- [x] **Step 4: Write `client/src/lib/companies.js`**
 
 ```js
 // Work-mode pills and filter dots, from Directory.dc.
@@ -1704,7 +1704,7 @@ export function toUrl(input) {
 export const displayUrl = (url) => url.replace(/^https?:\/\//i, '').replace(/\/$/, '');
 ```
 
-- [ ] **Step 5: Write `client/src/lib/roster.js`**
+- [x] **Step 5: Write `client/src/lib/roster.js`**
 
 ```js
 export const EMPTY_ROSTER = { q: '', status: 'ALL', resume: 'ALL', portfolio: 'ALL' };
@@ -1725,9 +1725,9 @@ export const rosterFilterCount = (f) => ['status', 'resume', 'portfolio'].filter
 export const percent = (n, total) => (total ? `${Math.round((n / total) * 100)}%` : '0%');
 ```
 
-- [ ] **Step 6: Run:** `npm test` → all pass.
+- [x] **Step 6: Run:** `npm test` → all pass.
 
-- [ ] **Step 7: Commit:** `git add client/src/lib && git commit -m "feat(client): timeline history, directory and roster query helpers"`
+- [x] **Step 7: Commit:** `git add client/src/lib && git commit -m "feat(client): timeline history, directory and roster query helpers"`
 
 ---
 
