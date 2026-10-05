@@ -21,11 +21,11 @@ Owner: **Claude** = agent · **You** = needs your confirmation, accounts or eyes
 
 | # | Phase | Task | Owner | Needs | Status |
 |---|---|---|---|---|---|
-| 1 | A. Backend | Copy the design bundle into the repo | Claude | — | ⬜ |
-| 2 | A. Backend | Migration 002 + updated rule tests (apply after your OK) | Claude + You | 1 | ⬜ |
-| 3 | A. Backend | API: confirm without company, optional website | Claude | 2 | ⬜ |
-| 4 | A. Backend | Smoke-test the API end to end (writes test data after your OK) | Claude + You | 3 | ⬜ |
-| 5 | A. Backend | README: rules, API reference, setup | Claude | 3 | ⬜ |
+| 1 | A. Backend | Copy the design bundle into the repo | Claude | — | ✅ |
+| 2 | A. Backend | Migration 002 + updated rule tests (apply after your OK) | Claude + You | 1 | ✅ |
+| 3 | A. Backend | API: confirm without company, optional website | Claude | 2 | ✅ |
+| 4 | A. Backend | Smoke-test the API end to end (writes test data after your OK) | Claude + You | 3 | ✅ |
+| 5 | A. Backend | README: rules, API reference, setup | Claude | 3 | ✅ |
 | 6 | B. Foundation | Tooling: Vitest, version, same-origin `/api`, PKCE | Claude | — | ⬜ |
 | 7 | B. Foundation | Design tokens, Kanit, base CSS | Claude | 6 | ⬜ |
 | 8 | B. Foundation | Logic: status, dates, initials, colours | Claude | 6 | ⬜ |
@@ -50,7 +50,7 @@ Owner: **Claude** = agent · **You** = needs your confirmation, accounts or eyes
 
 | Milestone | Reached when | Status |
 |---|---|---|
-| M1 Backend matches design | Tasks 1–5 ✅: migration applied, rule tests and smoke test pass | ⬜ |
+| M1 Backend matches design | Tasks 1–5 ✅: migration applied, rule tests and smoke test pass | ✅ |
 | M2 Foundation ready | Tasks 6–12 ✅: logic tests green, app shell renders with tab bar | ⬜ |
 | M3 Screens built | Tasks 13–21 ✅ | ⬜ |
 | M4 Design verified | Tasks 22–24 ✅: you've approved the visual check | ⬜ |
@@ -133,7 +133,7 @@ Owner: **Claude** = agent · **You** = needs your confirmation, accounts or eyes
 **Files:**
 - Create: `docs/design/cmm-internship-tracker-mobile/` (copied from `C:\Users\krittin pragopdee\Downloads\New folder (20)\cmm-internship-tracker-mobile`)
 
-- [ ] **Step 1: Copy it** (the bundle has no student data or secrets: HTML prototypes, `motion.js`, `support.js`, one PNG)
+- [x] **Step 1: Copy it** (the bundle has no student data or secrets: HTML prototypes, `motion.js`, `support.js`, one PNG)
 
 ```bash
 cd "C:/Users/krittin pragopdee/OneDrive/Desktop/University/CMM27-Internship"
@@ -144,7 +144,7 @@ ls docs/design/cmm-internship-tracker-mobile/project
 
 Expected: `AdvisorHome.dc.html  CMM Internship Tracker Mobile.dc.html  Directory.dc.html  Sprout.dc.html  StatusBar.dc.html  StudentHome.dc.html  TabBar.dc.html  motion.js  support.js  uploads`
 
-- [ ] **Step 2: Commit**
+- [x] **Step 2: Commit**
 
 ```bash
 git add docs/design
@@ -159,7 +159,7 @@ git commit -m "docs: add Claude Design bundle as the client's visual source of t
 - Create: `supabase/migrations/002_confirm_without_company.sql`
 - Modify: `supabase/tests/rules.sql` (full replacement below)
 
-- [ ] **Step 1: Replace `supabase/tests/rules.sql` with the new expectations (the test comes first)**
+- [x] **Step 1: Replace `supabase/tests/rules.sql` with the new expectations (the test comes first)**
 
 ```sql
 -- Business-rule tests. Self-checking; everything is rolled back.
@@ -283,7 +283,7 @@ end $$;
 rollback;
 ```
 
-- [ ] **Step 2: Run it against the current database: it must FAIL**
+- [x] **Step 2: Run it against the current database: it must FAIL**
 
 ```bash
 DB_URL="$(grep -m1 '^SUPABASE_DB_URL=' server/.env | cut -d= -f2- | tr -d '\r')"
@@ -292,7 +292,7 @@ DB_URL="$(grep -m1 '^SUPABASE_DB_URL=' server/.env | cut -d= -f2- | tr -d '\r')"
 
 Expected: an `ERROR` (for example `null value in column "url"` or `COMPANY_REQUIRED`), and no `PASSED`.
 
-- [ ] **Step 3: Write `supabase/migrations/002_confirm_without_company.sql`**
+- [x] **Step 3: Write `supabase/migrations/002_confirm_without_company.sql`**
 
 ```sql
 -- =====================================================================
@@ -536,7 +536,7 @@ grant execute on function public.student_apply_action(uuid, text, text, uuid) to
 commit;
 ```
 
-- [ ] **Step 4: Dry-run 002 + tests in one rolled-back session (writes nothing)**
+- [x] **Step 4: Dry-run 002 + tests in one rolled-back session (writes nothing)**
 
 The migration has its own `begin`/`commit`, so strip those into a scratch copy and run it inside the test's transaction:
 
@@ -550,7 +550,7 @@ rm -rf "$SCRATCH"
 
 Expected: `NOTICE:  ALL RULE TESTS PASSED`. The final `rollback;` from `rules.sql` undoes the migration too.
 
-- [ ] **Step 5: Ask the user to confirm, then apply 002 for real** (a schema change to the one live database, per CLAUDE.md). The database is empty pre-launch, so no data is lost.
+- [x] **Step 5: Ask the user to confirm, then apply 002 for real** (a schema change to the one live database, per CLAUDE.md). The database is empty pre-launch, so no data is lost.
 
 ```bash
 "/c/Program Files/PostgreSQL/18/bin/psql.exe" "$DB_URL" -X -q -v ON_ERROR_STOP=1 -f supabase/migrations/002_confirm_without_company.sql
@@ -559,14 +559,14 @@ Expected: `NOTICE:  ALL RULE TESTS PASSED`. The final `rollback;` from `rules.sq
 
 Expected: no output from the first command, then `NOTICE:  ALL RULE TESTS PASSED`.
 
-- [ ] **Step 6: Re-check the browser lockdown** (the views and the function are new objects). Repeat launch-plan Task 7 Step 1, plus this call, which must say `permission denied`:
+- [x] **Step 6: Re-check the browser lockdown** (the views and the function are new objects). Repeat launch-plan Task 7 Step 1, plus this call, which must say `permission denied`:
 
 ```bash
 curl -s -X POST "$URL/rest/v1/rpc/student_apply_action" -H "apikey: $KEY" -H "Authorization: Bearer $KEY" \
   -H 'Content-Type: application/json' -d '{"p_user_id":"00000000-0000-0000-0000-000000000000","p_action":"SUBMIT","p_note":null,"p_actor_id":null}'
 ```
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add supabase/migrations/002_confirm_without_company.sql supabase/tests/rules.sql
@@ -582,7 +582,7 @@ git commit -m "feat(db): confirm internship without a company; company website o
 - Modify: `server/src/routes/student.js`
 - Modify: `server/src/routes/companies.js`
 
-- [ ] **Step 1: Make the removed codes a failing expectation.** In `server/test/errors.test.js`, replace these two lines:
+- [x] **Step 1: Make the removed codes a failing expectation.** In `server/test/errors.test.js`, replace these two lines:
 
 ```js
   [{ message: 'COMPANY_REQUIRED: choose a company' }, 422, 'COMPANY_REQUIRED'],
@@ -599,18 +599,18 @@ with:
   [{ message: 'COMPANY_NOT_FOUND: gone' }, 500, 'DB_ERROR'],
 ```
 
-- [ ] **Step 2: Run, expect 2 failures:** `cd server && npm test` → `# fail 2`.
+- [x] **Step 2: Run, expect 2 failures:** `cd server && npm test` → `# fail 2`.
 
-- [ ] **Step 3: In `server/src/lib/errors.js`, delete these two lines from `DOMAIN_CODES`**
+- [x] **Step 3: In `server/src/lib/errors.js`, delete these two lines from `DOMAIN_CODES`**
 
 ```js
   COMPANY_REQUIRED: 422,
   COMPANY_NOT_FOUND: 404,
 ```
 
-- [ ] **Step 4: Run:** `npm test` → `# fail 0`.
+- [x] **Step 4: Run:** `npm test` → `# fail 0`.
 
-- [ ] **Step 5: `server/src/routes/student.js`.** Replace the `actionBody` definition with:
+- [x] **Step 5: `server/src/routes/student.js`.** Replace the `actionBody` definition with:
 
 ```js
 const actionBody = z.object({
@@ -632,7 +632,7 @@ and replace the RPC call inside `POST /actions` with:
 
 and change the doc comment above it from `POST /api/me/actions  { action, company_id? }` to `POST /api/me/actions  { action }`, and `(prerequisites, forward-only, company required)` to `(prerequisites, forward-only)`.
 
-- [ ] **Step 6: `server/src/routes/companies.js`.** Replace the `url:` field of `companyBody` (the 5 lines from `url: z` to the `.regex(...)` line) with:
+- [x] **Step 6: `server/src/routes/companies.js`.** Replace the `url:` field of `companyBody` (the 5 lines from `url: z` to the `.regex(...)` line) with:
 
 ```js
   // Optional: empty string or null clears it. Validated when present.
@@ -667,9 +667,9 @@ with:
 
 and change its doc comment to `/** DELETE /api/companies/:id — creator or advisor. */`.
 
-- [ ] **Step 7: Syntax-check and test:** `node --check src/routes/student.js && node --check src/routes/companies.js && npm test` → `# fail 0`.
+- [x] **Step 7: Syntax-check and test:** `node --check src/routes/student.js && node --check src/routes/companies.js && npm test` → `# fail 0`.
 
-- [ ] **Step 8: Commit**
+- [x] **Step 8: Commit**
 
 ```bash
 git add server/src server/test
@@ -686,7 +686,7 @@ This makes the earlier one-off check (69/69 passed on 2026-10-05) reusable. It *
 - Create: `server/scripts/smoke-api.mjs`
 - Modify: `server/package.json` (add `"smoke": "node --env-file=.env scripts/smoke-api.mjs"` after `"import"`)
 
-- [ ] **Step 1: Write `server/scripts/smoke-api.mjs`**
+- [x] **Step 1: Write `server/scripts/smoke-api.mjs`**
 
 ```js
 #!/usr/bin/env node
@@ -836,11 +836,11 @@ console.log('  and delete the smoke.* sign-in accounts (Authentication → Users
 process.exitCode = failed.length ? 1 : 0;
 ```
 
-- [ ] **Step 2: Ask the user to confirm the run.** Then start the API (`cd server && npm run dev`) and, in a second terminal, run `cd server && npm run smoke`.
+- [x] **Step 2: Ask the user to confirm the run.** Then start the API (`cd server && npm run dev`) and, in a second terminal, run `cd server && npm run smoke`.
 
 Expected: every line `PASS`, final `N/N passed`.
 
-- [ ] **Step 3: Clean up (the same confirmation covers it).** Stop the API. Run a scratch copy of `supabase/admin/reset_test_data.sql` with `'no'` changed to `'yes'` (never commit that change). Then:
+- [x] **Step 3: Clean up (the same confirmation covers it).** Stop the API. Run a scratch copy of `supabase/admin/reset_test_data.sql` with `'no'` changed to `'yes'` (never commit that change). Then:
 
 ```bash
 DB_URL="$(grep -m1 '^SUPABASE_DB_URL=' server/.env | cut -d= -f2- | tr -d '\r')"
@@ -853,7 +853,7 @@ for (const u of data.users.filter((u) => /^smoke\./.test(u.email))) await supaba
 
 Verify the database is back to 0 users, 0 companies, 0 log rows and 0 `auth.users`.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add server/scripts/smoke-api.mjs server/package.json
@@ -867,7 +867,7 @@ git commit -m "test: guarded end-to-end API smoke test"
 **Files:**
 - Modify: `README.md` (lines 26, 27, 41, 134, 136, 141, 142, 150, 154 as of 2026-10-05)
 
-- [ ] **Step 1: Apply these replacements**
+- [x] **Step 1: Apply these replacements**
 
 | Old | New |
 |---|---|
@@ -881,9 +881,9 @@ git commit -m "test: guarded end-to-end API smoke test"
 | the `COMPANY_REQUIRED` row | delete the row |
 | the `COMPANY_NOT_FOUND` row | delete the row |
 
-- [ ] **Step 2: Check nothing stale remains:** `grep -nE "company_id|COMPANY_(IN_USE|REQUIRED|NOT_FOUND)|confirmed company" README.md` → no output.
+- [x] **Step 2: Check nothing stale remains:** `grep -nE "company_id|COMPANY_(IN_USE|REQUIRED|NOT_FOUND)|confirmed company" README.md` → no output.
 
-- [ ] **Step 3: Commit:** `git add README.md && git commit -m "docs: README for confirm-without-company and optional website"`
+- [x] **Step 3: Commit:** `git add README.md && git commit -m "docs: README for confirm-without-company and optional website"`
 
 ---
 
