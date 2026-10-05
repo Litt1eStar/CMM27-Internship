@@ -1494,6 +1494,7 @@ async (page) => {
     CONFIRM: ['INTERNSHIP_CONFIRMED', (p) => ({ ...p, current_status: 'INTERNSHIP_CONFIRMED' })],
   };
 
+  await page.unrouteAll({ behavior: 'ignoreErrors' }); // forget the previous scenario
   await page.route('**/auth/v1/**', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: '{}' }));
   await page.route('**/api/**', async (route) => {
     if (SCENARIO === 'offline') return route.abort('internetdisconnected');
