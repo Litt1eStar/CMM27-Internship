@@ -34,7 +34,7 @@ Owner: **Claude** = agent · **You** = needs your confirmation, accounts or eyes
 | 11 | B. Foundation | Shared UI: icons, sheet, toast, banner, FAB, chips, ID field, count-up | Claude | 10 | ✅ |
 | 12 | B. Foundation | App frame, tab bar, auth state, routes | Claude | 11 | ✅ |
 | 13 | C. Screens | 1a/1b Login | Claude | 12 | ✅ |
-| 14 | C. Screens | 2a–2c Verify student ID | Claude | 12 | ⬜ |
+| 14 | C. Screens | 2a–2c Verify student ID | Claude | 12 | ✅ |
 | 15 | C. Screens | 3a–3c Student home | Claude | 12 | ⬜ |
 | 16 | C. Screens | 3d/3e action sheets, toast, 3f celebration | Claude | 15 | ⬜ |
 | 17 | C. Screens | 4a/4c/4f Directory + company card | Claude | 12 | ⬜ |
@@ -2604,7 +2604,7 @@ export default function LoginPage() {
 **Files:**
 - Rewrite: `client/src/pages/LinkStudentPage.jsx`
 
-- [ ] **Step 1: Replace `client/src/pages/LinkStudentPage.jsx`**
+- [x] **Step 1: Replace `client/src/pages/LinkStudentPage.jsx`**
 
 ```jsx
 import { useState } from 'react';
@@ -2682,9 +2682,9 @@ export default function LinkStudentPage() {
 }
 ```
 
-- [ ] **Step 2: Build:** `npm run build` → `✓ built`. (The screen itself is checked in Task 23, which needs a signed-in, unlinked account.)
+- [x] **Step 2: Build:** `npm run build` → `✓ built`. (The screen itself is checked in Task 23, which needs a signed-in, unlinked account.)
 
-- [ ] **Step 3: Commit:** `git add client/src/pages/LinkStudentPage.jsx && git commit -m "feat(client): verify student ID screen (2a–2c)"`
+- [x] **Step 3: Commit:** `git add client/src/pages/LinkStudentPage.jsx && git commit -m "feat(client): verify student ID screen (2a–2c)"`
 
 ---
 
