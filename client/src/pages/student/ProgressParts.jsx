@@ -212,7 +212,7 @@ export function HistoryCard({ events }) {
 /** White bar pinned above the tab bar (3c). */
 export function StickyActionBar({ hint, label, icon, onClick }) {
   return (
-    <div className="fixed inset-x-0 z-30 mx-auto flex max-w-[430px] flex-col gap-1.5 border-t border-line-soft bg-white px-4 pt-[10px] pb-3 shadow-[var(--shadow-bar)]"
+    <div className="fixed inset-x-0 z-30 mx-auto flex max-w-[430px] flex-col gap-1.5 border-t border-line-soft glass-white px-4 pt-[10px] pb-3 shadow-[var(--shadow-bar)]"
       style={{ bottom: 'calc(64px + env(safe-area-inset-bottom))' }}>
       <p className="hint text-center">{hint}</p>
       <button type="button" className="btn btn-primary" onClick={onClick}>{icon}{label}</button>

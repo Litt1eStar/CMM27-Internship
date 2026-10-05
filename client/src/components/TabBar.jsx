@@ -17,7 +17,7 @@ export default function TabBar({ role }) {
   const tabs = TABS[role];
   return (
     <nav
-      className="fixed inset-x-0 bottom-0 z-40 mx-auto grid max-w-[430px] border-t border-line-soft bg-white px-2 pb-[env(safe-area-inset-bottom)] shadow-[0_-6px_20px_rgba(120,80,40,.06)]"
+      className="fixed inset-x-0 bottom-0 z-40 mx-auto grid max-w-[430px] border-t border-line-soft glass-white px-2 pb-[env(safe-area-inset-bottom)] shadow-[0_-6px_20px_rgba(120,80,40,.06)]"
       style={{ gridTemplateColumns: `repeat(${tabs.length}, 1fr)` }}
     >
       {tabs.map(({ to, label, Icon, end }) => (

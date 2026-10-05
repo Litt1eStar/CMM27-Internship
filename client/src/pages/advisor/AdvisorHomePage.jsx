@@ -32,7 +32,7 @@ function GardenTile({ status, n, total, delay, selected, onClick }) {
       className="box-border flex min-h-[132px] flex-col gap-1.5 rounded-[20px] p-[14px] text-left"
       style={{ background: s.bg, boxShadow: selected ? '0 0 0 2px #3DBE8B' : 'none' }}>
       <div className="flex items-start justify-between">
-        <div className="pt-1 text-[34px] leading-none font-medium" style={{ color: s.fg }}><CountUp value={n} delay={delay} /></div>
+        <div className="num-display pt-1 text-[34px] leading-none" style={{ color: s.fg }}><CountUp value={n} delay={delay} /></div>
         <div className="flex size-[50px] items-center justify-center rounded-2xl bg-white/75"><Sprout stage={s.stage} size={44} /></div>
       </div>
       <div className="mt-auto text-[13px] font-semibold" style={{ color: s.fg }}>{s.label}</div>
@@ -50,7 +50,7 @@ function ConfirmedTile({ n, total, selected, onClick }) {
       <div className="flex min-w-0 flex-1 flex-col gap-1.5">
         <div className="flex items-baseline justify-between">
           <div className="text-[13px] font-semibold text-mint-ink">ยืนยันที่ฝึกงาน</div>
-          <div className="text-[34px] leading-none font-medium text-mint-ink"><CountUp value={n} delay={360} /></div>
+          <div className="num-display text-[34px] leading-none text-mint-ink"><CountUp value={n} delay={360} /></div>
         </div>
         <Bar pct={percent(n, total)} color="#3DBE8B" fg="#146B48" delay={360} />
       </div>
@@ -148,7 +148,7 @@ export default function AdvisorHomePage() {
         </>
       )}
 
-      <div className="sticky top-0 z-20 flex gap-2 bg-cream px-4 pt-4 pb-3">
+      <div className="glass sticky top-0 z-20 flex gap-2 px-4 pt-4 pb-3">
         <label className="box-border flex h-12 min-w-0 flex-1 items-center gap-2 rounded-[14px] border-[1.5px] border-line bg-white px-[14px] focus-within:border-2 focus-within:border-leaf focus-within:shadow-[0_0_0_4px_#D6F5E6]">
           <SearchIcon />
           <input className="min-w-0 flex-1 bg-transparent text-base outline-none placeholder:text-faint"

@@ -78,7 +78,7 @@ export default function DirectoryPage() {
         </p>
       </header>
 
-      <div className="sticky top-0 z-20 flex flex-col gap-[10px] bg-cream px-4 pt-1 pb-3">
+      <div className="glass sticky top-0 z-20 flex flex-col gap-[10px] px-4 pt-1 pb-3">
         <div className="flex gap-2">
           <label className="box-border flex h-12 min-w-0 flex-1 items-center gap-2 rounded-[14px] border-[1.5px] border-line bg-white px-[14px] focus-within:border-2 focus-within:border-leaf focus-within:shadow-[0_0_0_4px_#D6F5E6]">
             <SearchIcon />
