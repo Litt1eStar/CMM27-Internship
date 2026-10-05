@@ -19,10 +19,12 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="relative mx-auto flex min-h-dvh max-w-[430px] flex-col overflow-hidden bg-cream">
+    <div className="relative mx-auto flex min-h-dvh max-w-[430px] flex-col overflow-hidden night-surface">
       <div
         className="absolute top-[-250px] left-1/2 size-[640px] -translate-x-1/2 rounded-full"
-        style={{ background: wrongDomain ? '#FBEDE6' : '#E3F6EC' }}
+        style={{ background: wrongDomain
+          ? 'radial-gradient(circle, rgba(255,140,110,.30) 0%, rgba(255,140,110,0) 65%)'
+          : 'radial-gradient(circle, rgba(80,230,170,.34) 0%, rgba(80,230,170,0) 65%)' }}
       />
       {!wrongDomain && (
         <>
@@ -36,12 +38,14 @@ export default function LoginPage() {
         <div
           data-anim={wrongDomain ? undefined : 'float'}
           className="flex size-[236px] items-center justify-center rounded-full bg-white"
-          style={{ boxShadow: wrongDomain ? '0 12px 30px rgba(180,35,24,.10)' : '0 12px 30px rgba(61,190,139,.18)' }}
+          style={{ boxShadow: wrongDomain
+            ? '0 0 0 10px rgba(255,255,255,.06), 0 0 60px rgba(255,140,110,.4)'
+            : '0 0 0 10px rgba(255,255,255,.06), 0 0 70px rgba(80,230,170,.5)' }}
         >
           {wrongDomain ? <Sprout stage="both" mood="worried" size={190} /> : <Sprout stage="both" wave hold="resume" size={190} />}
         </div>
-        <h1 className="mt-10 text-[26px] leading-[1.25] font-medium">CMM Internship Tracker</h1>
-        <p className="mt-[10px] text-base leading-[1.55] text-pretty text-muted">ติดตามการเตรียมตัวฝึกงาน และแบ่งปันข้อมูลบริษัทในรุ่น</p>
+        <h1 className="mt-10 text-[28px] leading-[1.25] font-semibold tracking-tight text-[#f0fff8]">CMM Internship Tracker</h1>
+        <p className="mt-[10px] text-base leading-[1.55] text-pretty text-[#a9d6c3]">ติดตามการเตรียมตัวฝึกงาน และแบ่งปันข้อมูลบริษัทในรุ่น</p>
       </div>
 
       <div className="relative mt-auto flex flex-col gap-3 px-4 pt-8" style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) + 22px)' }}>
@@ -58,7 +62,7 @@ export default function LoginPage() {
           </span>
           เข้าสู่ระบบด้วย Google
         </button>
-        <p className="hint text-center">ใช้อีเมล @{STUDENT_EMAIL_DOMAIN}</p>
+        <p className="hint text-center text-[#a9d6c3]">ใช้อีเมล @{STUDENT_EMAIL_DOMAIN}</p>
       </div>
     </div>
   );

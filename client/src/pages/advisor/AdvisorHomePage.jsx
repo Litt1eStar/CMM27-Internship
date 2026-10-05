@@ -32,7 +32,7 @@ function GardenTile({ status, n, total, delay, selected, onClick }) {
   return (
     <button type="button" onClick={onClick} aria-pressed={selected} data-anim="rise" data-anim-delay={delay}
       className="box-border flex min-h-[132px] flex-col gap-1.5 rounded-[20px] p-[14px] text-left"
-      style={{ background: s.bg, boxShadow: selected ? '0 0 0 2px #3DBE8B' : 'none' }}>
+      style={{ background: s.bg, boxShadow: selected ? '0 0 0 2.5px #8B7BFF' : 'none' }}>
       <div className="flex items-start justify-between">
         <div className="num-display pt-1 text-[34px] leading-none" style={{ color: s.fg }}><CountUp value={n} delay={delay} /></div>
         <div className="flex size-[50px] items-center justify-center rounded-2xl bg-white/75"><Sprout stage={s.stage} size={44} /></div>
@@ -47,7 +47,7 @@ function ConfirmedTile({ n, total, selected, onClick }) {
   return (
     <button type="button" onClick={onClick} aria-pressed={selected} data-anim="rise" data-anim-delay="360"
       className="col-span-2 flex items-center gap-[14px] rounded-[20px] bg-mint p-[14px] text-left"
-      style={{ boxShadow: selected ? '0 0 0 2px #3DBE8B' : 'none' }}>
+      style={{ boxShadow: selected ? '0 0 0 2.5px #8B7BFF' : 'none' }}>
       <div className="flex size-16 flex-none items-center justify-center rounded-[18px] bg-white/75"><Sprout stage="bloom" size={56} /></div>
       <div className="flex min-w-0 flex-1 flex-col gap-1.5">
         <div className="flex items-baseline justify-between">
@@ -166,7 +166,7 @@ export default function AdvisorHomePage() {
           className="box-border flex h-12 flex-none items-center gap-1.5 rounded-[14px] border-[1.5px] border-line bg-white px-3 text-base font-semibold">
           <FilterIcon />
           ตัวกรอง
-          {badge > 0 && <span className="flex h-[22px] min-w-[22px] items-center justify-center rounded-[11px] bg-leaf text-[13px] font-bold text-forest">{badge}</span>}
+          {badge > 0 && <span className="flex h-[22px] min-w-[22px] items-center justify-center rounded-[11px] bg-bloom text-[13px] font-bold text-ink">{badge}</span>}
         </button>
       </div>
 

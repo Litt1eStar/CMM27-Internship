@@ -228,3 +228,15 @@ holding an unplugged cord, existing "ลองใหม่" button.
   of the 60 KB budget is used. Phases 2–4 must stay within the remaining ~6 KB or the budget is revisited
   with the user.
 - New microcopy: "กำลังโหลด…" (screen-reader label for loaders and skeletons).
+
+## Colour direction (chosen 2026-10-05)
+
+The user compared three previews (Golden hour, Night garden, Candy bloom) and chose:
+
+- **Candy bloom** as the base on every screen: a pastel mesh background (mint, lilac, pink, lemon), white
+  cards at 80% with a lilac ring, and the bloom gradient (mint #3DBE8B → teal #4FD1C5 → violet #9B8CFF) on the
+  primary button, selected chips, active tab, FAB, switches, badges and done progress dots. Text on the
+  gradient is ink #0F2A3A. Page titles use a darker gradient for contrast. Shared neutrals are lilac-grey.
+- **Night garden** for the login page and the boot splash: deep forest gradient with mint and violet glow and
+  stars. This replaces the "Palette" bullet in section 1 (cream to peach) and sets the base for phases 2–4.
+

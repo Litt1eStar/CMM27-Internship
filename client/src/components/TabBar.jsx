@@ -38,12 +38,11 @@ export default function TabBar({ role }) {
             <>
               <span
                 data-anim={isActive ? 'pop' : ''}
-                className="flex h-8 w-[60px] items-center justify-center rounded-2xl"
-                style={{ background: isActive ? '#3DBE8B' : 'transparent' }}
+                className={`flex h-8 w-[60px] items-center justify-center rounded-2xl ${isActive ? 'bg-bloom shadow-[0_6px_14px_-6px_rgba(124,92,255,.6)]' : ''}`}
               >
-                <Icon color={isActive ? '#0F3D2E' : '#8A7B76'} />
+                <Icon color={isActive ? '#0F2A3A' : '#8A7B76'} />
               </span>
-              <span className="text-[13px] leading-4" style={{ color: isActive ? '#0F3D2E' : '#8A7B76', fontWeight: isActive ? 600 : 400 }}>
+              <span className="text-[13px] leading-4" style={{ color: isActive ? '#0F2A3A' : '#8A7B76', fontWeight: isActive ? 600 : 400 }}>
                 {label}
               </span>
             </>

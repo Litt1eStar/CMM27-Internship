@@ -40,14 +40,14 @@ export function HeroCard({ progress, name }) {
               <li key={label} className="flex flex-col items-center gap-1.5">
                 <span
                   data-anim={current ? 'pulse' : undefined}
-                  className="box-border flex items-center justify-center rounded-full border-2 text-xs font-bold text-forest"
+                  className="box-border flex items-center justify-center rounded-full border-2 text-xs font-bold text-ink"
                   style={{
                     width: current ? 28 : 24,
                     height: current ? 28 : 24,
                     marginTop: current ? 0 : 2,
-                    background: done ? '#3DBE8B' : '#FFFFFF',
-                    borderColor: done || current ? '#3DBE8B' : '#E3D6C8',
-                    boxShadow: current ? '0 0 0 4px #D6F5E6' : 'none',
+                    background: done ? 'var(--gradient-bloom)' : '#FFFFFF',
+                    borderColor: done ? 'transparent' : current ? '#8B7BFF' : '#E2DAF0',
+                    boxShadow: current ? '0 0 0 4px #ECE7FF' : 'none',
                   }}
                 >
                   {done ? '✓' : ''}
@@ -63,9 +63,9 @@ export function HeroCard({ progress, name }) {
 }
 
 const CIRCLE = {
-  active: { bg: '#FFFFFF', bd: '#3DBE8B', fg: '#0F3D2E' },
-  done: { bg: '#3DBE8B', bd: '#3DBE8B', fg: '#0F3D2E' },
-  locked: { bg: '#F1ECE6', bd: '#F1ECE6', fg: '#A1948D' },
+  active: { bg: '#FFFFFF', bd: '#8B7BFF', fg: '#0F2A3A' },
+  done: { bg: 'var(--gradient-bloom)', bd: 'transparent', fg: '#0F2A3A' },
+  locked: { bg: '#F1EDF7', bd: '#F1EDF7', fg: '#A1948D' },
 };
 
 function Step({ n, state, vine, title, extra, children }) {
@@ -154,7 +154,7 @@ export function StepsCard({ progress, events, onPickDoc }) {
         )}
       </Step>
 
-      <Step n={2} state={submitted ? 'done' : both ? 'active' : 'locked'} vine={submitted ? '#9EDDC2' : '#E3D6C8'} title="ยื่นสมัครฝึกงาน">
+      <Step n={2} state={submitted ? 'done' : both ? 'active' : 'locked'} vine={submitted ? '#9EDDC2' : '#E2DAF0'} title="ยื่นสมัครฝึกงาน">
         {submitted ? (
           <DoneRow title="ยื่นแล้ว" time={at('APPLICATIONS_SUBMITTED')} leaf="#FFD66B" />
         ) : both ? (

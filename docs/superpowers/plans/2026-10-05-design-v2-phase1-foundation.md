@@ -27,6 +27,7 @@
 | 9 | Haptics and sound in toasts, errors and Profile | ✅ |
 | 10 | Mock API harness for visual checks | ✅ |
 | 11 | Docs, version 1.1.0 | ✅ |
+| 12a | Colour: Candy bloom base, Night garden login + loading (your choice 2026-10-05) | 🟨 built; waiting for your approval |
 | 12 | Visual check (user approval) | 🟨 walked 2026-10-05; waiting for your approval |
 | 13 | Ship phase 1 (user confirms deploy) | ⬜ |
 
@@ -1716,6 +1717,25 @@ they approve.
 > **Result (2026-10-05):** all rows reached at 390×844 with the mocked API (no database access). Measured: sheet follows a 150 px drag 1:1 with the backdrop at 0.69, closes on release; a 60 px drag springs back to the same top; ยกเลิก/Escape slide out (sheet still present 120 ms after the tap); tab and detail navigations set data-nav forward/back; reduced motion: sheet already in place at 60 ms, Escape closes instantly, navigation uses fade, skeleton animation none; desktop 1280: sheet and tab bar at x 425, width 430. Console: only the intended offline failures and Motion's reduced-motion dev notice. The harness offline mode now keeps /api/auth/me working so pages show their own error state. Screenshots: .playwright-mcp/p1-*.png (git-ignored).
 
 ---
+
+### Task 12a: Colour direction (added after the first visual check)
+
+After seeing three previews (`.playwright-mcp/theme-*.png`), the user chose **Candy bloom** as the base
+for every screen and **Night garden** for the login page and the loading screen.
+
+- [x] Tokens: `--gradient-bloom` (mint #3DBE8B → teal #4FD1C5 → violet #9B8CFF), ink #0F2A3A for text on
+  the gradient (≥ 5:1 on every stop), canvas #EEE9F6, `.bg-bloom` utility.
+- [x] Surfaces: `.app-surface` becomes the pastel mesh (mint, lilac, pink, lemon); cards white at 78%
+  with a lilac ring and 26px corners (no backdrop blur on cards, for cheap phones); glass bars white at 60%.
+- [x] Gradient on: primary button, selected chips, active tab, FAB, sound switch, filter badges, loader bar,
+  progress-strip dots and step circles (done state). Advisor tile selection ring becomes violet.
+- [x] Page title: gradient text with darker stops (#1B8A62 → #2A87A6 → #6A4BEA) so it keeps 3:1 as large text.
+- [x] `.night-surface`: deep forest gradient with mint and violet glow and a few stars. Used by the boot
+  splash and the login page (light text, glowing sprout circle, error-state glow in coral).
+- [x] Build, tests, then re-run the walkthroughs and add login screenshots; show the user.
+- [x] Also: shared neutrals (cream, line, dash, sand) moved from warm beige to lilac-grey so cards match the mesh.
+
+> Screenshots: .playwright-mcp/c-*.png (login, splash, home, sheet, directory, company form, profile, advisor).
 
 ### Task 13: Ship phase 1 (ask the user first)
 

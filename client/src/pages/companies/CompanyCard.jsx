@@ -16,7 +16,7 @@ export default function CompanyCard({ company, editable, onEdit, onDelete, delay
         <div className="min-w-0 flex-1">
           <h3 className="text-base leading-[1.35] font-semibold">{company.name}</h3>
           <p className="mt-0.5 text-[13px] leading-[1.45] text-muted">{company.business_type}</p>
-          <Pill small bg="#F1ECE6" fg="#6B5A50" className="mt-1.5">{SOURCE_LABEL[company.source_type]}</Pill>
+          <Pill small bg="#F1EDF7" fg="#6B5A50" className="mt-1.5">{SOURCE_LABEL[company.source_type]}</Pill>
         </div>
         <Pill small bg={mode.bg} fg={mode.fg} className="flex-none">{mode.label}</Pill>
       </div>

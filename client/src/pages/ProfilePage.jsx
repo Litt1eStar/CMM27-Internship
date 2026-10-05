@@ -23,7 +23,7 @@ function SoundToggle() {
       className="card press flex h-14 items-center gap-3 px-4 text-left text-base font-semibold">
       <SoundIcon />
       <span className="flex-1">เสียงเอฟเฟกต์</span>
-      <span className={`relative h-7 w-12 flex-none rounded-full transition-colors ${on ? 'bg-leaf' : 'bg-line'}`}>
+      <span className={`relative h-7 w-12 flex-none rounded-full transition-colors ${on ? 'bg-bloom' : 'bg-line'}`}>
         <span className="absolute top-0.5 size-6 rounded-full bg-white shadow-[0_1px_3px_rgba(59,47,47,.25)] transition-[left] duration-500 [transition-timing-function:var(--ease-spring)]"
           style={{ left: on ? 22 : 2 }} />
       </span>

@@ -35,7 +35,7 @@ export default function ActionSheet({ action, progress, onClose, onDone }) {
   return (
     <Sheet open onClose={busy ? undefined : onClose} label={TITLE[action]}>
       <div className="flex flex-col items-center text-center">
-        <div className="flex size-[108px] items-center justify-center rounded-full" style={{ background: confirm ? '#D6F5E6' : '#FFF8F0' }}>
+        <div className="flex size-[108px] items-center justify-center rounded-full" style={{ background: confirm ? '#D6F5E6' : '#F8F5FF' }}>
           <Sprout stage={stageFor(progressAfter(progress, action))} size={92} />
         </div>
         <h2 className="title-sheet mt-[14px]">{TITLE[action]}</h2>

@@ -31,8 +31,8 @@ export default function SeedLoader({ size = 96 }) {
           </m.div>
         </AnimatePresence>
       </div>
-      <div className="h-1 w-16 overflow-hidden rounded-full bg-line-soft">
-        <div className="loader-bar h-full w-1/2 rounded-full bg-leaf" />
+      <div className="h-1 w-16 overflow-hidden rounded-full bg-[rgba(155,140,255,.22)]">
+        <div className="loader-bar h-full w-1/2 rounded-full bg-bloom" />
       </div>
     </div>
   );
