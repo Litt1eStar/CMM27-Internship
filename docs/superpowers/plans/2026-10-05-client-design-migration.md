@@ -35,7 +35,7 @@ Owner: **Claude** = agent · **You** = needs your confirmation, accounts or eyes
 | 12 | B. Foundation | App frame, tab bar, auth state, routes | Claude | 11 | ✅ |
 | 13 | C. Screens | 1a/1b Login | Claude | 12 | ✅ |
 | 14 | C. Screens | 2a–2c Verify student ID | Claude | 12 | ✅ |
-| 15 | C. Screens | 3a–3c Student home | Claude | 12 | ⬜ |
+| 15 | C. Screens | 3a–3c Student home | Claude | 12 | ✅ |
 | 16 | C. Screens | 3d/3e action sheets, toast, 3f celebration | Claude | 15 | ⬜ |
 | 17 | C. Screens | 4a/4c/4f Directory + company card | Claude | 12 | ⬜ |
 | 18 | C. Screens | 4b filter sheet, 4d add/edit sheet, delete sheet | Claude | 17 | ⬜ |
@@ -2703,7 +2703,7 @@ Source: `StudentHome.dc.html` (the full card markup) plus the main file's 3c sti
 - Create: `client/src/pages/student/ProgressParts.jsx`
 - Rewrite: `client/src/pages/student/StudentHomePage.jsx`
 
-- [ ] **Step 1: Write `client/src/pages/student/ProgressParts.jsx`**
+- [x] **Step 1: Write `client/src/pages/student/ProgressParts.jsx`**
 
 ```jsx
 import Sprout from '../../components/Sprout';
@@ -2929,7 +2929,7 @@ export function StickyActionBar({ hint, label, icon, onClick }) {
 }
 ```
 
-- [ ] **Step 2: Replace `client/src/pages/student/StudentHomePage.jsx`** (sheets, toast and celebration are added in Task 16)
+- [x] **Step 2: Replace `client/src/pages/student/StudentHomePage.jsx`** (sheets, toast and celebration are added in Task 16)
 
 ```jsx
 import { useCallback, useEffect, useState } from 'react';
@@ -3006,9 +3006,9 @@ export default function StudentHomePage() {
 }
 ```
 
-- [ ] **Step 3: Build:** `npm run build` → `✓ built`.
+- [x] **Step 3: Build:** `npm run build` → `✓ built`.
 
-- [ ] **Step 4: Commit:** `git add client/src/pages/student && git commit -m "feat(client): student home — hero, steps, history, sticky bar (3a–3c)"`
+- [x] **Step 4: Commit:** `git add client/src/pages/student && git commit -m "feat(client): student home — hero, steps, history, sticky bar (3a–3c)"`
 
 ---
 
