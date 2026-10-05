@@ -28,7 +28,7 @@ Owner: **Claude** = agent · **You** = needs your confirmation, accounts or eyes
 | 5 | A. Backend | README: rules, API reference, setup | Claude | 3 | ✅ |
 | 6 | B. Foundation | Tooling: Vitest, version, same-origin `/api`, PKCE | Claude | — | ✅ |
 | 7 | B. Foundation | Design tokens, Kanit, base CSS | Claude | 6 | ✅ |
-| 8 | B. Foundation | Logic: status, dates, initials, colours | Claude | 6 | ⬜ |
+| 8 | B. Foundation | Logic: status, dates, initials, colours | Claude | 6 | ✅ |
 | 9 | B. Foundation | Logic: timeline/history, companies, roster queries | Claude | 8 | ⬜ |
 | 10 | B. Foundation | Sprout mascot + motion engine | Claude | 7 | ⬜ |
 | 11 | B. Foundation | Shared UI: icons, sheet, toast, banner, FAB, chips, ID field, count-up | Claude | 10 | ⬜ |
@@ -1300,7 +1300,7 @@ All values come from the design files' inline styles.
 - Create: `client/src/lib/status.js`, `client/src/lib/status.test.js`
 - Create: `client/src/lib/format.js`, `client/src/lib/format.test.js`
 
-- [ ] **Step 1: Write `client/src/lib/status.test.js`**
+- [x] **Step 1: Write `client/src/lib/status.test.js`**
 
 ```js
 import { describe, expect, test } from 'vitest';
@@ -1345,7 +1345,7 @@ test('ready = both documents, not yet submitted', () => {
 });
 ```
 
-- [ ] **Step 2: Write `client/src/lib/format.test.js`**
+- [x] **Step 2: Write `client/src/lib/format.test.js`**
 
 ```js
 import { expect, test } from 'vitest';
@@ -1376,9 +1376,9 @@ test('avatar colours are stable and from the design palette', () => {
 });
 ```
 
-- [ ] **Step 3: Run, expect failure:** `cd client && npm test` → fails with `Failed to resolve import "./status"`.
+- [x] **Step 3: Run, expect failure:** `cd client && npm test` → fails with `Failed to resolve import "./status"`.
 
-- [ ] **Step 4: Write `client/src/lib/status.js`**
+- [x] **Step 4: Write `client/src/lib/status.js`**
 
 ```js
 // Status palette and plant stages, from the design's ST / stages tables.
@@ -1444,7 +1444,7 @@ export function statusPill(p) {
 }
 ```
 
-- [ ] **Step 5: Write `client/src/lib/format.js`**
+- [x] **Step 5: Write `client/src/lib/format.js`**
 
 ```js
 const DATETIME = new Intl.DateTimeFormat('th-TH', {
@@ -1504,9 +1504,9 @@ export function avatarColors(key) {
 }
 ```
 
-- [ ] **Step 6: Run:** `npm test` → all pass.
+- [x] **Step 6: Run:** `npm test` → all pass.
 
-- [ ] **Step 7: Commit:** `git add client/src/lib/status.* client/src/lib/format.* && git commit -m "feat(client): status stages, Thai dates, initials, avatar colours"`
+- [x] **Step 7: Commit:** `git add client/src/lib/status.* client/src/lib/format.* && git commit -m "feat(client): status stages, Thai dates, initials, avatar colours"`
 
 ---
 
