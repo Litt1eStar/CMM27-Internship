@@ -37,7 +37,7 @@ Owner: **Claude** = agent · **You** = needs your confirmation, accounts or eyes
 | 14 | C. Screens | 2a–2c Verify student ID | Claude | 12 | ✅ |
 | 15 | C. Screens | 3a–3c Student home | Claude | 12 | ✅ |
 | 16 | C. Screens | 3d/3e action sheets, toast, 3f celebration | Claude | 15 | ✅ |
-| 17 | C. Screens | 4a/4c/4f Directory + company card | Claude | 12 | ⬜ |
+| 17 | C. Screens | 4a/4c/4f Directory + company card | Claude | 12 | ✅ |
 | 18 | C. Screens | 4b filter sheet, 4d add/edit sheet, delete sheet | Claude | 17 | ⬜ |
 | 19 | C. Screens | 5a–5c Advisor home + filter sheet | Claude | 12 | ⬜ |
 | 20 | C. Screens | 5e add student, 5d student detail, unlink sheet | Claude | 19 | ⬜ |
@@ -3255,7 +3255,7 @@ Source: `Directory.dc.html` + 4a/4c/4f in the main file. Students only (Q4). **E
 - Create: `client/src/pages/companies/CompanyCard.jsx`
 - Rewrite: `client/src/pages/companies/DirectoryPage.jsx` (sheets are wired in Task 18)
 
-- [ ] **Step 1: Write `client/src/pages/companies/CompanyCard.jsx`**
+- [x] **Step 1: Write `client/src/pages/companies/CompanyCard.jsx`**
 
 ```jsx
 import { EditIcon, GlobeIcon, TrashIcon } from '../../components/Icons';
@@ -3310,7 +3310,7 @@ export default function CompanyCard({ company, editable, onEdit, onDelete, delay
 }
 ```
 
-- [ ] **Step 2: Replace `client/src/pages/companies/DirectoryPage.jsx`**
+- [x] **Step 2: Replace `client/src/pages/companies/DirectoryPage.jsx`**
 
 ```jsx
 import { useCallback, useEffect, useState } from 'react';
@@ -3458,9 +3458,9 @@ export default function DirectoryPage() {
 }
 ```
 
-- [ ] **Step 3: Build:** `npm run build` → `✓ built`.
+- [x] **Step 3: Build:** `npm run build` → `✓ built`.
 
-- [ ] **Step 4: Commit:** `git add client/src/pages/companies && git commit -m "feat(client): company directory and card (4a/4c/4f)"`
+- [x] **Step 4: Commit:** `git add client/src/pages/companies && git commit -m "feat(client): company directory and card (4a/4c/4f)"`
 
 ---
 
