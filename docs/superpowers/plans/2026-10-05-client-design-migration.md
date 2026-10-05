@@ -41,7 +41,7 @@ Owner: **Claude** = agent · **You** = needs your confirmation, accounts or eyes
 | 18 | C. Screens | 4b filter sheet, 4d add/edit sheet, delete sheet | Claude | 17 | ✅ |
 | 19 | C. Screens | 5a–5c Advisor home + filter sheet | Claude | 12 | ✅ |
 | 20 | C. Screens | 5e add student, 5d student detail, unlink sheet | Claude | 19 | ✅ |
-| 21 | C. Screens | 6a/6b Profile | Claude | 12 | ⬜ |
+| 21 | C. Screens | 6a/6b Profile | Claude | 12 | ✅ |
 | 22 | D. Finish | Remove the old client, build, tests | Claude | 13–21 | ⬜ |
 | 23 | D. Finish | Visual check against the design, 390×844 and desktop | Claude + You | 22 | ⬜ |
 | 24 | D. Finish | Update CLAUDE.md and the launch plan | Claude | 23 | ⬜ |
@@ -52,7 +52,7 @@ Owner: **Claude** = agent · **You** = needs your confirmation, accounts or eyes
 |---|---|---|
 | M1 Backend matches design | Tasks 1–5 ✅: migration applied, rule tests and smoke test pass | ✅ |
 | M2 Foundation ready | Tasks 6–12 ✅: logic tests green, app shell renders with tab bar | ✅ |
-| M3 Screens built | Tasks 13–21 ✅ | ⬜ |
+| M3 Screens built | Tasks 13–21 ✅ | ✅ |
 | M4 Design verified | Tasks 22–24 ✅: you've approved the visual check | ⬜ |
 
 ---
@@ -4350,7 +4350,7 @@ export default function StudentDetailPage() {
 **Files:**
 - Rewrite: `client/src/pages/ProfilePage.jsx`
 
-- [ ] **Step 1: Replace `client/src/pages/ProfilePage.jsx`**
+- [x] **Step 1: Replace `client/src/pages/ProfilePage.jsx`**
 
 ```jsx
 import { useEffect, useState } from 'react';
@@ -4434,9 +4434,9 @@ export default function ProfilePage() {
 }
 ```
 
-- [ ] **Step 2: Build:** `npm run build` → `✓ built`.
+- [x] **Step 2: Build:** `npm run build` → `✓ built`.
 
-- [ ] **Step 3: Commit:** `git add client/src/pages/ProfilePage.jsx && git commit -m "feat(client): profile screen (6a/6b)"`
+- [x] **Step 3: Commit:** `git add client/src/pages/ProfilePage.jsx && git commit -m "feat(client): profile screen (6a/6b)"`
 
 ---
 
