@@ -17,6 +17,7 @@ data rules or Thai copy (except the new microcopy listed below).
 | Focus screens | Company directory (where students spend most time); student home and progress; first impression (login, link ID, loading/empty states, page transitions). |
 | Reach | Foundation polish (tokens, buttons, sheets, transitions, loader, skeletons) applies app-wide, advisors included. Advisor screens get no new scenes. |
 | Senses | Haptics (Android, `navigator.vibrate`) + optional sound, off by default, toggle on Profile. |
+| Info source in the form | Removed from the add/edit company form (2026-10-05). New companies are saved as CLASSMATE; an edit keeps the existing value. Cards and the filter still show the source. This replaces v1 decision Q3 for the form only. |
 | Out of scope | Celebration screen redesign, advisor dashboard scenes. Directory features needing server work (bookmarks, "I applied here", showing who added a company). |
 
 ## 1. Foundation (app-wide)

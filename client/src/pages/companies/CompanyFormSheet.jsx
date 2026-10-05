@@ -3,7 +3,7 @@ import Sheet, { SheetCloseButton } from '../../components/Sheet';
 import { ChevronDownIcon, CloseIcon } from '../../components/Icons';
 import { Chip, ErrorBanner } from '../../components/ui';
 import { api } from '../../lib/api';
-import { MODES, SOURCES, displayUrl, toUrl } from '../../lib/companies';
+import { MODES, displayUrl, toUrl } from '../../lib/companies';
 import { errorText } from '../../lib/errors';
 
 function Field({ label, required, optional, error, gap = 'gap-1.5', children }) {
@@ -31,7 +31,9 @@ export default function CompanyFormSheet({ company, types, onClose, onSaved }) {
     business_type_id: company ? String(company.business_type_id) : '',
     url: company?.url ? displayUrl(company.url) : '',
     work_mode: company?.work_mode ?? 'ONSITE',
-    source_type: company?.source_type ?? 'SENIOR',
+    // The form no longer asks where the info came from: new companies are from classmates,
+    // and an edit keeps whatever the company already has.
+    source_type: company?.source_type ?? 'CLASSMATE',
     note: company?.note ?? '',
   }));
   const [nameError, setNameError] = useState(null);
@@ -95,14 +97,6 @@ export default function CompanyFormSheet({ company, types, onClose, onSaved }) {
             {MODES.map((m) => (
               <Chip key={m.value} className="px-4" selected={form.work_mode === m.value}
                 onClick={() => setForm((f) => ({ ...f, work_mode: m.value }))}>{m.label}</Chip>
-            ))}
-          </div>
-        </Field>
-        <Field label="ข้อมูลจาก" required gap="gap-2">
-          <div className="flex flex-wrap gap-2">
-            {SOURCES.map((s) => (
-              <Chip key={s.value} selected={form.source_type === s.value}
-                onClick={() => setForm((f) => ({ ...f, source_type: s.value }))}>{s.label}</Chip>
             ))}
           </div>
         </Field>
