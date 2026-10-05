@@ -252,3 +252,16 @@ the link-student page and the celebration all use the Candy bloom background; Ni
   the Thai-UI convention). The page title is centred.
 - Sound volume raised from 45% to 75% (the user found it too quiet).
 
+## Background music (added 2026-10-05)
+
+- Track: `client/src/assets/bgm/chillrightsmusic-cat-bag-382798.mp3`, supplied by the user (4 MB, ~2 min).
+  The user is responsible for its licence. It is a separate hashed asset, streamed with `preload=none`
+  only once music actually plays.
+- On by default for students and advisors; starts on the first tap or key press (browsers block sound
+  before that), fades in over 1.5 s, pauses while the app is hidden. Volume 35% through a Web Audio gain
+  node (iPhone ignores `audio.volume`).
+- Controls: a round music button at the top-right of every signed-in page, and a "เพลงพื้นหลัง" switch on
+  Profile. Same per-device setting (`cmm.music` in localStorage, in-memory fallback when storage is blocked).
+- Code: `lib/music.js` (tested core `createMusic`), `components/MusicButton.jsx`, `lib/storage.js`.
+- New microcopy: "เพลงพื้นหลัง", "เปิดเพลงพื้นหลัง", "ปิดเพลงพื้นหลัง".
+

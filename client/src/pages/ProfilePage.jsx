@@ -1,14 +1,30 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useSyncExternalStore } from 'react';
 import Sprout from '../components/Sprout';
-import { LogoutIcon, SoundIcon } from '../components/Icons';
+import { LogoutIcon, MusicIcon, SoundIcon } from '../components/Icons';
 import { Pill } from '../components/ui';
 import { api } from '../lib/api';
 import { feedback } from '../lib/feedback';
+import { music } from '../lib/music';
 import { useAuth } from '../lib/auth';
 import { avatarColors, formatThaiDate, thaiInitial } from '../lib/format';
 import { stageFor, statusPill } from '../lib/status';
 
-/** "เสียงเอฟเฟกต์" switch. Off by default; remembered on this device. */
+/** A settings row with an on/off switch. */
+function SwitchRow({ icon, label, on, onToggle }) {
+  return (
+    <button type="button" role="switch" aria-checked={on} onClick={onToggle}
+      className="card press flex h-14 items-center gap-3 px-4 text-left text-base font-semibold">
+      {icon}
+      <span className="flex-1">{label}</span>
+      <span className={`relative h-7 w-12 flex-none rounded-full transition-colors ${on ? 'bg-bloom' : 'bg-line'}`}>
+        <span className="absolute top-0.5 size-6 rounded-full bg-white shadow-[0_1px_3px_rgba(59,47,47,.25)] transition-[left] duration-500 [transition-timing-function:var(--ease-spring)]"
+          style={{ left: on ? 22 : 2 }} />
+      </span>
+    </button>
+  );
+}
+
+/** "เสียงเอฟเฟกต์": off by default; remembered on this device. */
 function SoundToggle() {
   const [on, setOn] = useState(() => feedback.soundEnabled());
   const toggle = () => {
@@ -18,17 +34,17 @@ function SoundToggle() {
     feedback.haptic('tick');
     if (next) feedback.sound('tick');
   };
-  return (
-    <button type="button" role="switch" aria-checked={on} onClick={toggle}
-      className="card press flex h-14 items-center gap-3 px-4 text-left text-base font-semibold">
-      <SoundIcon />
-      <span className="flex-1">เสียงเอฟเฟกต์</span>
-      <span className={`relative h-7 w-12 flex-none rounded-full transition-colors ${on ? 'bg-bloom' : 'bg-line'}`}>
-        <span className="absolute top-0.5 size-6 rounded-full bg-white shadow-[0_1px_3px_rgba(59,47,47,.25)] transition-[left] duration-500 [transition-timing-function:var(--ease-spring)]"
-          style={{ left: on ? 22 : 2 }} />
-      </span>
-    </button>
-  );
+  return <SwitchRow icon={<SoundIcon />} label="เสียงเอฟเฟกต์" on={on} onToggle={toggle} />;
+}
+
+/** "เพลงพื้นหลัง": on by default; the same setting as the corner music button. */
+function MusicToggle() {
+  const on = useSyncExternalStore(music.subscribe, music.enabled);
+  const toggle = () => {
+    music.setEnabled(!on);
+    feedback.haptic('tick');
+  };
+  return <SwitchRow icon={<MusicIcon color="#3B2F2F" size={22} />} label="เพลงพื้นหลัง" on={on} onToggle={toggle} />;
 }
 
 export default function ProfilePage() {
@@ -88,6 +104,7 @@ export default function ProfilePage() {
             </div>
           </div>
         )}
+        <MusicToggle />
         <SoundToggle />
         <button type="button" onClick={signOut} className="card flex h-14 items-center gap-3 px-4 text-left text-base font-semibold text-danger">
           <LogoutIcon />

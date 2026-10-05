@@ -3,6 +3,7 @@
 import pop from '../assets/sfx/pop.wav';
 import chime from '../assets/sfx/chime.wav';
 import rustle from '../assets/sfx/rustle.wav';
+import { safeLocalStorage } from './storage';
 
 const KEY = 'cmm.sound';
 const PATTERNS = { tick: 10, success: [14, 50, 22], error: [40, 60, 40] };
@@ -52,16 +53,8 @@ function playFile(kind) {
   audio.play().catch(() => {}); // autoplay rules or no output device: stay silent
 }
 
-function browserStorage() {
-  try {
-    return window.localStorage;
-  } catch {
-    return null;
-  }
-}
-
 export const feedback = createFeedback({
-  storage: typeof window === 'undefined' ? null : browserStorage(),
+  storage: safeLocalStorage(),
   vibrate: typeof navigator !== 'undefined' && navigator.vibrate ? (p) => navigator.vibrate(p) : null,
   play: playFile,
 });

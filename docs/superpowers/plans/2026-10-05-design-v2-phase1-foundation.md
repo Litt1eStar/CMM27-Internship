@@ -28,6 +28,7 @@
 | 10 | Mock API harness for visual checks | ✅ |
 | 11 | Docs, version 1.1.0 | ✅ |
 | 12a | Colour: Candy bloom on every page (your choice 2026-10-05) | 🟨 built; waiting for your approval |
+| 12b | Background music, Profile tab, white text on deeper gradient (your requests 2026-10-05) | 🟨 built; waiting for your approval |
 | 12 | Visual check (user approval) | 🟨 walked 2026-10-05; waiting for your approval |
 | 13 | Ship phase 1 (user confirms deploy) | ⬜ |
 
