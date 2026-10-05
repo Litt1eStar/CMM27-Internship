@@ -23,8 +23,8 @@ cmm-internship/
 |---|---|
 | Resume and Portfolio can be done in any order | `student_apply_action()` |
 | ยื่นแล้ว requires both Resume and Portfolio | UI lock, the SQL function, **and** the `users_submit_requires_docs` CHECK constraint |
-| ยืนยันที่ฝึกงาน requires a company from the catalog | SQL function + `users_confirmed_requires_company` CHECK constraint |
-| Forward-only (no going back) | `users_forward_only` trigger: flags can't be unticked, status can't drop, and the confirmed company can't change |
+| ยืนยันที่ฝึกงาน requires ยื่นแล้ว first | `student_apply_action()` |
+| Forward-only (no going back) | `users_forward_only` trigger: flags can't be unticked, status can't drop |
 | Every change is logged | `users_timeline` trigger writes to `status_timeline_logs` automatically |
 | The log is immutable | Triggers block UPDATE, DELETE and TRUNCATE on `status_timeline_logs` |
 | Browser can't touch data directly | RLS on with no policies, and grants revoked from `anon`/`authenticated`. Only the Express server (service-role key) can read or write. |
@@ -38,7 +38,7 @@ cmm-internship/
 ### 1. Supabase project
 
 1. Create a project at [supabase.com](https://supabase.com).
-2. Open **SQL Editor**, paste in `supabase/migrations/001_schema.sql`, and run it.
+2. Open **SQL Editor** and run each file in `supabase/migrations/` in order (`001_schema.sql`, then `002_confirm_without_company.sql`).
 3. Register each advisor with the email they will sign in with:
    ```sql
    insert into public.users (role, full_name, email)
@@ -131,15 +131,15 @@ All `/api` routes need `Authorization: Bearer <supabase access token>`. Errors a
 | GET | `/api/business-types` | all | The 12 JobDB business types |
 | GET | `/api/companies?q=&types=1,2&mode=ONSITE\|ONLINE\|HYBRID\|ALL&source=SENIOR\|CLASSMATE\|ALL` | all | Search and filter the directory |
 | GET | `/api/companies/:id` | all | One company |
-| POST | `/api/companies` | student | Add a company (`name, business_type_id, url, work_mode, source_type, note?`) |
+| POST | `/api/companies` | student | Add a company (`name, business_type_id, work_mode, source_type, url?, note?`) |
 | PATCH | `/api/companies/:id` | creator or advisor | Edit a company |
-| DELETE | `/api/companies/:id` | creator or advisor | Delete a company. Returns `409 COMPANY_IN_USE` if a student has confirmed it. |
+| DELETE | `/api/companies/:id` | creator or advisor | Delete a company. |
 
 ### Student progress
 | Method | Path | Description |
 |---|---|---|
-| GET | `/api/me/progress` | Flags, status, confirmed company |
-| POST | `/api/me/actions` | `{ action: COMPLETE_RESUME \| COMPLETE_PORTFOLIO \| SUBMIT \| CONFIRM, company_id? }` |
+| GET | `/api/me/progress` | Flags and status |
+| POST | `/api/me/actions` | `{ action: COMPLETE_RESUME \| COMPLETE_PORTFOLIO \| SUBMIT \| CONFIRM }` |
 | GET | `/api/me/timeline` | Your audit log |
 
 `POST /api/me/actions` can return these errors:
@@ -147,11 +147,9 @@ All `/api` routes need `Authorization: Bearer <supabase access token>`. Errors a
 | Code | Status | Meaning |
 |---|---|---|
 | `PREREQ_NOT_MET` | 422 | Resume and Portfolio aren't both done |
-| `COMPANY_REQUIRED` | 422 | Confirming without choosing a company |
 | `INVALID_TRANSITION` | 409 | Confirming before submitting |
 | `ALREADY_DONE` | 409 | That step is already complete |
 | `FORWARD_ONLY` | 409 | The change would move progress backward |
-| `COMPANY_NOT_FOUND` | 404 | The chosen company doesn't exist |
 
 ### Advisor
 | Method | Path | Description |
