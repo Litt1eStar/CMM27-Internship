@@ -9,23 +9,58 @@
  */
 import { readFile, writeFile } from 'node:fs/promises';
 import { parseFormCsv } from './parse-form.js';
+import { parseRosterCsv } from './parse-roster.js';
 
 const args = process.argv.slice(2);
+const rosterIdx = args.indexOf('--roster');
+let rosterFile = null;
+if (rosterIdx !== -1 && args[rosterIdx + 1]) {
+  rosterFile = args[rosterIdx + 1];
+  args.splice(rosterIdx, 2);
+}
+
 const file = args.find((a) => !a.startsWith('--'));
 const commit = args.includes('--commit');
 
 if (!file) {
-  console.error('Usage: npm run import -- <file.csv> [--commit]');
+  console.error('Usage: npm run import -- <file.csv> [--roster <roster.csv>] [--commit]');
   process.exit(1);
 }
 
 const text = await readFile(file, 'utf8');
-const result = parseFormCsv(text, {
+let result = parseFormCsv(text, {
   studentEmailDomain: process.env.STUDENT_EMAIL_DOMAIN || 'mail.kmutt.ac.th',
 });
 
+if (rosterFile) {
+  const rosterText = await readFile(rosterFile, 'utf8');
+  const roster = parseRosterCsv(rosterText);
+  const respMap = new Map(result.rows.map((r) => [r.student_id, r]));
+
+  const mergedRows = roster.rows.map((student) => {
+    const resp = respMap.get(student.student_id);
+    return {
+      ...student,
+      resume: resp?.resume || false,
+      portfolio: resp?.portfolio || false,
+      submitted: resp?.submitted || false,
+      email: student.email || resp?.email || null,
+    };
+  });
+
+  // Also include any survey responses not present in the roster file
+  const rosterIds = new Set(roster.rows.map((r) => r.student_id));
+  for (const resp of result.rows) {
+    if (!rosterIds.has(resp.student_id)) mergedRows.push(resp);
+  }
+
+  console.log(`Enriched with roster (${roster.rows.length} students)`);
+  result.rows = mergedRows;
+}
+
 const count = (pred) => result.rows.filter(pred).length;
 console.log(`\nRead ${result.totalRecords} responses -> ${result.rows.length} unique students`);
+
 console.log('Columns used:', result.columns);
 console.log(`  Resume done:     ${count((r) => r.resume)}`);
 console.log(`  Portfolio done:  ${count((r) => r.portfolio)}`);

@@ -1,9 +1,5 @@
 name: CI / Deploy
 
-# Server-only for now. When the client is ready (plan Tasks 11–12), add:
-# client build in `test`, the web image build, and the copy/deploy/smoke
-# steps from DEPLOYMENT_GUIDE.md §7.
-
 on:
   push:
     branches: [main]
@@ -12,6 +8,9 @@ on:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: false
+
+env:
+  APP_DOMAIN: cmm27.cmm.works
 
 jobs:
   test:
@@ -27,8 +26,14 @@ jobs:
         run: |
           npm ci
           npm test
+      - name: Client build
+        working-directory: client
+        run: |
+          npm ci
+          npm test
+          npm run build
 
-  build-api:
+  deploy:
     needs: test
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
@@ -58,3 +63,43 @@ jobs:
           tags: |
             ghcr.io/${{ env.OWNER }}/cmm27-api:latest
             ghcr.io/${{ env.OWNER }}/cmm27-api:${{ github.sha }}
+
+      - name: Build and push web image
+        uses: docker/build-push-action@v6
+        with:
+          context: client
+          push: true
+          build-args: |
+            VITE_SUPABASE_URL=${{ secrets.VITE_SUPABASE_URL }}
+            VITE_SUPABASE_ANON_KEY=${{ secrets.VITE_SUPABASE_ANON_KEY }}
+          labels: org.opencontainers.image.source=https://github.com/${{ github.repository }}
+          tags: |
+            ghcr.io/${{ env.OWNER }}/cmm27-web:latest
+            ghcr.io/${{ env.OWNER }}/cmm27-web:${{ github.sha }}
+
+      - name: Copy compose file to droplet
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.DROPLET_HOST }}
+          username: ${{ secrets.DROPLET_USER }}
+          key: ${{ secrets.DROPLET_SSH_KEY }}
+          source: "infra/docker-compose.yml"
+          target: "/opt/cmm27/"
+          strip_components: 1
+
+      - name: Deploy over SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.DROPLET_HOST }}
+          username: ${{ secrets.DROPLET_USER }}
+          key: ${{ secrets.DROPLET_SSH_KEY }}
+          script: |
+            cd /opt/cmm27
+            docker compose pull
+            docker compose up -d --remove-orphans
+            docker image prune -f
+
+      - name: Smoke check
+        run: |
+          # Retries cover a first boot while Caddy is still getting the certificate.
+          curl -fsS --retry 10 --retry-delay 5 --retry-all-errors "https://${APP_DOMAIN}/api/health"
