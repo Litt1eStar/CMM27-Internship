@@ -223,5 +223,7 @@ holding an unplugged cord, existing "ลองใหม่" button.
 - Reduced motion is read with Motion's `useReducedMotion()` and CSS media queries, not in `feedback.js`.
 - Motion is used through `LazyMotion` + `m` components (features in `lib/motionFeatures.js`, loaded
   after first render). Components must import `m` from `motion/react-m`; `motion.div` throws in strict mode.
-  Size: +27 KB gzipped in the first download, +19 KB in the lazy chunk (46 KB of the 60 KB budget).
+  Size after phase 1: first download 171 KB gzipped (was 136 KB, +35 KB) plus a 19 KB lazy chunk, so 54 KB
+  of the 60 KB budget is used. Phases 2–4 must stay within the remaining ~6 KB or the budget is revisited
+  with the user.
 - New microcopy: "กำลังโหลด…" (screen-reader label for loaders and skeletons).
