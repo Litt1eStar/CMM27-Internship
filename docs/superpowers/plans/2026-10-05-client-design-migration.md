@@ -44,7 +44,7 @@ Owner: **Claude** = agent · **You** = needs your confirmation, accounts or eyes
 | 21 | C. Screens | 6a/6b Profile | Claude | 12 | ✅ |
 | 22 | D. Finish | Remove the old client, build, tests | Claude | 13–21 | ✅ |
 | 23 | D. Finish | Visual check against the design, 390×844 and desktop | Claude + You | 22 | 🟨 all screens walked 2026-10-05; waiting for your approval |
-| 24 | D. Finish | Update CLAUDE.md and the launch plan | Claude | 23 | ⬜ |
+| 24 | D. Finish | Update CLAUDE.md and the launch plan | Claude | 23 | ✅ |
 
 **Milestones**
 
@@ -4509,17 +4509,17 @@ Then resize to 1280×800 and confirm the centred 430px column, the `#EDE4D9` can
 **Files:**
 - Modify: `CLAUDE.md`, `docs/superpowers/plans/2026-10-04-cmm-internship-launch.md`, this plan
 
-- [ ] **Step 1: `CLAUDE.md`.**
+- [x] **Step 1: `CLAUDE.md`.**
   - Replace `` `ERROR_MESSAGE` in `client/src/lib/constants.js` `` with `` `MESSAGES` in `client/src/lib/errors.js` ``.
   - Add `cd client && npm test        # Vitest logic tests` and `cd server && npm run smoke       # writes test data: ask first` under Commands.
   - Under Current plan, add: "Client UI follows `docs/design/cmm-internship-tracker-mobile/` (see `docs/superpowers/plans/2026-10-05-client-design-migration.md` for the decisions and extrapolated states)."
 
-- [ ] **Step 2: Launch plan.**
+- [x] **Step 2: Launch plan.**
   - Set Task 2 and Task 9 to ✅ with the note "client half done in the design migration plan".
   - In its Task 12 workflow, add a `npm test` line to the "Client build" step before `npm run build`.
   - In its Task 13, add: "the database already has migration 002".
 
-- [ ] **Step 3: This plan:** set every task and milestone to ✅.
+- [x] **Step 3: This plan:** set every task and milestone to ✅.
 
-- [ ] **Step 4: Commit:** `git add CLAUDE.md docs/superpowers/plans && git commit -m "docs: record the design migration in CLAUDE.md and the launch plan"`
+- [x] **Step 4: Commit:** `git add CLAUDE.md docs/superpowers/plans && git commit -m "docs: record the design migration in CLAUDE.md and the launch plan"`
 

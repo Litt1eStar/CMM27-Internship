@@ -20,14 +20,14 @@ Owner: **Claude** = can be done by the agent · **You** = needs your accounts or
 | # | Phase | Task | Owner | Needs | Status |
 |---|---|---|---|---|---|
 | 1 | A. Foundation | Put the project under git | Claude | — | ✅ |
-| 2 | A. Foundation | Install dependencies; prove both apps build | Claude | 1 | 🟨 server ✅, client build waits for mockups |
+| 2 | A. Foundation | Install dependencies; prove both apps build | Claude | 1 | ✅ (client half done in the design migration plan) |
 | 3 | B. Tests | Test harness + CSV parser tests | Claude | 2 | ✅ |
 | 4 | B. Tests | DB-error → HTTP mapping tests | Claude | 3 | ✅ |
 | 5 | C. Database | Create the Supabase project, apply schema | You | 2 | ✅ |
 | 6 | C. Database | SQL test script for every business rule | Claude + You | 5 | ✅ |
 | 7 | C. Database | Verify browser keys can't touch data | Claude | 5 | ✅ |
 | 8 | D. Fixes | D1: don't auto-link rejected sign-ins | Claude | 4 | ✅ (live check in Task 10) |
-| 9 | D. Fixes | D4–D6: same-origin `/api`, PKCE, `/api/health` | Claude | 8 | 🟨 server ✅ (`/api/health`), client parts wait for mockups |
+| 9 | D. Fixes | D4–D6: same-origin `/api`, PKCE, `/api/health` | Claude | 8 | ✅ (client half done in the design migration plan) |
 | 10 | E. Local run | Google sign-in + local end-to-end smoke test | You | 7, 9 | ⬜ |
 | 11 | F. Containers | Dockerfiles + nginx (D2, D3); test images locally | Claude | 9 | 🟨 server image ✅ (built + run against the Supabase project); web image waits for mockups |
 | 12 | F. Containers | Droplet compose file + CI/deploy workflow | Claude | 11 | 🟨 compose file ✅, workflow = server tests + API image; web/deploy steps wait for client |
@@ -937,6 +937,7 @@ jobs:
         working-directory: client
         run: |
           npm ci
+          npm test
           npm run build
 
   deploy:
@@ -1035,6 +1036,8 @@ git commit -m "ci: test, build to GHCR and deploy cmm27 to the droplet"
 **Files:** none committed (`*.csv` and `import-report.json` are git-ignored because they contain student data). Uses `supabase/admin/reset_test_data.sql` (committed, tested).
 
 Do this once, after Task 10's testing and **before any real student signs in**: the reset deletes every student, company and timeline row, and real history can't be recovered.
+
+> The database already has migration 002 (applied 2026-10-05).
 
 - [ ] **Step 1: Clear test data (confirm with the user first).** In `supabase/admin/reset_test_data.sql`, change `'no'` to `'yes'` on the `set local app.confirm_reset` line, then run the file in the SQL Editor (or psql). Expected last result: `advisors_kept | 0 | 0 | 0`. **Don't commit the `'yes'`**: run `git checkout supabase/admin/reset_test_data.sql` afterwards.
 - [ ] **Step 2:** Remove any test advisors (advisors have no timeline rows, so they delete normally): `delete from public.users where role = 'ADVISOR' and email = '<test email>';`. Register the real advisors (README Setup 1.3).

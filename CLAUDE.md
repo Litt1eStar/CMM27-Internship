@@ -31,13 +31,19 @@ the plan along with the work.
 Deployment target: `https://cmm27.cmm.works` on the shared CMM droplet, following
 `DEPLOYMENT_GUIDE.md` (project slug `cmm27`, images under the user's personal GitHub account).
 
+Client UI follows the Claude Design bundle in `docs/design/cmm-internship-tracker-mobile/`. The decisions
+where the design and the system differed, and every extrapolated state, are recorded in
+`docs/superpowers/plans/2026-10-05-client-design-migration.md`. Match the design; ask before changing it.
+
 ## Commands
 
 ```bash
 cd server && npm run dev        # API on http://localhost:4000 (needs server/.env)
 cd server && npm test           # node:test unit tests
 cd server && npm run import -- ../responses.csv [--commit]   # dry run unless --commit
+cd server && npm run smoke      # end-to-end API check; WRITES test data: ask first
 cd client && npm run dev        # http://localhost:5173
+cd client && npm test           # Vitest logic tests
 cd client && npm run build
 ```
 
@@ -64,6 +70,6 @@ cd client && npm run build
 - ES modules everywhere (`"type": "module"`). Validate input with zod via `parse()`. Wrap handlers
   in `asyncHandler()`. Errors use the shape `{ error: { code, message, details } }`.
 - SQL raises errors as `"<CODE>: message"`. Add new codes to `DOMAIN_CODES` in
-  `server/src/lib/errors.js` and a Thai message to `ERROR_MESSAGE` in `client/src/lib/constants.js`.
+  `server/src/lib/errors.js` and a Thai message to `MESSAGES` in `client/src/lib/errors.js`.
 - UI text is Thai. Code, comments and commit messages are English.
 - Student IDs are exactly 11 digits. The student email domain is `mail.kmutt.ac.th`.
