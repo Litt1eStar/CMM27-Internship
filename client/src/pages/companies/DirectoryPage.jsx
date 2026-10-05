@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import Sprout from '../../components/Sprout';
+import { SkeletonCards } from '../../components/Skeleton';
 import { FilterIcon, SearchIcon, Sparkle } from '../../components/Icons';
 import { Chip, ErrorBanner, Fab } from '../../components/ui';
 import { api } from '../../lib/api';
@@ -115,7 +116,7 @@ export default function DirectoryPage() {
       {error && <div className="px-4 pb-3"><ErrorBanner>{error}</ErrorBanner></div>}
 
       {companies === null ? (
-        <div className="flex justify-center py-16"><Sprout stage="seed" size={64} /></div>
+        !error && <div className="px-4"><SkeletonCards count={4} height={132} /></div>
       ) : companies.length === 0 ? (
         <EmptyState filtered={filtered} onAdd={() => setSheet({ kind: 'form' })} />
       ) : (

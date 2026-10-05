@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import Sprout from '../../components/Sprout';
+import { Skeleton, SkeletonCards } from '../../components/Skeleton';
 import { FilterIcon, SearchIcon } from '../../components/Icons';
 import { CountUp, ErrorBanner, Fab } from '../../components/ui';
 import { api } from '../../lib/api';
@@ -148,6 +149,12 @@ export default function AdvisorHomePage() {
           </div>
         </>
       )}
+      {!metrics && !error && (
+        <div role="status" aria-label="กำลังโหลด…" className="grid grid-cols-2 gap-[10px] px-4 pt-[18px]">
+          {[0, 1, 2, 3].map((i) => <Skeleton key={i} className="h-[132px] rounded-[20px]" />)}
+          <Skeleton className="col-span-2 h-[92px] rounded-[20px]" />
+        </div>
+      )}
 
       <div className="glass sticky top-0 z-20 flex gap-2 px-4 pt-4 pb-3">
         <label className="box-border flex h-12 min-w-0 flex-1 items-center gap-2 rounded-[14px] border-[1.5px] border-line bg-white px-[14px] focus-within:border-2 focus-within:border-leaf focus-within:shadow-[0_0_0_4px_#D6F5E6]">
@@ -168,6 +175,7 @@ export default function AdvisorHomePage() {
         {rows && <span className="hint">{rows.length} คน</span>}
       </div>
       <div className="flex flex-col gap-[10px] px-4 pb-[120px]">
+        {rows === null && !error && <SkeletonCards count={4} height={108} />}
         {rows?.map((row, i) => (
           <StudentRow key={row.id} row={row} delay={200 + Math.min(i, 6) * 80} onClick={() => navigateWithTransition(navigate, `/students/${row.id}`)} />
         ))}

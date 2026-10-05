@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import Sprout from '../../components/Sprout';
+import SeedLoader from '../../components/SeedLoader';
 import { CheckIcon, SendIcon } from '../../components/Icons';
 import { ErrorBanner } from '../../components/ui';
 import { api } from '../../lib/api';
@@ -58,12 +59,14 @@ export default function StudentHomePage() {
   if (!progress) {
     return (
       <div className="flex flex-col items-center gap-4 px-4 py-24">
-        <Sprout stage="seed" mood={error ? 'worried' : 'happy'} size={72} />
-        {error && (
+        {error ? (
           <>
+            <Sprout stage="seed" mood="worried" size={72} />
             <ErrorBanner>{error}</ErrorBanner>
             <button type="button" className="btn btn-secondary" onClick={load}>ลองใหม่</button>
           </>
+        ) : (
+          <SeedLoader size={72} />
         )}
       </div>
     );

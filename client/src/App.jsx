@@ -1,7 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router';
 import { useAuth } from './lib/auth';
 import AppFrame from './components/AppFrame';
-import Sprout from './components/Sprout';
+import SeedLoader from './components/SeedLoader';
 import LoginPage from './pages/LoginPage';
 import LinkStudentPage from './pages/LinkStudentPage';
 import ProfilePage from './pages/ProfilePage';
@@ -10,11 +10,11 @@ import DirectoryPage from './pages/companies/DirectoryPage';
 import AdvisorHomePage from './pages/advisor/AdvisorHomePage';
 import StudentDetailPage from './pages/advisor/StudentDetailPage';
 
-// (extrapolated) loading screen: the seed on cream
+// Boot screen: the growing-seed loader on the app background.
 function Splash() {
   return (
-    <div className="mx-auto flex min-h-dvh max-w-[430px] items-center justify-center bg-cream">
-      <Sprout stage="seed" size={96} />
+    <div className="app-surface mx-auto flex min-h-dvh max-w-[430px] items-center justify-center">
+      <SeedLoader />
     </div>
   );
 }

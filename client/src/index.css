@@ -252,6 +252,15 @@
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
+  .skeleton {
+    border-radius: 8px;
+    background: linear-gradient(90deg, var(--color-sand) 0%, #faf5ef 50%, var(--color-sand) 100%);
+    background-size: 200% 100%;
+    animation: shimmer 1.4s linear infinite;
+  }
+  .loader-bar {
+    animation: loader-slide 1.1s ease-in-out infinite;
+  }
 }
 
 /* Page transitions (lib/transitions.js sets data-nav on <html> for the duration). */
@@ -310,11 +319,23 @@
 @keyframes vt-fade-in {
   from { opacity: 0; }
 }
+@keyframes shimmer {
+  from { background-position: 100% 0; }
+  to { background-position: -100% 0; }
+}
+@keyframes loader-slide {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(200%); }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .btn,
   .chip,
   .press {
     transition: none;
+  }
+  .skeleton,
+  .loader-bar {
+    animation: none;
   }
 }

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import Sheet, { SheetCloseButton } from '../../components/Sheet';
+import { Skeleton, SkeletonCards } from '../../components/Skeleton';
 import Sprout from '../../components/Sprout';
 import { BackIcon, LeafIcon } from '../../components/Icons';
 import { ErrorBanner, Pill } from '../../components/ui';
@@ -95,6 +96,19 @@ export default function StudentDetailPage() {
       </div>
 
       {error && <div className="px-4"><ErrorBanner>{error}</ErrorBanner></div>}
+
+      {!s && !error && (
+        <div className="flex flex-col gap-4 px-4 pt-1">
+          <div className="flex items-center gap-3 px-1">
+            <div className="flex flex-1 flex-col gap-2">
+              <Skeleton className="h-7 w-2/3" />
+              <Skeleton className="h-3 w-1/3" />
+            </div>
+            <Skeleton className="size-32 rounded-full" />
+          </div>
+          <SkeletonCards count={2} height={160} />
+        </div>
+      )}
 
       {s && (
         <div className="flex flex-col gap-4 px-4 pt-1 pb-12">
