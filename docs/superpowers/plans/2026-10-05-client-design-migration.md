@@ -39,7 +39,7 @@ Owner: **Claude** = agent · **You** = needs your confirmation, accounts or eyes
 | 16 | C. Screens | 3d/3e action sheets, toast, 3f celebration | Claude | 15 | ✅ |
 | 17 | C. Screens | 4a/4c/4f Directory + company card | Claude | 12 | ✅ |
 | 18 | C. Screens | 4b filter sheet, 4d add/edit sheet, delete sheet | Claude | 17 | ✅ |
-| 19 | C. Screens | 5a–5c Advisor home + filter sheet | Claude | 12 | ⬜ |
+| 19 | C. Screens | 5a–5c Advisor home + filter sheet | Claude | 12 | ✅ |
 | 20 | C. Screens | 5e add student, 5d student detail, unlink sheet | Claude | 19 | ⬜ |
 | 21 | C. Screens | 6a/6b Profile | Claude | 12 | ⬜ |
 | 22 | D. Finish | Remove the old client, build, tests | Claude | 13–21 | ⬜ |
@@ -3766,7 +3766,7 @@ A student with no name shows "(ยังไม่เข้าระบบ)", as 
 - Create: `client/src/pages/advisor/StudentRow.jsx`, `client/src/pages/advisor/RosterFilterSheet.jsx`
 - Rewrite: `client/src/pages/advisor/AdvisorHomePage.jsx` (the add-student sheet is wired in Task 20)
 
-- [ ] **Step 1: Write `client/src/pages/advisor/StudentRow.jsx`**
+- [x] **Step 1: Write `client/src/pages/advisor/StudentRow.jsx`**
 
 ```jsx
 import Sprout from '../../components/Sprout';
@@ -3814,7 +3814,7 @@ export default function StudentRow({ row, delay, onClick }) {
 }
 ```
 
-- [ ] **Step 2: Write `client/src/pages/advisor/RosterFilterSheet.jsx`** (5c)
+- [x] **Step 2: Write `client/src/pages/advisor/RosterFilterSheet.jsx`** (5c)
 
 ```jsx
 import { useEffect, useState } from 'react';
@@ -3887,7 +3887,7 @@ export default function RosterFilterSheet({ filters, onApply, onClose }) {
 }
 ```
 
-- [ ] **Step 3: Replace `client/src/pages/advisor/AdvisorHomePage.jsx`**
+- [x] **Step 3: Replace `client/src/pages/advisor/AdvisorHomePage.jsx`**
 
 ```jsx
 import { useCallback, useEffect, useState } from 'react';
@@ -4069,9 +4069,9 @@ export default function AdvisorHomePage() {
 }
 ```
 
-- [ ] **Step 4: Build:** `npm run build` → `✓ built`.
+- [x] **Step 4: Build:** `npm run build` → `✓ built`.
 
-- [ ] **Step 5: Commit:** `git add client/src/pages/advisor && git commit -m "feat(client): advisor home — cohort garden, totals, roster, filter sheet (5a–5c)"`
+- [x] **Step 5: Commit:** `git add client/src/pages/advisor && git commit -m "feat(client): advisor home — cohort garden, totals, roster, filter sheet (5a–5c)"`
 
 ---
 
