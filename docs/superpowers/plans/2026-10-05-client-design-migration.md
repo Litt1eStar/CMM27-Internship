@@ -32,7 +32,7 @@ Owner: **Claude** = agent · **You** = needs your confirmation, accounts or eyes
 | 9 | B. Foundation | Logic: timeline/history, companies, roster queries | Claude | 8 | ✅ |
 | 10 | B. Foundation | Sprout mascot + motion engine | Claude | 7 | ✅ |
 | 11 | B. Foundation | Shared UI: icons, sheet, toast, banner, FAB, chips, ID field, count-up | Claude | 10 | ✅ |
-| 12 | B. Foundation | App frame, tab bar, auth state, routes | Claude | 11 | ⬜ |
+| 12 | B. Foundation | App frame, tab bar, auth state, routes | Claude | 11 | ✅ |
 | 13 | C. Screens | 1a/1b Login | Claude | 12 | ⬜ |
 | 14 | C. Screens | 2a–2c Verify student ID | Claude | 12 | ⬜ |
 | 15 | C. Screens | 3a–3c Student home | Claude | 12 | ⬜ |
@@ -51,7 +51,7 @@ Owner: **Claude** = agent · **You** = needs your confirmation, accounts or eyes
 | Milestone | Reached when | Status |
 |---|---|---|
 | M1 Backend matches design | Tasks 1–5 ✅: migration applied, rule tests and smoke test pass | ✅ |
-| M2 Foundation ready | Tasks 6–12 ✅: logic tests green, app shell renders with tab bar | ⬜ |
+| M2 Foundation ready | Tasks 6–12 ✅: logic tests green, app shell renders with tab bar | ✅ |
 | M3 Screens built | Tasks 13–21 ✅ | ⬜ |
 | M4 Design verified | Tasks 22–24 ✅: you've approved the visual check | ⬜ |
 
@@ -2288,7 +2288,7 @@ export const errorText = (err) => MESSAGES[err?.code] || 'เกิดข้อ�
 - Rewrite: `client/src/lib/auth.jsx`, `client/src/App.jsx`, `client/src/main.jsx`
 - Create stub pages (each replaced by its own task): `client/src/pages/student/StudentHomePage.jsx`, `client/src/pages/companies/DirectoryPage.jsx`, `client/src/pages/advisor/AdvisorHomePage.jsx`, `client/src/pages/advisor/StudentDetailPage.jsx`, `client/src/pages/ProfilePage.jsx`
 
-- [ ] **Step 1: Write `client/src/components/TabBar.jsx`** (TabBar.dc; students get 3 tabs, advisors 2, per Q4)
+- [x] **Step 1: Write `client/src/components/TabBar.jsx`** (TabBar.dc; students get 3 tabs, advisors 2, per Q4)
 
 ```jsx
 import { NavLink } from 'react-router';
@@ -2336,7 +2336,7 @@ export default function TabBar({ role }) {
 }
 ```
 
-- [ ] **Step 2: Write `client/src/components/AppFrame.jsx`** (Q5: centred phone column)
+- [x] **Step 2: Write `client/src/components/AppFrame.jsx`** (Q5: centred phone column)
 
 ```jsx
 import TabBar from './TabBar';
@@ -2352,7 +2352,7 @@ export default function AppFrame({ tabs, children }) {
 }
 ```
 
-- [ ] **Step 3: Replace `client/src/lib/auth.jsx`** (keeps the rejected email for screen 1b)
+- [x] **Step 3: Replace `client/src/lib/auth.jsx`** (keeps the rejected email for screen 1b)
 
 ```jsx
 import { createContext, useCallback, useContext, useEffect, useState } from 'react';
@@ -2415,7 +2415,7 @@ export function AuthProvider({ children }) {
 export const useAuth = () => useContext(AuthContext);
 ```
 
-- [ ] **Step 4: Create the five stub pages** (each is fully replaced by Tasks 15, 17, 19, 20 and 21). For example `client/src/pages/student/StudentHomePage.jsx`:
+- [x] **Step 4: Create the five stub pages** (each is fully replaced by Tasks 15, 17, 19, 20 and 21). For example `client/src/pages/student/StudentHomePage.jsx`:
 
 ```jsx
 export default function StudentHomePage() {
@@ -2425,7 +2425,7 @@ export default function StudentHomePage() {
 
 and the same shape with these titles: `companies/DirectoryPage.jsx` → `ทำเนียบบริษัท`, `advisor/AdvisorHomePage.jsx` → `ภาพรวมนักศึกษา`, `advisor/StudentDetailPage.jsx` → `ข้อมูลนักศึกษา`, `ProfilePage.jsx` → `ฉัน`.
 
-- [ ] **Step 5: Replace `client/src/App.jsx`**
+- [x] **Step 5: Replace `client/src/App.jsx`**
 
 ```jsx
 import { Navigate, Route, Routes } from 'react-router';
@@ -2478,7 +2478,7 @@ export default function App() {
 }
 ```
 
-- [ ] **Step 6: Replace `client/src/main.jsx`**
+- [x] **Step 6: Replace `client/src/main.jsx`**
 
 ```jsx
 import React from 'react';
@@ -2506,9 +2506,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 );
 ```
 
-- [ ] **Step 7: Build and look:** `npm run build` → `✓ built`. `npm run dev` → http://localhost:5173 shows the existing login page in the cream column on a `#EDE4D9` background at desktop width.
+- [x] **Step 7: Build and look:** `npm run build` → `✓ built`. `npm run dev` → http://localhost:5173 shows the existing login page in the cream column on a `#EDE4D9` background at desktop width.
 
-- [ ] **Step 8: Commit:** `git add client/src && git commit -m "feat(client): phone-column frame, tab bar, auth state and role routes"`
+- [x] **Step 8: Commit:** `git add client/src && git commit -m "feat(client): phone-column frame, tab bar, auth state and role routes"`
 
 ---
 

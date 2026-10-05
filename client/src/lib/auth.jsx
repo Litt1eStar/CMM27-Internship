@@ -1,16 +1,13 @@
 import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import { supabase } from './supabase';
 import { api } from './api';
-import { errorText } from './constants';
+import { errorText } from './errors';
 
 export const AuthContext = createContext(null);
 
 /**
- * state:
- *   loading    - checking session
- *   signedOut  - show login
- *   needsLink  - signed in with Google, student ID not linked yet
- *   ready      - profile loaded (me.profile.role is STUDENT or ADVISOR)
+ * state: loading | signedOut | needsLink | ready
+ * error: { code, message, email } from the last failed sign-in (e.g. wrong domain)
  */
 export function AuthProvider({ children }) {
   const [state, setState] = useState('loading');
@@ -29,7 +26,7 @@ export function AuthProvider({ children }) {
       setError(null);
       setState(data.needsLink ? 'needsLink' : 'ready');
     } catch (err) {
-      setError(errorText(err));
+      setError({ code: err.code, message: errorText(err), email: session.user?.email ?? null });
       await supabase.auth.signOut();
       setMe(null);
       setState('signedOut');
