@@ -28,10 +28,10 @@ Owner: **Claude** = can be done by the agent · **You** = needs your accounts or
 | 7 | C. Database | Verify browser keys can't touch data | Claude | 5 | ✅ |
 | 8 | D. Fixes | D1: don't auto-link rejected sign-ins | Claude | 4 | ✅ (live check in Task 10) |
 | 9 | D. Fixes | D4–D6: same-origin `/api`, PKCE, `/api/health` | Claude | 8 | ✅ (client half done in the design migration plan) |
-| 10 | E. Local run | Google sign-in + local end-to-end smoke test | You | 7, 9 | ⬜ |
-| 11 | F. Containers | Dockerfiles + nginx (D2, D3); test images locally | Claude | 9 | 🟨 server image ✅ (built + run against the Supabase project); web image waits for mockups |
-| 12 | F. Containers | Droplet compose file + CI/deploy workflow | Claude | 11 | 🟨 compose file ✅, workflow = server tests + API image; web/deploy steps wait for client |
-| 13 | G. Go-live | Clear test data; register advisors; import the form CSV | You + Claude | 6, 10 | 🟨 reset script tested; `response.csv` dry run clean (29 students); real import waits for Task 10 |
+| 10 | E. Local run | Google sign-in + local end-to-end smoke test | You | 7, 9 | ✅ |
+| 11 | F. Containers | Dockerfiles + nginx (D2, D3); test images locally | Claude | 9 | ✅ |
+| 12 | F. Containers | Droplet compose file + CI/deploy workflow | Claude | 11 | ✅ |
+| 13 | G. Go-live | Clear test data; register advisors; import the form CSV | You + Claude | 6, 10 | ✅ (83 students imported from student.csv + survey responses) |
 | 14 | G. Go-live | DNS: `cmm27.cmm.works` → droplet | Maintainer | — | ⬜ |
 | 15 | G. Go-live | Droplet folder `/opt/cmm27` + `.env` | You (deploy key) | 13 | ⬜ |
 | 16 | G. Go-live | Caddy site block (PR to CMM Hub server repo) | Maintainer | 14 | ⬜ |
