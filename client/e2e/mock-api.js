@@ -74,11 +74,12 @@ async (page) => {
   await page.unrouteAll({ behavior: 'ignoreErrors' }); // forget the previous scenario
   await page.route('**/auth/v1/**', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: '{}' }));
   await page.route('**/api/**', async (route) => {
-    if (SCENARIO === 'offline') return route.abort('internetdisconnected');
-    if (DELAY_MS) await new Promise((r) => setTimeout(r, DELAY_MS));
     const req = route.request();
     const url = new URL(req.url());
     const path = url.pathname;
+    // offline: signed in, but every data request fails (shows the pages' error states)
+    if (SCENARIO === 'offline' && path !== '/api/auth/me') return route.abort('internetdisconnected');
+    if (DELAY_MS) await new Promise((r) => setTimeout(r, DELAY_MS));
     const method = req.method();
     const json = (body, status = 200) => route.fulfill({ status, contentType: 'application/json', body: JSON.stringify(body) });
 

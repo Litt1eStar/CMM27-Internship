@@ -27,7 +27,7 @@
 | 9 | Haptics and sound in toasts, errors and Profile | ✅ |
 | 10 | Mock API harness for visual checks | ✅ |
 | 11 | Docs, version 1.1.0 | ✅ |
-| 12 | Visual check (user approval) | 🟨 |
+| 12 | Visual check (user approval) | 🟨 walked 2026-10-05; waiting for your approval |
 | 13 | Ship phase 1 (user confirms deploy) | ⬜ |
 
 ## Decisions made while planning (recorded in the spec in Task 11)
@@ -1497,11 +1497,12 @@ async (page) => {
   await page.unrouteAll({ behavior: 'ignoreErrors' }); // forget the previous scenario
   await page.route('**/auth/v1/**', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: '{}' }));
   await page.route('**/api/**', async (route) => {
-    if (SCENARIO === 'offline') return route.abort('internetdisconnected');
-    if (DELAY_MS) await new Promise((r) => setTimeout(r, DELAY_MS));
     const req = route.request();
     const url = new URL(req.url());
     const path = url.pathname;
+    // offline: signed in, but every data request fails (shows the pages' error states)
+    if (SCENARIO === 'offline' && path !== '/api/auth/me') return route.abort('internetdisconnected');
+    if (DELAY_MS) await new Promise((r) => setTimeout(r, DELAY_MS));
     const method = req.method();
     const json = (body, status = 200) => route.fulfill({ status, contentType: 'application/json', body: JSON.stringify(body) });
 
@@ -1662,11 +1663,11 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 
 No database access in this task: everything runs against the mocked API.
 
-- [ ] **Step 1: Start the dev server**
+- [x] **Step 1: Start the dev server**
 
 Run (background): `npx vite --port 5180 --strictPort`. Port 5173 belongs to the user's other project; leave it alone.
 
-- [ ] **Step 2: Walk the screens at 390×844**
+- [x] **Step 2: Walk the screens at 390×844**
 
 For each row, run the harness with the given settings, do the action, and save a screenshot to
 `.playwright-mcp/` with the given name.
@@ -1689,26 +1690,30 @@ For each row, run the harness with the given settings, do the action, and save a
 | `p1-advisor-detail.png` | advisor | tap the first student row | detail page; the row grew into the header |
 | `p1-cancel-close.png` | advisor | open เพิ่มนักศึกษา, tap ยกเลิก | sheet slides down instead of vanishing |
 
-- [ ] **Step 3: Reduced motion**
+- [x] **Step 3: Reduced motion**
 
 Run `browser_emulate_media` with `reducedMotion: 'reduce'`, then repeat `p1-sheet.png` and a tab change.
 Save `p1-reduced-sheet.png`. Check: the sheet appears without sliding, the tab change is a short fade, and
 skeletons don't shimmer.
 
-- [ ] **Step 4: Desktop**
+- [x] **Step 4: Desktop**
 
 Resize to 1280×900, harness student-both, open the sheet. Save `p1-desktop.png`. Check: page, tab bar,
 sheet and toast stay inside the 430px column.
 
-- [ ] **Step 5: Console**
+- [x] **Step 5: Console**
 
 Run `browser_console_messages`. Expected: no errors except the intended network failures in the offline
 scenario.
 
-- [ ] **Step 6: Stop the dev server** (the one on 5180 only) and close the browser.
+- [x] **Step 6: Stop the dev server** (the one on 5180 only) and close the browser.
 
 - [ ] **Step 7: Show the screenshots to the user** and fix anything they flag. Mark this task ✅ only after
 they approve.
+
+---
+
+> **Result (2026-10-05):** all rows reached at 390×844 with the mocked API (no database access). Measured: sheet follows a 150 px drag 1:1 with the backdrop at 0.69, closes on release; a 60 px drag springs back to the same top; ยกเลิก/Escape slide out (sheet still present 120 ms after the tap); tab and detail navigations set data-nav forward/back; reduced motion: sheet already in place at 60 ms, Escape closes instantly, navigation uses fade, skeleton animation none; desktop 1280: sheet and tab bar at x 425, width 430. Console: only the intended offline failures and Motion's reduced-motion dev notice. The harness offline mode now keeps /api/auth/me working so pages show their own error state. Screenshots: .playwright-mcp/p1-*.png (git-ignored).
 
 ---
 
