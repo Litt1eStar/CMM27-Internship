@@ -11,3 +11,5 @@ cmm_deploy_key*
 # graft's generated repo index (see .ignore)
 graft/
 .DS_Store
+# Playwright MCP screenshots/logs (local only)
+.playwright-mcp/

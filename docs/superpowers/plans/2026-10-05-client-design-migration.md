@@ -30,7 +30,7 @@ Owner: **Claude** = agent · **You** = needs your confirmation, accounts or eyes
 | 7 | B. Foundation | Design tokens, Kanit, base CSS | Claude | 6 | ✅ |
 | 8 | B. Foundation | Logic: status, dates, initials, colours | Claude | 6 | ✅ |
 | 9 | B. Foundation | Logic: timeline/history, companies, roster queries | Claude | 8 | ✅ |
-| 10 | B. Foundation | Sprout mascot + motion engine | Claude | 7 | ⬜ |
+| 10 | B. Foundation | Sprout mascot + motion engine | Claude | 7 | ✅ |
 | 11 | B. Foundation | Shared UI: icons, sheet, toast, banner, FAB, chips, ID field, count-up | Claude | 10 | ⬜ |
 | 12 | B. Foundation | App frame, tab bar, auth state, routes | Claude | 11 | ⬜ |
 | 13 | C. Screens | 1a/1b Login | Claude | 12 | ⬜ |
@@ -1738,7 +1738,7 @@ export const percent = (n, total) => (total ? `${Math.round((n / total) * 100)}%
 - Create: `client/src/components/Sprout.jsx` (port of `Sprout.dc.html`)
 - Modify: `client/src/main.jsx` (start the engine)
 
-- [ ] **Step 1: Write `client/src/lib/motion.js`**
+- [x] **Step 1: Write `client/src/lib/motion.js`**
 
 ```js
 // Port of the design's motion.js. Any element with data-anim="<name>"
@@ -1847,7 +1847,7 @@ export function startMotion() {
 }
 ```
 
-- [ ] **Step 2: Write `client/src/components/Sprout.jsx`** (geometry copied from `Sprout.dc.html` lines 11–55)
+- [x] **Step 2: Write `client/src/components/Sprout.jsx`** (geometry copied from `Sprout.dc.html` lines 11–55)
 
 ```jsx
 const SKY = '#9CD2FF';
@@ -1966,11 +1966,11 @@ export default function Sprout({ stage = 'both', size = 80, mood = 'happy', hold
 }
 ```
 
-- [ ] **Step 3: Start the engine in `client/src/main.jsx`.** Add `import { startMotion } from './lib/motion';` and call `startMotion();` before `ReactDOM.createRoot(...)`.
+- [x] **Step 3: Start the engine in `client/src/main.jsx`.** Add `import { startMotion } from './lib/motion';` and call `startMotion();` before `ReactDOM.createRoot(...)`.
 
-- [ ] **Step 4: Check by eye.** Temporarily render `<div className="flex gap-3 p-6">{['seed','resume','portfolio','both','bud','bloom'].map((s) => <Sprout key={s} stage={s} size={88} />)}</div>` at the top of `App.jsx`, then run `npm run dev`. Compare with design board **0a**: same 6 stages, leaves sway, the body bobs, the eyes blink. Remove the temporary line.
+- [x] **Step 4: Check by eye.** Temporarily render `<div className="flex gap-3 p-6">{['seed','resume','portfolio','both','bud','bloom'].map((s) => <Sprout key={s} stage={s} size={88} />)}</div>` at the top of `App.jsx`, then run `npm run dev`. Compare with design board **0a**: same 6 stages, leaves sway, the body bobs, the eyes blink. Remove the temporary line.
 
-- [ ] **Step 5: Commit:** `git add client/src/lib/motion.js client/src/components/Sprout.jsx client/src/main.jsx && git commit -m "feat(client): Sprout mascot and motion engine from the design"`
+- [x] **Step 5: Commit:** `git add client/src/lib/motion.js client/src/components/Sprout.jsx client/src/main.jsx && git commit -m "feat(client): Sprout mascot and motion engine from the design"`
 
 ---
 
