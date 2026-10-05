@@ -24,23 +24,26 @@ declare
   a   uuid := (select id from public.users where student_id = '99999999901');
   b   uuid := (select id from public.users where student_id = '99999999902');
   c   uuid;
-  c2  uuid;
   u   public.users;
   n   int;
   evs text[];
   r   jsonb;
   m   jsonb;
 begin
+  -- Companies: website optional, still validated when given; names unique
   insert into public.companies (name, business_type_id, url, work_mode, source_type, created_by)
   values ('__Test Co__', 1, 'https://example.com', 'ONSITE', 'CLASSMATE', a) returning id into c;
   insert into public.companies (name, business_type_id, url, work_mode, source_type, created_by)
-  values ('__Test Co 2__', 2, 'https://example.org', 'HYBRID', 'SENIOR', a) returning id into c2;
-
-  -- Data validation
-  perform pg_temp.expect_error($q$insert into public.users (student_id) values ('123')$q$, '23514');
+  values ('__No Website Co__', 2, null, 'HYBRID', 'SENIOR', a);
+  perform pg_temp.expect_error(
+    format($q$insert into public.companies (name, business_type_id, url, work_mode, source_type, created_by)
+              values ('__Bad Url Co__', 1, 'example.com', 'ONSITE', 'CLASSMATE', %L)$q$, a), '23514');
   perform pg_temp.expect_error(
     format($q$insert into public.companies (name, business_type_id, url, work_mode, source_type, created_by)
               values (' __test co__ ', 1, 'https://x.com', 'ONSITE', 'CLASSMATE', %L)$q$, a), '23505');
+
+  -- Data validation
+  perform pg_temp.expect_error($q$insert into public.users (student_id) values ('123')$q$, '23514');
   perform pg_temp.expect_error(format('select public.student_apply_action(%L, %L)', adv, 'COMPLETE_RESUME'), 'NOT_A_STUDENT');
 
   -- Every new student is logged
@@ -59,43 +62,33 @@ begin
   perform pg_temp.expect_error(
     format($q$update public.users set current_status = 'APPLICATIONS_SUBMITTED' where id = %L$q$, b), '23514');
 
-  -- ยืนยันที่ฝึกงาน requires submit first, then a real catalog company
-  perform pg_temp.expect_error(format('select public.student_apply_action(%L, %L, %L)', a, 'CONFIRM', c), 'INVALID_TRANSITION');
+  -- ยืนยันที่ฝึกงาน requires ยื่นแล้ว first, and needs no company
+  perform pg_temp.expect_error(format('select public.student_apply_action(%L, %L)', a, 'CONFIRM'), 'INVALID_TRANSITION');
   u := public.student_apply_action(a, 'SUBMIT');
   assert u.current_status = 'APPLICATIONS_SUBMITTED', 'submit';
-  perform pg_temp.expect_error(format('select public.student_apply_action(%L, %L)', a, 'CONFIRM'), 'COMPANY_REQUIRED');
-  perform pg_temp.expect_error(
-    format('select public.student_apply_action(%L, %L, %L)', a, 'CONFIRM', gen_random_uuid()), 'COMPANY_NOT_FOUND');
-  u := public.student_apply_action(a, 'CONFIRM', c);
-  assert u.current_status = 'INTERNSHIP_CONFIRMED' and u.confirmed_company_id = c, 'confirm';
-
-  -- Check constraint: confirmed <=> company (bypassing the function)
-  perform public.student_apply_action(b, 'COMPLETE_RESUME');
-  perform public.student_apply_action(b, 'COMPLETE_PORTFOLIO');
-  perform public.student_apply_action(b, 'SUBMIT');
-  perform pg_temp.expect_error(
-    format($q$update public.users set current_status = 'INTERNSHIP_CONFIRMED' where id = %L$q$, b), '23514');
+  u := public.student_apply_action(a, 'CONFIRM');
+  assert u.current_status = 'INTERNSHIP_CONFIRMED', 'confirm without company';
+  perform pg_temp.expect_error(format('select public.student_apply_action(%L, %L)', a, 'CONFIRM'), 'ALREADY_DONE');
+  perform pg_temp.expect_error(format('select public.student_apply_action(%L, %L)', a, 'TELEPORT'), 'INVALID_ACTION');
 
   -- Forward-only trigger
   perform pg_temp.expect_error(format('update public.users set is_resume_ready = false where id = %L', a), 'FORWARD_ONLY');
   perform pg_temp.expect_error(
-    format($q$update public.users set current_status = 'APPLICATIONS_SUBMITTED', confirmed_company_id = null where id = %L$q$, a), 'FORWARD_ONLY');
-  perform pg_temp.expect_error(format('update public.users set confirmed_company_id = %L where id = %L', c2, a), 'FORWARD_ONLY');
+    format($q$update public.users set current_status = 'APPLICATIONS_SUBMITTED' where id = %L$q$, a), 'FORWARD_ONLY');
 
-  -- Timeline written automatically, in order, with the company on confirm
+  -- Timeline written automatically, in order
   select array_agg(event::text order by changed_at, id) into evs from public.status_timeline_logs where user_id = a;
   assert evs = array['INITIALIZED','PORTFOLIO_COMPLETED','RESUME_COMPLETED','APPLICATIONS_SUBMITTED','INTERNSHIP_CONFIRMED'],
     format('timeline order, got %s', evs);
-  assert (select company_id from public.status_timeline_logs where user_id = a and event = 'INTERNSHIP_CONFIRMED') = c,
-    'confirm log carries company';
 
   -- Log is immutable
   perform pg_temp.expect_error(format('update public.status_timeline_logs set note = %L where user_id = %L', 'x', a), 'IMMUTABLE_LOG');
   perform pg_temp.expect_error(format('delete from public.status_timeline_logs where user_id = %L', a), 'IMMUTABLE_LOG');
   perform pg_temp.expect_error('truncate public.status_timeline_logs', 'IMMUTABLE_LOG');
 
-  -- Confirmed company cannot be deleted
-  perform pg_temp.expect_error(format('delete from public.companies where id = %L', c), '23503');
+  -- Companies are no longer pinned by a confirmed student
+  delete from public.companies where id = c;
+  assert not exists (select 1 from public.companies where id = c), 'company deletable';
 
   -- Import: forward-only, idempotent, refuses submit without both docs
   r := public.import_students('[{"student_id":"99999999903","resume":true,"portfolio":false,"submitted":true}]');
@@ -109,6 +102,11 @@ begin
   assert (select note from public.status_timeline_logs
           where user_id = (select id from public.users where student_id = '99999999903')
           order by id limit 1) = 'นำเข้าจากแบบฟอร์ม', 'import note on timeline';
+
+  -- Views no longer expose company columns
+  assert not exists (select 1 from information_schema.columns
+                     where table_schema = 'public' and table_name in ('student_roster', 'student_timeline', 'users', 'status_timeline_logs')
+                       and column_name like '%company%'), 'no company columns left';
 
   -- Metrics shape
   m := public.get_cohort_metrics();
