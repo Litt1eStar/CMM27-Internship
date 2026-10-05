@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import Sprout from '../../components/Sprout';
 import { formatThaiDateTime } from '../../lib/format';
@@ -22,6 +23,15 @@ const CONFETTI = Array.from({ length: 30 }, (_, i) => {
 const top = (px) => `calc(env(safe-area-inset-top) + ${px}px)`;
 
 export default function Celebration({ at, onClose }) {
+  // Full-screen overlay: keep the page underneath from scrolling, like Sheet.
+  useEffect(() => {
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, []);
+
   return createPortal(
     <div role="dialog" aria-modal="true" aria-label="ยินดีด้วย" className="fixed inset-y-0 inset-x-0 z-[60] mx-auto max-w-[430px] overflow-hidden bg-cream">
       <div data-anim="glow" className="absolute left-1/2 size-[520px] -translate-x-1/2 rounded-full"

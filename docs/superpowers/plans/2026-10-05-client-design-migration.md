@@ -43,7 +43,7 @@ Owner: **Claude** = agent · **You** = needs your confirmation, accounts or eyes
 | 20 | C. Screens | 5e add student, 5d student detail, unlink sheet | Claude | 19 | ✅ |
 | 21 | C. Screens | 6a/6b Profile | Claude | 12 | ✅ |
 | 22 | D. Finish | Remove the old client, build, tests | Claude | 13–21 | ✅ |
-| 23 | D. Finish | Visual check against the design, 390×844 and desktop | Claude + You | 22 | ⬜ |
+| 23 | D. Finish | Visual check against the design, 390×844 and desktop | Claude + You | 22 | 🟨 all screens walked 2026-10-05; waiting for your approval |
 | 24 | D. Finish | Update CLAUDE.md and the launch plan | Claude | 23 | ⬜ |
 
 **Milestones**
@@ -4468,9 +4468,9 @@ git rm components/{CompanyCard,CompanyFilterBar,CompanyFormModal,ConfirmCompanyM
 
 This needs signed-in test accounts, so it **writes test data**: ask the user first (CLAUDE.md). It uses the email/password test accounts from Task 4 (the dev-only `window.__supabase` hook from Task 12 signs them in), so Google OAuth isn't needed yet.
 
-- [ ] **Step 1: Ask the user to confirm.** Then start the API (`cd server && npm run dev`) and the client (`cd client && npm run dev`).
+- [x] **Step 1: Ask the user to confirm.** Then start the API (`cd server && npm run dev`) and the client (`cd client && npm run dev`).
 
-- [ ] **Step 2: Create the accounts** (same emails as Task 4; choose any password and keep it in a shell variable, never in a file):
+- [x] **Step 2: Create the accounts** (same emails as Task 4; choose any password and keep it in a shell variable, never in a file):
 
 ```bash
 cd server && PW='<choose one>' node --env-file=.env --input-type=module -e "
@@ -4480,7 +4480,7 @@ for (const email of ['smoke.advisor@example.com','smoke.student@mail.kmutt.ac.th
   await supabase.auth.admin.createUser({ email, password: process.env.PW, email_confirm: true });"
 ```
 
-- [ ] **Step 3: Walk every screen at 390×844** (Playwright `browser_resize` 390×844, or Chrome device mode). In the browser console, sign in with `await window.__supabase.auth.signInWithPassword({ email, password })`. Screenshot each state and compare it with the design source (sizes, colours, copy):
+- [x] **Step 3: Walk every screen at 390×844** (Playwright `browser_resize` 390×844, or Chrome device mode). In the browser console, sign in with `await window.__supabase.auth.signInWithPassword({ email, password })`. Screenshot each state and compare it with the design source (sizes, colours, copy):
 
 | Design | How to reach it |
 |---|---|
@@ -4498,9 +4498,11 @@ Then resize to 1280×800 and confirm the centred 430px column, the `#EDE4D9` can
 
 - [ ] **Step 4: Show the screenshots to the user,** listing each **(extrapolated)** state separately for approval. Fix anything they flag before continuing.
 
-- [ ] **Step 5: Clean up** exactly as in Task 4 Step 3 (reset script copy with `'yes'`, delete the smoke advisor row, delete the `smoke.*` sign-in accounts), then confirm 0 users, 0 companies, 0 log rows, 0 `auth.users`.
+- [x] **Step 5: Clean up** exactly as in Task 4 Step 3 (reset script copy with `'yes'`, delete the smoke advisor row, delete the `smoke.*` sign-in accounts), then confirm 0 users, 0 companies, 0 log rows, 0 `auth.users`.
 
 ---
+
+> **Result (2026-10-05):** every screen in the table was reached and matched the design at 390×844; desktop keeps the 430px column with tab bar, sheets, FAB and toast inside it. One fix found and applied: the celebration (3f) now locks background scrolling like the sheets. Screenshots: `.playwright-mcp/v-*.png` (git-ignored). Test data cleaned: 0 users, 0 companies, 0 logs, 0 auth users.
 
 ### Task 24: Update CLAUDE.md and the launch plan
 
