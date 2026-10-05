@@ -6,7 +6,7 @@
 
 **Architecture:** First, a small backend change: migration `002` removes the "confirmed company" concept and makes company websites optional; the API, tests and README follow. Then the React client is rebuilt on the design's tokens: Kanit font, the cream/leaf palette, the "น้องต้นกล้า" Sprout mascot, and the design's motion engine. Pure logic (status → plant stage, timeline → history, Thai dates, filter queries) lives in tested modules under `client/src/lib/`; screens are thin React components built from shared primitives. The app is one mobile layout, centred in a column up to 430px wide on larger screens.
 
-**Tech Stack:** React 18 · React Router 6 · Vite 5 · Tailwind CSS v4 · Vitest (new, logic tests only) · Supabase JS (Google sign-in, PKCE) · Express API · Postgres
+**Tech Stack:** React 18 · React Router 7 · Vite 8 · Tailwind CSS v4 · Vitest 5 (new, logic tests only) · Supabase JS (Google sign-in, PKCE) · Express API · Postgres
 
 **Design source of truth:** `docs/design/cmm-internship-tracker-mobile/` (copied into the repo in Task 1). Screen IDs below (1a, 3c, 5d …) refer to the labels in `CMM Internship Tracker Mobile.dc.html`. Every colour, size and string in this plan comes from those files unless it's marked **(extrapolated)**.
 
@@ -26,7 +26,7 @@ Owner: **Claude** = agent · **You** = needs your confirmation, accounts or eyes
 | 3 | A. Backend | API: confirm without company, optional website | Claude | 2 | ✅ |
 | 4 | A. Backend | Smoke-test the API end to end (writes test data after your OK) | Claude + You | 3 | ✅ |
 | 5 | A. Backend | README: rules, API reference, setup | Claude | 3 | ✅ |
-| 6 | B. Foundation | Tooling: Vitest, version, same-origin `/api`, PKCE | Claude | — | ⬜ |
+| 6 | B. Foundation | Tooling: Vitest, version, same-origin `/api`, PKCE | Claude | — | ✅ |
 | 7 | B. Foundation | Design tokens, Kanit, base CSS | Claude | 6 | ⬜ |
 | 8 | B. Foundation | Logic: status, dates, initials, colours | Claude | 6 | ⬜ |
 | 9 | B. Foundation | Logic: timeline/history, companies, roster queries | Claude | 8 | ⬜ |
@@ -897,15 +897,16 @@ This also completes the client half of launch-plan Task 9 (defects D4 and D5).
 - Modify: `client/package.json`, `client/vite.config.js`, `client/.env.example`
 - Rewrite: `client/src/lib/api.js`, `client/src/lib/supabase.js`
 
-- [ ] **Step 1: Install Vitest and add the script**
+- [x] **Step 1: Upgrade the toolchain, install Vitest, add the script** (decided 2026-10-05: the old Vite 5 / React Router 6 had advisories, and every fix was a major version. `npm audit` must show 0 vulnerabilities afterwards. New code imports from `react-router`; `react-router-dom` stays only until Task 22.)
 
 ```bash
-cd client && npm install -D vitest@^2.1.9
+cd client && npm install react-router@^7.18.4 react-router-dom@^7.18.4
+npm install -D vite@^8.3.2 vitest@^5.0.3 @vitejs/plugin-react@^6.1.1 @tailwindcss/vite@^4.3.3 tailwindcss@^4.3.3
 ```
 
 In `client/package.json` `scripts`, add `"test": "vitest run"`.
 
-- [ ] **Step 2: Replace `client/vite.config.js`**
+- [x] **Step 2: Replace `client/vite.config.js`**
 
 ```js
 import { defineConfig } from 'vite';
@@ -926,7 +927,7 @@ export default defineConfig({
 });
 ```
 
-- [ ] **Step 3: Replace `client/.env.example`**
+- [x] **Step 3: Replace `client/.env.example`**
 
 ```
 # Supabase project settings (Project Settings -> API Keys)
@@ -939,7 +940,7 @@ VITE_SUPABASE_ANON_KEY=your-publishable-key
 VITE_STUDENT_EMAIL_DOMAIN=mail.kmutt.ac.th
 ```
 
-- [ ] **Step 4: Replace `client/src/lib/api.js`**
+- [x] **Step 4: Replace `client/src/lib/api.js`**
 
 ```js
 import { supabase } from './supabase';
@@ -1010,7 +1011,7 @@ export const api = {
 };
 ```
 
-- [ ] **Step 5: Replace `client/src/lib/supabase.js`**
+- [x] **Step 5: Replace `client/src/lib/supabase.js`**
 
 ```js
 import { createClient } from '@supabase/supabase-js';
@@ -1037,9 +1038,9 @@ export function signInWithGoogle() {
 }
 ```
 
-- [ ] **Step 6: Check:** `grep -rn "VITE_API_URL\|localhost:4000" client/src client/.env.example` → no output. (`client/.env` is git-ignored; delete a `VITE_API_URL` line there too if present.)
+- [x] **Step 6: Check:** `grep -rn "VITE_API_URL\|localhost:4000" client/src client/.env.example` → no output. (`client/.env` is git-ignored; delete a `VITE_API_URL` line there too if present.)
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add client/package.json client/package-lock.json client/vite.config.js client/.env.example client/src/lib/api.js client/src/lib/supabase.js
@@ -2290,7 +2291,7 @@ export const errorText = (err) => MESSAGES[err?.code] || 'เกิดข้อ�
 - [ ] **Step 1: Write `client/src/components/TabBar.jsx`** (TabBar.dc; students get 3 tabs, advisors 2, per Q4)
 
 ```jsx
-import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router';
 import { TabBuildingIcon, TabGardenIcon, TabPersonIcon, TabSproutIcon } from './Icons';
 
 const TABS = {
@@ -2427,7 +2428,7 @@ and the same shape with these titles: `companies/DirectoryPage.jsx` → `ทำ�
 - [ ] **Step 5: Replace `client/src/App.jsx`**
 
 ```jsx
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router';
 import { useAuth } from './lib/auth';
 import AppFrame from './components/AppFrame';
 import Sprout from './components/Sprout';
@@ -2482,7 +2483,7 @@ export default function App() {
 ```jsx
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router';
 import App from './App';
 import { AuthProvider } from './lib/auth';
 import { startMotion } from './lib/motion';
@@ -3890,7 +3891,7 @@ export default function RosterFilterSheet({ filters, onApply, onClose }) {
 
 ```jsx
 import { useCallback, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import Sprout from '../../components/Sprout';
 import { FilterIcon, SearchIcon } from '../../components/Icons';
 import { CountUp, ErrorBanner, Fab } from '../../components/ui';
@@ -4174,7 +4175,7 @@ and render after the filter sheet:
 
 ```jsx
 import { useCallback, useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router';
 import Sheet from '../../components/Sheet';
 import Sprout from '../../components/Sprout';
 import { BackIcon, LeafIcon } from '../../components/Icons';
@@ -4455,7 +4456,7 @@ git rm components/{CompanyCard,CompanyFilterBar,CompanyFormModal,ConfirmCompanyM
        pages/{AdvisorDashboardPage,CompaniesPage,StudentProgressPage}.jsx lib/constants.js
 ```
 
-- [ ] **Step 2: Nothing may still reference them:** `grep -rnE "lib/constants|StatusChecklist|ConfirmCompanyModal|Navbar|company_id|confirmed_company" client/src` → no output.
+- [ ] **Step 2: Nothing may still reference them:** `grep -rnE "lib/constants|StatusChecklist|ConfirmCompanyModal|Navbar|company_id|confirmed_company|react-router-dom" client/src` → no output. Then drop the compatibility package: `cd client && npm uninstall react-router-dom`.
 
 - [ ] **Step 3: Full check:** `cd client && npm test && npm run build` → tests pass, `✓ built`. Then `cd ../server && npm test` → `# fail 0`.
 

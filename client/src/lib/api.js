@@ -1,7 +1,5 @@
 import { supabase } from './supabase';
 
-const BASE = import.meta.env.VITE_API_URL || 'http://localhost:4000';
-
 export class ApiError extends Error {
   constructor(status, code, message, details) {
     super(message);
@@ -15,14 +13,20 @@ async function request(method, path, body) {
   const { data } = await supabase.auth.getSession();
   const token = data.session?.access_token;
 
-  const res = await fetch(`${BASE}${path}`, {
-    method,
-    headers: {
-      ...(body ? { 'Content-Type': 'application/json' } : {}),
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-    },
-    body: body ? JSON.stringify(body) : undefined,
-  });
+  let res;
+  try {
+    // Always same-origin: Caddy routes /api in production, Vite proxies it in dev.
+    res = await fetch(path, {
+      method,
+      headers: {
+        ...(body ? { 'Content-Type': 'application/json' } : {}),
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+      body: body ? JSON.stringify(body) : undefined,
+    });
+  } catch {
+    throw new ApiError(0, 'NETWORK', 'Network error');
+  }
 
   if (res.status === 204) return null;
   const json = await res.json().catch(() => ({}));
@@ -42,7 +46,7 @@ const qs = (params) => {
 
 export const api = {
   me: () => request('GET', '/api/auth/me'),
-  link: (student_id, full_name) => request('POST', '/api/auth/link', { student_id, full_name }),
+  link: (student_id) => request('POST', '/api/auth/link', { student_id }),
 
   businessTypes: () => request('GET', '/api/business-types'),
   companies: (params = {}) => request('GET', `/api/companies${qs(params)}`),
@@ -52,7 +56,7 @@ export const api = {
 
   myProgress: () => request('GET', '/api/me/progress'),
   myTimeline: () => request('GET', '/api/me/timeline'),
-  applyAction: (action, company_id) => request('POST', '/api/me/actions', { action, company_id }),
+  applyAction: (action) => request('POST', '/api/me/actions', { action }),
 
   metrics: () => request('GET', '/api/advisor/metrics'),
   roster: (params = {}) => request('GET', `/api/advisor/students${qs(params)}`),
