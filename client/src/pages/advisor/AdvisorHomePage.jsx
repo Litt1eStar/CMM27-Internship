@@ -9,6 +9,8 @@ import { EMPTY_ROSTER, percent, rosterFilterCount, rosterQuery } from '../../lib
 import { STATUS } from '../../lib/status';
 import RosterFilterSheet from './RosterFilterSheet';
 import StudentRow from './StudentRow';
+import Toast from '../../components/Toast';
+import AddStudentSheet from './AddStudentSheet';
 
 const TILES = ['NOT_STARTED', 'RESUME_DONE', 'PORTFOLIO_DONE', 'APPLICATIONS_SUBMITTED'];
 
@@ -73,6 +75,8 @@ export default function AdvisorHomePage() {
   const [search, setSearch] = useState('');
   const [sheet, setSheet] = useState(null); // 'filter' | 'add'
   const [error, setError] = useState(null);
+  const [toast, setToast] = useState(null);
+  const clearToast = useCallback(() => setToast(null), []);
 
   const loadMetrics = useCallback(async () => {
     try {
@@ -172,6 +176,18 @@ export default function AdvisorHomePage() {
       {sheet === 'filter' && (
         <RosterFilterSheet filters={filters} onClose={() => setSheet(null)} onApply={(f) => { setFilters(f); setSheet(null); }} />
       )}
+      {sheet === 'add' && (
+        <AddStudentSheet
+          onClose={() => setSheet(null)}
+          onAdded={(sid) => {
+            setSheet(null);
+            loadMetrics();
+            loadRoster();
+            setToast({ id: Date.now(), title: `เพิ่ม ${sid} ในรายชื่อแล้ว`, stage: 'seed' });
+          }}
+        />
+      )}
+      <Toast toast={toast} onDone={clearToast} bottom="calc(64px + env(safe-area-inset-bottom) + 88px)" />
     </>
   );
 }

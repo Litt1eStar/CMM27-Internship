@@ -40,7 +40,7 @@ Owner: **Claude** = agent · **You** = needs your confirmation, accounts or eyes
 | 17 | C. Screens | 4a/4c/4f Directory + company card | Claude | 12 | ✅ |
 | 18 | C. Screens | 4b filter sheet, 4d add/edit sheet, delete sheet | Claude | 17 | ✅ |
 | 19 | C. Screens | 5a–5c Advisor home + filter sheet | Claude | 12 | ✅ |
-| 20 | C. Screens | 5e add student, 5d student detail, unlink sheet | Claude | 19 | ⬜ |
+| 20 | C. Screens | 5e add student, 5d student detail, unlink sheet | Claude | 19 | ✅ |
 | 21 | C. Screens | 6a/6b Profile | Claude | 12 | ⬜ |
 | 22 | D. Finish | Remove the old client, build, tests | Claude | 13–21 | ⬜ |
 | 23 | D. Finish | Visual check against the design, 390×844 and desktop | Claude + You | 22 | ⬜ |
@@ -4091,7 +4091,7 @@ Per Q1, the confirm event shows the bloom sprout with **no company name**, exact
 - Rewrite: `client/src/pages/advisor/StudentDetailPage.jsx`
 - Modify: `client/src/pages/advisor/AdvisorHomePage.jsx`
 
-- [ ] **Step 1: Write `client/src/pages/advisor/AddStudentSheet.jsx`** (5e)
+- [x] **Step 1: Write `client/src/pages/advisor/AddStudentSheet.jsx`** (5e)
 
 ```jsx
 import { useState } from 'react';
@@ -4140,7 +4140,7 @@ export default function AddStudentSheet({ onClose, onAdded }) {
 }
 ```
 
-- [ ] **Step 2: Wire it into `AdvisorHomePage.jsx`.** Add imports:
+- [x] **Step 2: Wire it into `AdvisorHomePage.jsx`.** Add imports:
 
 ```jsx
 import Toast from '../../components/Toast';
@@ -4171,7 +4171,7 @@ and render after the filter sheet:
       <Toast toast={toast} onDone={clearToast} bottom="calc(64px + env(safe-area-inset-bottom) + 88px)" />
 ```
 
-- [ ] **Step 3: Replace `client/src/pages/advisor/StudentDetailPage.jsx`** (5d)
+- [x] **Step 3: Replace `client/src/pages/advisor/StudentDetailPage.jsx`** (5d)
 
 ```jsx
 import { useCallback, useEffect, useState } from 'react';
@@ -4337,9 +4337,9 @@ export default function StudentDetailPage() {
 }
 ```
 
-- [ ] **Step 4: Build:** `npm run build` → `✓ built`.
+- [x] **Step 4: Build:** `npm run build` → `✓ built`.
 
-- [ ] **Step 5: Commit:** `git add client/src/pages/advisor && git commit -m "feat(client): add student, student detail and unlink (5d/5e)"`
+- [x] **Step 5: Commit:** `git add client/src/pages/advisor && git commit -m "feat(client): add student, student detail and unlink (5d/5e)"`
 
 ---
 
