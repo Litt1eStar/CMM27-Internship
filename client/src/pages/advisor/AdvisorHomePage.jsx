@@ -13,6 +13,7 @@ import RosterFilterSheet from './RosterFilterSheet';
 import StudentRow from './StudentRow';
 import Toast from '../../components/Toast';
 import AddStudentSheet from './AddStudentSheet';
+import { useStuck } from '../../components/useStuck';
 
 const TILES = ['NOT_STARTED', 'RESUME_DONE', 'PORTFOLIO_DONE', 'APPLICATIONS_SUBMITTED'];
 
@@ -75,6 +76,7 @@ export default function AdvisorHomePage() {
   const [rows, setRows] = useState(null);
   const [filters, setFilters] = useState(EMPTY_ROSTER);
   const [search, setSearch] = useState('');
+  const [searchBar, stuck] = useStuck();
   const [sheet, setSheet] = useState(null); // 'filter' | 'add'
   const [error, setError] = useState(null);
   const [toast, setToast] = useState(null);
@@ -156,7 +158,8 @@ export default function AdvisorHomePage() {
         </div>
       )}
 
-      <div className="glass sticky top-0 z-20 flex gap-2 px-4 pt-4 pb-3">
+      <div ref={searchBar} aria-hidden="true" className="h-px" />
+      <div className={`sticky top-0 z-20 flex gap-2 px-4 pt-4 pb-3 transition-[background-color,box-shadow] duration-300 ${stuck ? 'glass shadow-[0_10px_24px_-14px_rgba(106,75,234,.35)]' : 'bg-transparent'}`}>
         <label className="box-border flex h-12 min-w-0 flex-1 items-center gap-2 rounded-[14px] border-[1.5px] border-line bg-white px-[14px] focus-within:border-2 focus-within:border-leaf focus-within:shadow-[0_0_0_4px_#D6F5E6]">
           <SearchIcon />
           <input className="min-w-0 flex-1 bg-transparent text-base outline-none placeholder:text-faint"

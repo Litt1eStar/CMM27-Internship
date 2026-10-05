@@ -7,6 +7,7 @@ import { api } from '../../lib/api';
 import { useAuth } from '../../lib/auth';
 import { EMPTY_FILTERS, MODES, directoryQuery, hasAnyFilter, sheetFilterCount } from '../../lib/companies';
 import { errorText } from '../../lib/errors';
+import { useStuck } from '../../components/useStuck';
 import CompanyCard from './CompanyCard';
 import CompanyFilterSheet from './CompanyFilterSheet';
 import CompanyFormSheet from './CompanyFormSheet';
@@ -33,6 +34,7 @@ export default function DirectoryPage() {
   const [companies, setCompanies] = useState(null);
   const [types, setTypes] = useState([]);
   const [error, setError] = useState(null);
+  const [searchBar, stuck] = useStuck();
   const [sheet, setSheet] = useState(null); // { kind: 'filter' } | { kind: 'form', company? } | { kind: 'delete', company }
 
   useEffect(() => {
@@ -79,7 +81,9 @@ export default function DirectoryPage() {
         </p>
       </header>
 
-      <div className="glass sticky top-0 z-20 flex flex-col gap-[10px] px-4 pt-1 pb-3">
+      <div ref={searchBar} aria-hidden="true" className="h-px" />
+      {/* Transparent at rest so it blends with the page; frosted once it pins to the top. */}
+      <div className={`sticky top-0 z-20 flex flex-col gap-[10px] px-4 pt-1 pb-3 transition-[background-color,box-shadow] duration-300 ${stuck ? 'glass shadow-[0_10px_24px_-14px_rgba(106,75,234,.35)]' : 'bg-transparent'}`}>
         <div className="flex gap-2">
           <label className="box-border flex h-12 min-w-0 flex-1 items-center gap-2 rounded-[14px] border-[1.5px] border-line bg-white px-[14px] focus-within:border-2 focus-within:border-leaf focus-within:shadow-[0_0_0_4px_#D6F5E6]">
             <SearchIcon />
