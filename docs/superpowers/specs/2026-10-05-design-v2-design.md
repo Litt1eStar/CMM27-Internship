@@ -80,6 +80,27 @@ Notes and "added by" stay hidden (Q6).
   "ขอบคุณที่ช่วยเพื่อน ๆ 🌱" with `haptic('success')`. Editing and deleting: list animates, no new toast.
 - Skeleton cards while loading (replaces today's centred seed).
 
+**Add / edit company sheet** (`CompanyFormSheet`)
+- Live preview: a mini seed-packet card at the top of the form, built from the same `CompanyCard` parts,
+  updating as the user types (name, initial and colour, business type, work mode, source).
+  New companies have no id yet, so the preview uses a neutral colour until saved.
+- Early duplicate warning: 400 ms after typing stops, call `GET /api/companies?q=<name>` and compare
+  `lower(trim(name))` with each result (the same rule as the `companies_name_unique` index), excluding the
+  company being edited. On a match the name field shows "มีบริษัทนี้ในทำเนียบแล้ว" and save is disabled.
+  Advisory only: the database index still enforces it, and `DUPLICATE_NAME` from the API is shown as today.
+- Searchable business type: the `<select>` becomes a button that opens `BusinessTypePicker`, a sheet with
+  a search box and the list. The top section "ใช้บ่อย" shows the 5 types with the most companies, counted from
+  the unfiltered directory (one `GET /api/companies` when the picker opens). Search matches `name_th` as a
+  plain substring. Keyboard and screen-reader accessible (listbox semantics).
+- Unsaved changes: closing (✕, backdrop, drag down) when the form differs from its starting values asks
+  in a small confirm sheet "ทิ้งการแก้ไข?" with "ทิ้ง" and "แก้ไขต่อ".
+
+**Delete company sheet** (`DeleteCompanySheet`): the delete button becomes a `HoldButton` (danger
+style). After the API succeeds, the card wilts (droops, desaturates, shrinks) out of the list.
+
+**Filter sheet** (`CompanyFilterSheet`): the "แสดง N บริษัท" number rolls to the new value when the
+draft filters change. Type chips and source chips use the springy selection from the foundation.
+
 ## 3. Student home and progress
 
 Page structure stays: hero, steps card, history card, sticky action bar.
@@ -144,7 +165,9 @@ holding an unplugged cord, existing "ลองใหม่" button.
 | `public/sfx/` | pop, chime, rustle. |
 | `lib/highlight.js` | Pure: split a name into matched/unmatched parts for a search term. |
 | `components/PullToRefresh.jsx` | Pull gesture with sprout stretch and threshold; calls `onRefresh`. |
-| `lib/companies.js` (extended) | `isNew(company, now)` for the 7-day badge. |
+| `lib/companies.js` (extended) | `isNew(company, now)` for the 7-day badge; `sameCompanyName(a, b)` (trim + lower-case); `topTypes(companies, n)`. |
+| `pages/companies/BusinessTypePicker.jsx` | Searchable business-type sheet with the "ใช้บ่อย" section. |
+| `components/ConfirmDiscard.jsx` | The "ทิ้งการแก้ไข?" confirm sheet. |
 
 ## 6. Performance
 
@@ -157,7 +180,8 @@ holding an unplugged cord, existing "ลองใหม่" button.
 
 - Vitest: `sky.js` boundaries (time-of-day edges), `feedback.js` (sound default off, toggle persistence,
   storage failure falls back to off, reduced-motion), `HoldButton` timing helper, `highlight.js` (Thai text,
-  repeated matches, special characters treated literally), `isNew()` (7-day boundary).
+  repeated matches, special characters treated literally), `isNew()` (7-day boundary), `sameCompanyName()` (case, surrounding spaces, Thai),
+  `topTypes()` (ties, fewer than n types).
 - Playwright walkthrough at 390×844 of every changed screen, with reduced motion off and on; desktop check of
   the 430px column. Screenshots in `.playwright-mcp/` for user approval.
 - Any DB writes use the guarded test accounts and cleanup from the earlier visual check, and only after the
@@ -180,3 +204,7 @@ holding an unplugged cord, existing "ลองใหม่" button.
 - "กดค้างเพื่อยืนยัน" (HoldButton label and hint)
 - "ใหม่" (new-company badge)
 - "ขอบคุณที่ช่วยเพื่อน ๆ 🌱" (toast after adding a company)
+- "มีบริษัทนี้ในทำเนียบแล้ว" (early duplicate warning)
+- "ใช้บ่อย" (frequent business types)
+- "ค้นหาประเภทธุรกิจ…" (business type search placeholder)
+- "ทิ้งการแก้ไข?", "ทิ้ง", "แก้ไขต่อ" (discard-changes confirm)
