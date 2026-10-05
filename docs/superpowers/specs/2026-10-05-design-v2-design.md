@@ -161,8 +161,9 @@ holding an unplugged cord, existing "ลองใหม่" button.
 - Playwright walkthrough at 390×844 of every changed screen, with reduced motion off and on; desktop check of
   the 430px column. Screenshots in `.playwright-mcp/` for user approval.
 - Any DB writes use the guarded test accounts and cleanup from the earlier visual check, and only after the
-  user agrees. **If real students have already signed in, no test students may be created** (CLAUDE.md);
-  then the walkthrough uses API mocking in the browser instead.
+  user agrees. As of 2026-10-05 no real students have signed in, so test accounts are allowed. Before each
+  phase's walkthrough, check the database: **if any real student has signed in, no test students may be
+  created** (CLAUDE.md), and the walkthrough switches to API mocking in the browser.
 - Existing tests (client 25, server 24) still pass; `npm run build` clean; `npm audit` 0.
 
 ## 8. Rollout
