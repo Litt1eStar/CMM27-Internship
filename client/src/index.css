@@ -1,47 +1,206 @@
 @import 'tailwindcss';
 
+/* Tokens from the Claude Design bundle (docs/design/…). */
 @theme {
-  --font-sans: 'IBM Plex Sans Thai', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Kanit', system-ui, sans-serif;
 
-  --color-ink: #1f2328;
-  --color-ink-soft: #57606a;
-  --color-line: #d8dee4;
-  --color-paper: #f6f8fa;
+  --color-canvas: #ede4d9;      /* outside the phone column */
+  --color-cream: #fff8f0;       /* app background */
+  --color-bark: #3b2f2f;        /* text */
+  --color-muted: #8a7b76;
+  --color-muted-strong: #6b5a50;
+  --color-faint: #a89a94;       /* placeholders */
+  --color-line: #e3d6c8;
+  --color-line-soft: #f3e7da;
+  --color-dash: #eadfd3;
+  --color-sand: #f1ece6;
+  --color-locked: #efeae5;
+  --color-locked-ink: #a1948d;
+  --color-leaf: #3dbe8b;
+  --color-leaf-deep: #2e9e72;
+  --color-forest: #0f3d2e;
+  --color-mint: #d6f5e6;
+  --color-mint-ink: #146b48;
+  --color-vine: #9eddc2;
+  --color-link: #1e7a57;
+  --color-danger: #b42318;
+  --color-danger-soft: #ffe3e3;
+  --color-danger-tint: #fff7f7;
+  --color-danger-line: #f6c9c4;
+  --color-warn-soft: #fff1c9;
+  --color-warn-ink: #8a5a00;
 
-  --color-accent: #0f766e;
-  --color-accent-soft: #ccfbf1;
+  --shadow-card: 0 1px 2px rgba(120, 80, 40, 0.06), 0 8px 24px rgba(120, 80, 40, 0.07);
+  --shadow-sheet: 0 -10px 30px rgba(59, 47, 47, 0.12);
+  --shadow-bar: 0 -6px 20px rgba(120, 80, 40, 0.08);
+  --shadow-fab: 0 4px 0 #2e9e72, 0 12px 28px rgba(15, 61, 46, 0.3);
 }
 
-body {
-  @apply bg-paper text-ink font-sans antialiased;
+@layer base {
+  html,
+  body {
+    background: var(--color-canvas);
+  }
+  body {
+    margin: 0;
+    font-family: var(--font-sans);
+    color: var(--color-bark);
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+  }
+  button {
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+  }
 }
 
-/* Shared building blocks, matching the project's wireframe conventions:
-   dark solid primary buttons, outline secondary buttons, pill chips. */
 @layer components {
+  .btn {
+    display: flex;
+    width: 100%;
+    height: 52px;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 14px;
+    font-size: 16px;
+    font-weight: 600;
+  }
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-ink px-4 py-2 text-sm font-medium text-white
-      transition hover:bg-black disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-500;
+    background: var(--color-leaf);
+    color: var(--color-forest);
+    box-shadow: 0 3px 0 var(--color-leaf-deep);
+    transition: transform 0.12s, box-shadow 0.12s;
+  }
+  .btn-primary:active:not(:disabled) {
+    transform: translateY(3px);
+    box-shadow: 0 0 0 var(--color-leaf-deep);
+  }
+  .btn-primary:disabled,
+  .btn-locked {
+    background: var(--color-locked);
+    color: var(--color-locked-ink);
+    box-shadow: none;
+    cursor: not-allowed;
   }
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-ink px-4 py-2 text-sm font-medium text-ink
-      transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:border-gray-300 disabled:text-gray-400;
+    background: #fff;
+    border: 1.5px solid var(--color-leaf);
+    color: var(--color-forest);
   }
-  .chip {
-    @apply inline-flex items-center rounded-full border border-line bg-white px-3 py-1 text-sm text-ink-soft
-      transition hover:border-gray-400;
-  }
-  .chip-active {
-    @apply border-ink bg-ink text-white hover:border-ink;
+  /* (extrapolated) destructive sheet button, from the card's ลบ outline */
+  .btn-danger {
+    background: #fff;
+    border: 1.5px solid var(--color-danger-line);
+    color: var(--color-danger);
   }
   .card {
-    @apply rounded-xl border border-line bg-white;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: var(--shadow-card);
   }
-  .input {
-    @apply w-full rounded-lg border border-line bg-white px-3 py-2 text-sm outline-none
-      focus:border-ink focus:ring-2 focus:ring-gray-200;
+  .chip {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    border: 1.5px solid var(--color-line);
+    background: #fff;
+    color: var(--color-bark);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.3;
+  }
+  .chip[aria-pressed='true'],
+  .chip[aria-checked='true'] {
+    background: var(--color-leaf);
+    border-color: var(--color-leaf);
+    color: var(--color-forest);
+    font-weight: 600;
+  }
+  .pill {
+    display: inline-flex;
+    height: 28px;
+    align-items: center;
+    padding: 0 12px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .pill-sm {
+    height: 26px;
+    padding: 0 10px;
+  }
+  .field {
+    width: 100%;
+    height: 48px;
+    border-radius: 14px;
+    border: 1.5px solid var(--color-line);
+    background: #fff;
+    padding: 0 14px;
+    font-size: 16px;
+    color: var(--color-bark);
+    outline: none;
+  }
+  .field::placeholder {
+    color: var(--color-faint);
+  }
+  .field:focus {
+    border: 2px solid var(--color-leaf);
+    box-shadow: 0 0 0 4px var(--color-mint);
+  }
+  .field[aria-invalid='true'] {
+    border: 1.5px solid var(--color-danger);
+    background: var(--color-danger-tint);
+    box-shadow: none;
+  }
+  textarea.field {
+    height: 80px;
+    padding: 12px 14px;
+    resize: none;
   }
   .label {
-    @apply mb-1 block text-sm font-medium text-ink;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .hint {
+    font-size: 13px;
+    color: var(--color-muted);
+  }
+  .title-page {
+    font: 500 24px/1.2 var(--font-sans);
+  }
+  .title-sheet {
+    font: 500 24px/1.3 var(--font-sans);
+  }
+  .title-section {
+    font: 500 18px/1.3 var(--font-sans);
+  }
+  .link-action {
+    display: flex;
+    height: 44px;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-link);
+    text-decoration: underline;
+  }
+  .grabber {
+    width: 40px;
+    height: 5px;
+    margin: 0 auto;
+    border-radius: 3px;
+    background: var(--color-line);
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
   }
 }

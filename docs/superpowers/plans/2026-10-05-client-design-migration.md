@@ -27,7 +27,7 @@ Owner: **Claude** = agent · **You** = needs your confirmation, accounts or eyes
 | 4 | A. Backend | Smoke-test the API end to end (writes test data after your OK) | Claude + You | 3 | ✅ |
 | 5 | A. Backend | README: rules, API reference, setup | Claude | 3 | ✅ |
 | 6 | B. Foundation | Tooling: Vitest, version, same-origin `/api`, PKCE | Claude | — | ✅ |
-| 7 | B. Foundation | Design tokens, Kanit, base CSS | Claude | 6 | ⬜ |
+| 7 | B. Foundation | Design tokens, Kanit, base CSS | Claude | 6 | ✅ |
 | 8 | B. Foundation | Logic: status, dates, initials, colours | Claude | 6 | ⬜ |
 | 9 | B. Foundation | Logic: timeline/history, companies, roster queries | Claude | 8 | ⬜ |
 | 10 | B. Foundation | Sprout mascot + motion engine | Claude | 7 | ⬜ |
@@ -912,7 +912,7 @@ In `client/package.json` `scripts`, add `"test": "vitest run"`.
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
-import pkg from './package.json';
+import pkg from './package.json' with { type: 'json' };
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
@@ -1056,7 +1056,7 @@ All values come from the design files' inline styles.
 **Files:**
 - Rewrite: `client/index.html`, `client/src/index.css`
 
-- [ ] **Step 1: Replace `client/index.html`** (`viewport-fit=cover` enables the safe-area insets)
+- [x] **Step 1: Replace `client/index.html`** (`viewport-fit=cover` enables the safe-area insets)
 
 ```html
 <!doctype html>
@@ -1077,7 +1077,7 @@ All values come from the design files' inline styles.
 </html>
 ```
 
-- [ ] **Step 2: Replace `client/src/index.css`**
+- [x] **Step 2: Replace `client/src/index.css`**
 
 ```css
 @import 'tailwindcss';
@@ -1288,9 +1288,9 @@ All values come from the design files' inline styles.
 }
 ```
 
-- [ ] **Step 3: Build:** `cd client && npm run build` → `✓ built`. (The old pages still compile; they're replaced later.)
+- [x] **Step 3: Build:** `cd client && npm run build` → `✓ built`. (The old pages still compile; they're replaced later.)
 
-- [ ] **Step 4: Commit:** `git add client/index.html client/src/index.css && git commit -m "feat(client): design tokens, Kanit font, base component styles"`
+- [x] **Step 4: Commit:** `git add client/index.html client/src/index.css && git commit -m "feat(client): design tokens, Kanit font, base component styles"`
 
 ---
 
