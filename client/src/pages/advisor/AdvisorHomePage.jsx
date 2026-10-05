@@ -166,7 +166,7 @@ export default function AdvisorHomePage() {
           className="box-border flex h-12 flex-none items-center gap-1.5 rounded-[14px] border-[1.5px] border-line bg-white px-3 text-base font-semibold">
           <FilterIcon />
           ตัวกรอง
-          {badge > 0 && <span className="flex h-[22px] min-w-[22px] items-center justify-center rounded-[11px] bg-bloom text-[13px] font-bold text-ink">{badge}</span>}
+          {badge > 0 && <span className="flex h-[22px] min-w-[22px] items-center justify-center rounded-[11px] bg-bloom text-[13px] font-bold text-white">{badge}</span>}
         </button>
       </div>
 

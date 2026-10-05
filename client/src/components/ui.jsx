@@ -42,8 +42,8 @@ export function Fab({ label, onClick }) {
     <div className="pointer-events-none fixed inset-x-0 z-30 mx-auto flex max-w-[430px] justify-end px-4"
       style={{ bottom: 'calc(64px + env(safe-area-inset-bottom) + 16px)' }}>
       <button type="button" onClick={onClick} data-anim="breathe"
-        className="pointer-events-auto flex h-[60px] items-center gap-[10px] rounded-[30px] bg-bloom pr-[22px] pl-[10px] text-lg font-semibold text-ink shadow-[0_4px_0_#5a7fd6,0_14px_30px_-8px_rgba(124,92,255,.55)]">
-        <span className="flex size-10 items-center justify-center rounded-full bg-ink"><PlusIcon /></span>
+        className="pointer-events-auto flex h-[60px] items-center gap-[10px] rounded-[30px] bg-bloom pr-[22px] pl-[10px] text-lg font-semibold text-white shadow-[0_4px_0_#3b3a8f,0_14px_30px_-8px_rgba(106,75,234,.55)]">
+        <span className="flex size-10 items-center justify-center rounded-full bg-white/20"><PlusIcon color="#FFFFFF" /></span>
         {label}
       </button>
     </div>

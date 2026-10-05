@@ -48,7 +48,7 @@ export default function ProfilePage() {
 
   return (
     <div className="flex min-h-[calc(100dvh-env(safe-area-inset-top)-64px-env(safe-area-inset-bottom))] flex-col">
-      <h1 className="title-page flex h-14 items-center px-4">ฉัน</h1>
+      <h1 className="title-page mx-auto flex h-14 items-center justify-center px-4">Profile</h1>
 
       <div className="flex flex-col items-center px-4 pt-3 text-center">
         <div className="relative size-[116px]">

@@ -6,11 +6,11 @@ const TABS = {
   student: [
     { to: '/', label: 'ความคืบหน้า', Icon: TabSproutIcon, end: true },
     { to: '/companies', label: 'บริษัท', Icon: TabBuildingIcon },
-    { to: '/me', label: 'ฉัน', Icon: TabPersonIcon },
+    { to: '/me', label: 'Profile', Icon: TabPersonIcon },
   ],
   advisor: [
     { to: '/', label: 'ภาพรวม', Icon: TabGardenIcon, end: true },
-    { to: '/me', label: 'ฉัน', Icon: TabPersonIcon },
+    { to: '/me', label: 'Profile', Icon: TabPersonIcon },
   ],
 };
 
@@ -38,9 +38,9 @@ export default function TabBar({ role }) {
             <>
               <span
                 data-anim={isActive ? 'pop' : ''}
-                className={`flex h-8 w-[60px] items-center justify-center rounded-2xl ${isActive ? 'bg-bloom shadow-[0_6px_14px_-6px_rgba(124,92,255,.6)]' : ''}`}
+                className={`flex h-8 w-[60px] items-center justify-center rounded-2xl ${isActive ? 'bg-bloom shadow-[0_6px_14px_-6px_rgba(106,75,234,.6)]' : ''}`}
               >
-                <Icon color={isActive ? '#0F2A3A' : '#8A7B76'} />
+                <Icon color={isActive ? '#FFFFFF' : '#8A7B76'} />
               </span>
               <span className="text-[13px] leading-4" style={{ color: isActive ? '#0F2A3A' : '#8A7B76', fontWeight: isActive ? 600 : 400 }}>
                 {label}

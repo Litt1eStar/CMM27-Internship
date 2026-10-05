@@ -95,7 +95,7 @@ export default function DirectoryPage() {
             <FilterIcon />
             ตัวกรอง
             {badge > 0 && (
-              <span className="flex h-[22px] min-w-[22px] items-center justify-center rounded-[11px] bg-bloom text-[13px] font-bold text-ink">{badge}</span>
+              <span className="flex h-[22px] min-w-[22px] items-center justify-center rounded-[11px] bg-bloom text-[13px] font-bold text-white">{badge}</span>
             )}
           </button>
         </div>

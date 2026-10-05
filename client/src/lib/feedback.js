@@ -47,7 +47,7 @@ function playFile(kind) {
   const src = FILES[kind];
   if (!src || typeof Audio === 'undefined') return;
   const audio = (cache[kind] ??= new Audio(src));
-  audio.volume = 0.45;
+  audio.volume = 0.75;
   audio.currentTime = 0;
   audio.play().catch(() => {}); // autoplay rules or no output device: stay silent
 }

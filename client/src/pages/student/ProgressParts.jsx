@@ -40,7 +40,7 @@ export function HeroCard({ progress, name }) {
               <li key={label} className="flex flex-col items-center gap-1.5">
                 <span
                   data-anim={current ? 'pulse' : undefined}
-                  className="box-border flex items-center justify-center rounded-full border-2 text-xs font-bold text-ink"
+                  className="box-border flex items-center justify-center rounded-full border-2 text-xs font-bold text-white"
                   style={{
                     width: current ? 28 : 24,
                     height: current ? 28 : 24,
@@ -64,7 +64,7 @@ export function HeroCard({ progress, name }) {
 
 const CIRCLE = {
   active: { bg: '#FFFFFF', bd: '#8B7BFF', fg: '#0F2A3A' },
-  done: { bg: 'var(--gradient-bloom)', bd: 'transparent', fg: '#0F2A3A' },
+  done: { bg: 'var(--gradient-bloom)', bd: 'transparent', fg: '#FFFFFF' },
   locked: { bg: '#F1EDF7', bd: '#F1EDF7', fg: '#A1948D' },
 };
 

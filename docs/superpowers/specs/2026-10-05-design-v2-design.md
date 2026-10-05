@@ -242,3 +242,13 @@ The user compared three previews (Golden hour, Night garden, Candy bloom) and ch
 
 **Update (2026-10-05, later):** the user then asked for Candy bloom on every page. Login, the boot splash,
 the link-student page and the celebration all use the Candy bloom background; Night garden is dropped.
+
+**Update (2026-10-05, after review):**
+
+- The bloom gradient is deeper so white text and icons read clearly on it: emerald #12805A → deep teal
+  #177F86 → violet #6A4BEA (white: 4.9:1, 4.8:1, 5.5:1). Text and icons on every gradient element (primary
+  button, selected chips, active tab icon, FAB, filter badges, done progress dots) are white.
+- The profile tab and the profile page title read **Profile** (English, the user's choice; an exception to
+  the Thai-UI convention). The page title is centred.
+- Sound volume raised from 45% to 75% (the user found it too quiet).
+
