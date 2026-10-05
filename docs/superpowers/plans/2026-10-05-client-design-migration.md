@@ -33,7 +33,7 @@ Owner: **Claude** = agent · **You** = needs your confirmation, accounts or eyes
 | 10 | B. Foundation | Sprout mascot + motion engine | Claude | 7 | ✅ |
 | 11 | B. Foundation | Shared UI: icons, sheet, toast, banner, FAB, chips, ID field, count-up | Claude | 10 | ✅ |
 | 12 | B. Foundation | App frame, tab bar, auth state, routes | Claude | 11 | ✅ |
-| 13 | C. Screens | 1a/1b Login | Claude | 12 | ⬜ |
+| 13 | C. Screens | 1a/1b Login | Claude | 12 | ✅ |
 | 14 | C. Screens | 2a–2c Verify student ID | Claude | 12 | ⬜ |
 | 15 | C. Screens | 3a–3c Student home | Claude | 12 | ⬜ |
 | 16 | C. Screens | 3d/3e action sheets, toast, 3f celebration | Claude | 15 | ⬜ |
@@ -2521,7 +2521,7 @@ Every screen task ends with a quick look in `npm run dev`. The full side-by-side
 **Files:**
 - Rewrite: `client/src/pages/LoginPage.jsx`
 
-- [ ] **Step 1: Replace `client/src/pages/LoginPage.jsx`** (design 1a and 1b; positions follow translation rule 2)
+- [x] **Step 1: Replace `client/src/pages/LoginPage.jsx`** (design 1a and 1b; positions follow translation rule 2)
 
 ```jsx
 import { useState } from 'react';
@@ -2591,9 +2591,9 @@ export default function LoginPage() {
 }
 ```
 
-- [ ] **Step 2: Look:** `npm run dev`, signed out → matches **1a**: green halo, waving sprout holding a resume, floating circle, two sparkles, a leaf, and the Google button at the bottom.
+- [x] **Step 2: Look:** `npm run dev`, signed out → matches **1a**: green halo, waving sprout holding a resume, floating circle, two sparkles, a leaf, and the Google button at the bottom.
 
-- [ ] **Step 3: Commit:** `git add client/src/pages/LoginPage.jsx && git commit -m "feat(client): login screen (1a/1b)"`
+- [x] **Step 3: Commit:** `git add client/src/pages/LoginPage.jsx && git commit -m "feat(client): login screen (1a/1b)"`
 
 ---
 

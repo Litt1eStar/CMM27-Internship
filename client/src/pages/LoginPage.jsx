@@ -1,33 +1,64 @@
 import { useState } from 'react';
+import Sprout from '../components/Sprout';
+import { LeafDeco, Sparkle } from '../components/Icons';
+import { ErrorBanner } from '../components/ui';
 import { useAuth } from '../lib/auth';
 import { STUDENT_EMAIL_DOMAIN, signInWithGoogle } from '../lib/supabase';
 
+const top = (px) => `calc(env(safe-area-inset-top) + ${px}px)`;
+
 export default function LoginPage() {
   const { error } = useAuth();
+  const wrongDomain = error?.code === 'DOMAIN_NOT_ALLOWED';
   const [busy, setBusy] = useState(false);
 
-  async function login() {
+  async function signIn() {
     setBusy(true);
-    const { error: err } = await signInWithGoogle();
-    if (err) setBusy(false);
+    const { error: e } = await signInWithGoogle();
+    if (e) setBusy(false);
   }
 
   return (
-    <div className="grid min-h-screen place-items-center px-4">
-      <div className="card w-full max-w-sm p-8 text-center">
-        <div className="mx-auto mb-4 grid h-12 w-12 place-items-center rounded-xl bg-ink text-sm font-bold text-white">CMM</div>
-        <h1 className="text-xl font-semibold">Internship Tracker</h1>
-        <p className="mt-2 text-sm text-ink-soft">ติดตามการเตรียมตัวฝึกงานและแบ่งปันข้อมูลบริษัทในรุ่น</p>
+    <div className="relative mx-auto flex min-h-dvh max-w-[430px] flex-col overflow-hidden bg-cream">
+      <div
+        className="absolute top-[-250px] left-1/2 size-[640px] -translate-x-1/2 rounded-full"
+        style={{ background: wrongDomain ? '#FBEDE6' : '#E3F6EC' }}
+      />
+      {!wrongDomain && (
+        <>
+          <Sparkle size={22} className="absolute" style={{ left: 36, top: top(63) }} />
+          <Sparkle size={14} color="#C9B6FF" className="absolute" style={{ right: 52, top: top(49) }} />
+          <LeafDeco size={30} color="#BDEBD3" anim="float" className="absolute" style={{ right: 30, top: top(253) }} />
+        </>
+      )}
 
-        <button type="button" onClick={login} disabled={busy} className="btn-primary mt-6 w-full py-2.5">
-          <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4">
-            <path fill="#fff" d="M21.8 10.2H12v3.9h5.6c-.5 2.5-2.6 3.9-5.6 3.9a6 6 0 1 1 0-12c1.5 0 2.9.6 3.9 1.5l2.9-2.9A10 10 0 1 0 12 22c5 0 9.6-3.6 9.6-10 0-.6 0-1.2-.2-1.8z" />
-          </svg>
-          {busy ? 'กำลังไปที่ Google…' : 'เข้าสู่ระบบด้วย Google'}
+      <div className="relative flex flex-col items-center px-8 text-center" style={{ paddingTop: top(49) }}>
+        <div
+          data-anim={wrongDomain ? undefined : 'float'}
+          className="flex size-[236px] items-center justify-center rounded-full bg-white"
+          style={{ boxShadow: wrongDomain ? '0 12px 30px rgba(180,35,24,.10)' : '0 12px 30px rgba(61,190,139,.18)' }}
+        >
+          {wrongDomain ? <Sprout stage="both" mood="worried" size={190} /> : <Sprout stage="both" wave hold="resume" size={190} />}
+        </div>
+        <h1 className="mt-10 text-[26px] leading-[1.25] font-medium">CMM Internship Tracker</h1>
+        <p className="mt-[10px] text-base leading-[1.55] text-pretty text-muted">ติดตามการเตรียมตัวฝึกงาน และแบ่งปันข้อมูลบริษัทในรุ่น</p>
+      </div>
+
+      <div className="relative mt-auto flex flex-col gap-3 px-4 pt-8" style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) + 22px)' }}>
+        {wrongDomain && (
+          <ErrorBanner title={`กรุณาเข้าสู่ระบบด้วยอีเมล @${STUDENT_EMAIL_DOMAIN}`}>
+            {error.email && `คุณใช้ ${error.email}`}
+          </ErrorBanner>
+        )}
+        {/* (extrapolated) any other sign-in failure, e.g. network */}
+        {error && !wrongDomain && <ErrorBanner>{error.message}</ErrorBanner>}
+        <button type="button" onClick={signIn} disabled={busy} className="btn btn-primary h-14 gap-3">
+          <span className="flex size-[30px] items-center justify-center rounded-full bg-white [font-family:Arial,sans-serif] text-[17px] font-bold text-[#4285F4]">
+            G
+          </span>
+          เข้าสู่ระบบด้วย Google
         </button>
-        <p className="mt-3 text-xs text-ink-soft">ใช้อีเมล @{STUDENT_EMAIL_DOMAIN}</p>
-
-        {error && <p className="mt-4 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p>}
+        <p className="hint text-center">ใช้อีเมล @{STUDENT_EMAIL_DOMAIN}</p>
       </div>
     </div>
   );
