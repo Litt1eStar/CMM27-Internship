@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"></helmet>
+<div style="font-family:'Kanit',sans-serif;color:#3B2F2F;width:100%">
+<sc-if value="{{ showHead }}" hint-placeholder-val="{{ true }}">
+<div style="padding:8px 16px 12px"><div style="font:500 24px/1.3 'Kanit',sans-serif">ทำเนียบบริษัท</div><div style="font-size:13px;line-height:1.55;color:#8A7B76;margin-top:4px;text-wrap:pretty">ข้อมูลบริษัทที่เพื่อนในรุ่นรวบรวมไว้ ทั้งจากประสบการณ์รุ่นพี่และที่ค้นหาเอง</div></div>
+<div style="position:sticky;top:0;z-index:2;background:#FFF8F0;padding:4px 16px 12px;display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;gap:8px">
+<div style="flex:1;min-width:0;height:48px;border-radius:14px;background:#FFFFFF;border:1.5px solid #E3D6C8;box-sizing:border-box;display:flex;align-items:center;gap:8px;padding:0 14px;font-size:16px;color:#A89A94;white-space:nowrap;overflow:hidden"><svg width="20" height="20" viewBox="0 0 24 24" style="fill:none;stroke:#8A7B76;stroke-width:2.2;stroke-linecap:round;flex:none"><circle cx="11" cy="11" r="7"></circle><path d="M16.5 16.5 L21 21"></path></svg>ค้นหาชื่อบริษัท…</div>
+<div style="height:48px;border-radius:14px;background:#FFFFFF;border:1.5px solid #E3D6C8;box-sizing:border-box;padding:0 12px;display:flex;align-items:center;gap:6px;font-size:16px;font-weight:600;flex:none"><svg width="20" height="20" viewBox="0 0 24 24" style="fill:none;stroke:#3B2F2F;stroke-width:2.2;stroke-linecap:round"><path d="M4 7 L20 7 M7 12 L17 12 M10 17 L14 17"></path></svg>ตัวกรอง<div style="min-width:22px;height:22px;border-radius:11px;background:#3DBE8B;color:#0F3D2E;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center">2</div></div>
+</div>
+<div style="display:flex;gap:8px;overflow-x:auto;margin:0 -16px;padding:0 16px;scrollbar-width:none">
+<div style="height:44px;padding:0 16px;border-radius:999px;background:#3DBE8B;color:#0F3D2E;font-size:16px;font-weight:600;display:flex;align-items:center;gap:6px;flex:none">✓ ทั้งหมด</div>
+<div style="height:44px;padding:0 16px;border-radius:999px;background:#FFFFFF;border:1.5px solid #E3D6C8;box-sizing:border-box;font-size:16px;display:flex;align-items:center;gap:8px;flex:none"><div style="width:10px;height:10px;border-radius:50%;background:#FFB088"></div>Onsite</div>
+<div style="height:44px;padding:0 16px;border-radius:999px;background:#FFFFFF;border:1.5px solid #E3D6C8;box-sizing:border-box;font-size:16px;display:flex;align-items:center;gap:8px;flex:none"><div style="width:10px;height:10px;border-radius:50%;background:#8CC8FF"></div>Online</div>
+<div style="height:44px;padding:0 16px;border-radius:999px;background:#FFFFFF;border:1.5px solid #E3D6C8;box-sizing:border-box;font-size:16px;display:flex;align-items:center;gap:8px;flex:none"><div style="width:10px;height:10px;border-radius:50%;background:#B9A2F5"></div>Hybrid</div>
+</div>
+</div>
+<div style="padding:0 16px 12px;font-size:13px;color:#8A7B76;display:flex;gap:6px;align-items:center"><div>พบ {{ count }} บริษัท</div><div>·</div><div style="color:#1E7A57;font-weight:600;text-decoration:underline">ล้างตัวกรองทั้งหมด</div></div>
+
+</sc-if>
+<sc-if value="{{ list }}" hint-placeholder-val="{{ true }}">
+<div style="padding:{{ listPad }};display:flex;flex-direction:column;gap:12px">
+<sc-for list="{{ companies }}" as="c" hint-placeholder-count="3">
+<div style="background:#FFFFFF;border-radius:20px;box-shadow:0 1px 2px rgba(120,80,40,.06),0 8px 24px rgba(120,80,40,.07);padding:16px;display:flex;flex-direction:column;gap:12px" data-anim="rise" data-anim-delay="{{ c.delay }}">
+<div style="display:flex;gap:12px;align-items:flex-start">
+<div style="width:48px;height:48px;border-radius:14px;background:{{ c.avBg }};color:{{ c.avFg }};font:500 20px 'Kanit',sans-serif;display:flex;align-items:center;justify-content:center;flex:none">{{ c.letter }}</div>
+<div style="flex:1;min-width:0">
+<div style="font-size:16px;font-weight:600;line-height:1.35">{{ c.name }}</div>
+<div style="font-size:13px;color:#8A7B76;line-height:1.45;margin-top:2px">{{ c.type }}</div>
+</div>
+<div style="height:26px;padding:0 10px;border-radius:999px;background:{{ c.mBg }};color:{{ c.mFg }};font-size:13px;font-weight:600;display:flex;align-items:center;flex:none">{{ c.mode }}</div>
+</div>
+<sc-if value="{{ c.hasUrl }}"><div style="height:48px;border-radius:12px;border:1.5px solid #EADFD3;box-sizing:border-box;display:flex;align-items:center;gap:10px;padding:0 14px;font-size:16px;color:#1E7A57">
+<svg width="18" height="18" viewBox="0 0 24 24" style="fill:none;stroke:#1E7A57;stroke-width:2;stroke-linecap:round;flex:none"><circle cx="12" cy="12" r="9"></circle><path d="M3 12 L21 12 M12 3 C15 6 15 18 12 21 M12 3 C9 6 9 18 12 21"></path></svg>
+<div style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ c.url }}</div>
+<div style="font-size:18px">↗</div>
+</div></sc-if>
+<sc-if value="{{ c.noUrl }}"><div style="height:48px;border-radius:12px;border:1.5px dashed #E3D6C8;box-sizing:border-box;display:flex;align-items:center;gap:10px;padding:0 14px;font-size:16px;color:#A89A94"><svg width="18" height="18" viewBox="0 0 24 24" style="fill:none;stroke:#C9BAAE;stroke-width:2;stroke-linecap:round;flex:none"><circle cx="12" cy="12" r="9"></circle><path d="M3 12 L21 12 M12 3 C15 6 15 18 12 21 M12 3 C9 6 9 18 12 21"></path></svg>ไม่มีข้อมูลเว็บไซต์</div></sc-if>
+<sc-if value="{{ c.editable }}">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+<div style="height:44px;border-radius:14px;border:1.5px solid #E3D6C8;box-sizing:border-box;display:flex;align-items:center;justify-content:center;gap:6px;font-size:16px;font-weight:600"><svg width="16" height="16" viewBox="0 0 24 24" style="fill:none;stroke:#3B2F2F;stroke-width:2.2;stroke-linejoin:round"><path d="M4 20 L8 20 L19 9 L15 5 L4 16 Z"></path></svg>แก้ไข</div>
+<div style="height:44px;border-radius:14px;border:1.5px solid #F6C9C4;box-sizing:border-box;display:flex;align-items:center;justify-content:center;gap:6px;font-size:16px;font-weight:600;color:#B42318"><svg width="16" height="16" viewBox="0 0 24 24" style="fill:none;stroke:#B42318;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round"><path d="M4 7 L20 7 M9 7 L9 4 L15 4 L15 7 M6 7 L7 20 L17 20 L18 7"></path></svg>ลบ</div>
+</div>
+</sc-if>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ empty }}" hint-placeholder-val="{{ false }}">
+<div style="margin:12px 16px 0;background:#FFFFFF;border-radius:20px;box-shadow:0 1px 2px rgba(120,80,40,.06),0 8px 24px rgba(120,80,40,.07);padding:32px 24px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;position:relative;overflow:hidden" data-anim="rise">
+<svg data-anim="twinkle" width="16" height="16" viewBox="0 0 20 20" style="position:absolute;right:18px;top:16px"><path d="M10 1 Q10 10 19 10 Q10 10 10 19 Q10 10 1 10 Q10 10 10 1 Z" style="fill:#FFD66B"></path></svg>
+<div style="width:150px;height:150px;border-radius:50%;background:#FFF8F0;display:flex;align-items:center;justify-content:center;margin-bottom:6px"><dc-import name="Sprout" stage="both" hold="glass" size="{{ 124 }}" hint-size="124px,124px"></dc-import></div>
+<div style="font:500 18px/1.4 'Kanit',sans-serif">ไม่พบบริษัทที่ตรงกับตัวกรอง</div>
+<div style="font-size:16px;line-height:1.5;color:#8A7B76;text-wrap:pretty">รู้จักบริษัทที่น่าสนใจ? เพิ่มให้เพื่อน ๆ ได้เลย</div>
+<div style="margin-top:10px;height:52px;padding:0 28px;border-radius:14px;background:#3DBE8B;color:#0F3D2E;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 0 #2E9E72;cursor:pointer;transition:transform .12s,box-shadow .12s" style-active="transform:translateY(3px);box-shadow:0 0 0 #2E9E72">+ เพิ่มบริษัท</div>
+</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:1900},&quot;role&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;student&quot;,&quot;advisor&quot;],&quot;default&quot;:&quot;student&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;empty&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const adv = this.props.role === 'advisor', empty = this.props.empty === true || this.props.empty === 'true';
+    const M = { Onsite: ['#FFE1D2', '#9A3F12'], Online: ['#DDF0FF', '#1F5A8A'], Hybrid: ['#EDE4FF', '#5B3FA8'] };
+    const AV = [['#FFE1D2', '#9A3F12'], ['#DDF0FF', '#1F5A8A'], ['#EDE4FF', '#5B3FA8'], ['#FFF1C9', '#8A5A00'], ['#D6F5E6', '#146B48'], ['#FFE3EC', '#A3345B']];
+    const raw = [
+      { name: 'Pixel Forge Studio', type: 'งานออกแบบ', mode: 'Onsite', note: 'รุ่นพี่ปี 66 ฝึกตำแหน่ง 3D Artist ได้ลงงานจริง', url: 'pixelforge.example.com', src: 's', by: 'ปวีณา ศรีสุข' },
+      { name: 'Moonbeam Media', type: 'โปรดักชั่น งานโฆษณา และสื่อออนไลน์', mode: 'Hybrid', note: 'เปิดรับช่วง มี.ค.–พ.ค. ตำแหน่ง Motion Graphic', src: 'p', by: 'สมชาย ใจดี' },
+      { name: 'Siam Story Channel', type: 'ผลิตรายการโทรทัศน์', mode: 'Onsite', note: 'รับฝึกฝ่ายตัดต่อ ต้องมีพอร์ตงานวิดีโอ', url: 'siamstory.example.com', src: 's', by: 'ธนากร วงศ์ใหญ่' },
+      { name: 'Kanom Creative', type: 'ผลิตสื่อออนไลน์และออฟไลน์', mode: 'Online', note: 'ทำงานทางไกลได้ทั้งหมด มีพี่เลี้ยงดูแลทุกสัปดาห์', url: 'kanomcreative.example.com', src: 'p', by: 'มินตรา แก้วดี' },
+      { name: 'LearnLab Thailand', type: 'งานการศึกษา งานฝึกอบรม', mode: 'Hybrid', note: 'รับ Instructional Designer ฝึก 4 เดือน', url: 'learnlab.example.com', src: 'p', by: 'สมชาย ใจดี' },
+      { name: 'Nimbus Interactive', type: 'งานไอที', mode: 'Online', url: 'nimbus.example.com', src: 's', by: 'กิตติพัฒน์ มั่นคง' }
+    ];
+    const ids = this.props.ids ? String(this.props.ids).split(',').map(Number) : null;
+    const bare = this.props.bare === true || this.props.bare === 'true';
+    const companies = raw.map((c, i) => ({
+      ...c, letter: c.name[0], avBg: AV[i][0], avFg: AV[i][1], mBg: M[c.mode][0], mFg: M[c.mode][1],
+      byLetter: c.by[0], byBg: AV[(i + 3) % 6][0], byFg: AV[(i + 3) % 6][1],
+      hasUrl: !!c.url, noUrl: !c.url, hasNote: !!c.note, noNote: !c.note,
+      editable: adv || c.by === 'สมชาย ใจดี'
+    }));
+    return { companies: (ids ? companies.filter((_, i) => ids.includes(i)) : companies).map((c, i) => ({ ...c, delay: 80 + i * 90 })), list: !empty, empty, count: empty ? 0 : 6, showHead: !bare, listPad: bare ? '16px' : '0 16px 120px' };
+  }
+}
+</script>
+</body>
+</html>

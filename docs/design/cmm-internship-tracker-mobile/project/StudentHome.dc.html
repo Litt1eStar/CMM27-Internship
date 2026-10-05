@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"></helmet>
+<div style="font-family:'Kanit',sans-serif;color:#3B2F2F;width:100%">
+<div style="height:56px;display:flex;align-items:center;padding:0 16px"><div style="font:500 24px/1.2 'Kanit',sans-serif">ความคืบหน้าของฉัน</div></div>
+<div style="padding:4px 16px 24px;display:flex;flex-direction:column;gap:16px">
+
+<div style="background:#FFFFFF;border-radius:20px;box-shadow:0 1px 2px rgba(120,80,40,.06),0 8px 24px rgba(120,80,40,.07);padding:20px;position:relative;overflow:hidden" data-anim="rise">
+<svg data-anim="twinkle" width="16" height="16" viewBox="0 0 20 20" style="position:absolute;right:14px;top:12px"><path d="M10 1 Q10 10 19 10 Q10 10 10 19 Q10 10 1 10 Q10 10 10 1 Z" style="fill:#FFD66B"></path></svg>
+<svg width="26" height="26" viewBox="0 0 24 24" style="position:absolute;left:-5px;bottom:-5px"><path d="M3 21 C3 11 9 5 21 3 C19 15 13 21 3 21 Z" style="fill:#D6F5E6"></path></svg>
+<div style="display:flex;align-items:center;gap:12px">
+<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:10px;align-items:flex-start">
+<div style="font:500 24px/1.25 'Kanit',sans-serif">สวัสดี สมชาย 👋</div>
+<div style="display:inline-flex;align-items:center;height:28px;padding:0 12px;border-radius:999px;font-size:13px;font-weight:600;white-space:nowrap;background:{{ pillBg }};color:{{ pillFg }}">{{ pill }}</div>
+</div>
+<div data-anim="pop" style="width:124px;height:124px;border-radius:50%;background:#FFF8F0;display:flex;align-items:center;justify-content:center;flex:none"><dc-import name="Sprout" stage="{{ stage }}" size="{{ 104 }}" hint-size="104px,104px"></dc-import></div>
+</div>
+<div style="margin-top:14px;padding:12px 14px;border-radius:14px;background:#FFF8F0;font-size:16px;line-height:1.5;text-wrap:pretty">{{ hint }}</div>
+<div style="margin-top:18px;position:relative">
+<div style="position:absolute;left:10%;right:10%;top:13px;border-top:2px dashed #E3D6C8"></div>
+<div data-anim="grow-x" data-anim-delay="300" style="position:absolute;left:10%;width:{{ stripPct }};top:13px;border-top:2px solid #3DBE8B"></div>
+<div style="display:grid;grid-template-columns:repeat(5,1fr);position:relative">
+<sc-for list="{{ strip }}" as="d" hint-placeholder-count="5">
+<div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+<div data-anim="{{ d.anim }}" style="width:{{ d.sz }};height:{{ d.sz }};margin-top:{{ d.mt }};border-radius:50%;background:{{ d.bg }};border:2px solid {{ d.bd }};box-sizing:border-box;box-shadow:{{ d.ring }};display:flex;align-items:center;justify-content:center;color:#0F3D2E;font-size:12px;font-weight:700">{{ d.mark }}</div>
+<div style="font-size:13px;color:{{ d.fg }};font-weight:{{ d.w }}">{{ d.label }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+
+<div style="background:#FFFFFF;border-radius:20px;box-shadow:0 1px 2px rgba(120,80,40,.06),0 8px 24px rgba(120,80,40,.07);padding:20px" data-anim="rise" data-anim-delay="120">
+<div style="font:500 18px/1.3 'Kanit',sans-serif;margin-bottom:16px">สถานะการเตรียมตัวฝึกงาน</div>
+
+<div style="display:flex;gap:12px">
+<div style="width:32px;display:flex;flex-direction:column;align-items:center;flex:none">
+<div style="width:32px;height:32px;border-radius:50%;background:{{ s1Bg }};border:2px solid #3DBE8B;box-sizing:border-box;display:flex;align-items:center;justify-content:center;font:500 15px 'Kanit',sans-serif;color:#0F3D2E">{{ s1 }}</div>
+<div style="flex:1;width:0;border-left:3px dotted #9EDDC2;margin:6px 0"></div>
+</div>
+<div style="flex:1;min-width:0;padding-bottom:22px;display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-height:32px"><div style="font-size:16px;font-weight:600">เตรียมเอกสาร</div><div style="font-size:13px;color:#8A7B76;background:#FFF8F0;border:1px solid #EADFD3;border-radius:999px;padding:1px 10px">ทำได้ตามลำดับใดก็ได้</div></div>
+<sc-if value="{{ notBoth }}" hint-placeholder-val="{{ true }}">
+<div style="min-height:64px;border-radius:14px;border:1.5px dashed #D9CBBE;background:#FFFFFF;padding:12px 14px;display:flex;align-items:center;gap:12px;box-sizing:border-box">
+<div style="width:28px;height:28px;border-radius:9px;border:2px solid #C9BAAE;box-sizing:border-box;flex:none"></div>
+<div style="flex:1;min-width:0"><div style="font-size:16px;font-weight:600">ทำ Resume แล้ว</div><div style="font-size:13px;color:#8A7B76">กดเมื่อทำเสร็จ</div></div>
+<svg width="20" height="20" viewBox="0 0 24 24" style="fill:none;stroke:#C9BAAE;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;flex:none"><path d="M9 6 L15 12 L9 18"></path></svg>
+</div>
+</sc-if>
+<sc-if value="{{ both }}" hint-placeholder-val="{{ false }}">
+<div style="min-height:64px;border-radius:14px;border:1.5px solid #3DBE8B;background:#D6F5E6;padding:12px 14px;display:flex;align-items:center;gap:12px;box-sizing:border-box">
+<div style="width:28px;height:28px;border-radius:9px;background:#3DBE8B;display:flex;align-items:center;justify-content:center;flex:none"><svg width="16" height="16" viewBox="0 0 16 16" style="fill:none;stroke:#0F3D2E;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round"><path d="M3 8.5 L6.5 12 L13 4.5"></path></svg></div>
+<div style="flex:1;min-width:0"><div style="font-size:16px;font-weight:600;color:#0F3D2E">ทำ Resume แล้ว</div><div style="font-size:13px;color:#146B48">12 ก.ย. 2569 21:30</div></div>
+<svg width="24" height="24" viewBox="0 0 24 24" style="flex:none"><path d="M4 20 C4 11 10 5 20 4 C19 14 13 20 4 20 Z" style="fill:#9CD2FF;stroke:#2F5D4B;stroke-width:1.6;stroke-linejoin:round"></path><path d="M4 20 L13 11" style="fill:none;stroke:#2F5D4B;stroke-width:1.6;stroke-linecap:round"></path></svg>
+</div>
+</sc-if>
+<div style="min-height:64px;border-radius:14px;border:1.5px solid #3DBE8B;background:#D6F5E6;padding:12px 14px;display:flex;align-items:center;gap:12px;box-sizing:border-box">
+<div style="width:28px;height:28px;border-radius:9px;background:#3DBE8B;display:flex;align-items:center;justify-content:center;flex:none"><svg width="16" height="16" viewBox="0 0 16 16" style="fill:none;stroke:#0F3D2E;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round"><path d="M3 8.5 L6.5 12 L13 4.5"></path></svg></div>
+<div style="flex:1;min-width:0"><div style="font-size:16px;font-weight:600;color:#0F3D2E">ทำ Portfolio แล้ว</div><div style="font-size:13px;color:#146B48">8 ก.ย. 2569 17:05</div></div>
+<svg width="24" height="24" viewBox="0 0 24 24" style="flex:none"><path d="M4 20 C4 11 10 5 20 4 C19 14 13 20 4 20 Z" style="fill:#C9B6FF;stroke:#2F5D4B;stroke-width:1.6;stroke-linejoin:round"></path><path d="M4 20 L13 11" style="fill:none;stroke:#2F5D4B;stroke-width:1.6;stroke-linecap:round"></path></svg>
+</div>
+</div>
+</div>
+
+<div style="display:flex;gap:12px">
+<div style="width:32px;display:flex;flex-direction:column;align-items:center;flex:none">
+<div style="width:32px;height:32px;border-radius:50%;background:{{ s2Bg }};border:2px solid {{ s2Bd }};box-sizing:border-box;display:flex;align-items:center;justify-content:center;font:500 15px 'Kanit',sans-serif;color:{{ s2Fg }}">2</div>
+<div style="flex:1;width:0;border-left:3px dotted #E3D6C8;margin:6px 0"></div>
+</div>
+<div style="flex:1;min-width:0;padding-bottom:22px;display:flex;flex-direction:column;gap:8px">
+<div style="font-size:16px;font-weight:600;min-height:32px;display:flex;align-items:center">ยื่นสมัครฝึกงาน</div>
+<sc-if value="{{ notBoth }}" hint-placeholder-val="{{ true }}">
+<div style="height:48px;border-radius:14px;background:#EFEAE5;color:#A1948D;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px">🔒 ยื่นแล้ว</div>
+<div style="font-size:13px;color:#8A7B76">ต้องทำ Resume ให้เสร็จก่อน</div>
+</sc-if>
+<sc-if value="{{ both }}" hint-placeholder-val="{{ false }}">
+<div style="border-radius:14px;border:1.5px solid #3DBE8B;background:#FFFFFF;padding:12px 14px;font-size:16px;line-height:1.5;color:#0F3D2E;display:flex;gap:10px;align-items:flex-start">
+<svg data-anim="nudge" width="20" height="20" viewBox="0 0 24 24" style="fill:none;stroke:#3DBE8B;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;flex:none;margin-top:2px"><path d="M12 4 L12 19 M6 13 L12 19 L18 13"></path></svg>
+<div>ปลดล็อกแล้ว! กด “ยื่นแล้ว” ด้านล่างเมื่อส่งใบสมัคร</div>
+</div>
+</sc-if>
+</div>
+</div>
+
+<div style="display:flex;gap:12px">
+<div style="width:32px;display:flex;flex-direction:column;align-items:center;flex:none">
+<div style="width:32px;height:32px;border-radius:50%;background:#F1ECE6;border:2px solid #F1ECE6;box-sizing:border-box;display:flex;align-items:center;justify-content:center;font:500 15px 'Kanit',sans-serif;color:#A1948D">3</div>
+</div>
+<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:8px">
+<div style="font-size:16px;font-weight:600;min-height:32px;display:flex;align-items:center">ยืนยันที่ฝึกงาน</div>
+<div style="height:48px;border-radius:14px;background:#EFEAE5;color:#A1948D;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px">🔒 ยืนยันที่ฝึกงานแล้ว</div>
+<div style="font-size:13px;color:#8A7B76">ต้องยื่นสมัครก่อน</div>
+</div>
+</div>
+
+<div style="margin-top:18px;padding:10px 12px;border-radius:12px;background:#FFF8F0;display:flex;gap:8px;align-items:center;font-size:13px;color:#8A7B76">
+<svg width="18" height="18" viewBox="0 0 24 24" style="fill:none;stroke:#8A7B76;stroke-width:2;stroke-linecap:round;flex:none"><circle cx="12" cy="12" r="9"></circle><path d="M12 11 L12 16 M12 8 L12 8.01"></path></svg>
+<div>ทุกขั้นตอนบันทึกเวลาไว้ และย้อนกลับไม่ได้</div>
+</div>
+</div>
+
+<div style="background:#FFFFFF;border-radius:20px;box-shadow:0 1px 2px rgba(120,80,40,.06),0 8px 24px rgba(120,80,40,.07);padding:20px" data-anim="rise" data-anim-delay="240">
+<div style="font:500 18px/1.3 'Kanit',sans-serif;margin-bottom:16px">ประวัติของฉัน</div>
+<sc-for list="{{ history }}" as="h" hint-placeholder-count="5">
+<div style="display:flex;gap:12px;opacity:{{ h.op }}">
+<div style="width:24px;display:flex;flex-direction:column;align-items:center;flex:none">
+<sc-if value="{{ h.done }}"><svg width="24" height="24" viewBox="0 0 24 24" style="flex:none"><path d="M4 20 C4 11 10 5 20 4 C19 14 13 20 4 20 Z" style="fill:#86D9AE;stroke:#2F5D4B;stroke-width:1.6;stroke-linejoin:round"></path><path d="M4 20 L13 11" style="fill:none;stroke:#2F5D4B;stroke-width:1.6;stroke-linecap:round"></path></svg></sc-if>
+<sc-if value="{{ h.future }}"><div style="width:20px;height:20px;margin:2px;border-radius:50%;border:2px dashed #C9BAAE;box-sizing:border-box;flex:none"></div></sc-if>
+<div style="flex:1;width:0;border-left:2.5px {{ h.vineStyle }} #CFE9DC;margin:4px 0;display:{{ h.vine }}"></div>
+</div>
+<div style="flex:1;min-width:0;padding-bottom:18px">
+<div style="font-size:16px;font-weight:600;line-height:24px">{{ h.title }}</div>
+<div style="font-size:13px;color:#8A7B76;margin-top:2px">{{ h.time }}</div>
+<sc-if value="{{ h.hasNote }}"><div style="display:inline-flex;margin-top:6px;font-size:13px;color:#6B5A50;background:#F1ECE6;border-radius:999px;padding:2px 10px">{{ h.note }}</div></sc-if>
+</div>
+</div>
+</sc-for>
+</div>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:1500},&quot;state&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;portfolio&quot;,&quot;both&quot;],&quot;default&quot;:&quot;portfolio&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const both = this.props.state === 'both';
+    const labels = ['เมล็ด', 'แตกใบ', 'ใบคู่', 'ตูม', 'บาน'], cur = both ? 2 : 1;
+    const strip = labels.map((label, i) => {
+      const done = i < cur, c = i === cur;
+      return { label, sz: c ? '28px' : '24px', mt: c ? '0px' : '2px', bg: done ? '#3DBE8B' : '#FFFFFF', bd: done || c ? '#3DBE8B' : '#E3D6C8', ring: c ? '0 0 0 4px #D6F5E6' : 'none', anim: c ? 'pulse' : '', mark: done ? '✓' : '', fg: c ? '#0F3D2E' : '#8A7B76', w: c ? 600 : 400 };
+    });
+    const H = [
+      { title: 'เริ่มต้นสถานะ: ยังไม่เตรียมตัว', time: '1 ก.ย. 2569 10:12', note: 'นำเข้าจากแบบฟอร์ม', done: true },
+      { title: 'ทำ Portfolio เสร็จ', time: '8 ก.ย. 2569 17:05', done: true },
+      both ? { title: 'ทำ Resume เสร็จ', time: '12 ก.ย. 2569 21:30', done: true } : { title: 'ทำ Resume เสร็จ', done: false },
+      { title: 'เอกสารครบ และยื่นสมัครแล้ว', done: false },
+      { title: 'ยืนยันที่ฝึกงาน', done: false }
+    ];
+    const history = H.map((h, i) => ({ ...h, time: h.time || 'ยังไม่ถึงขั้นนี้', hasNote: !!h.note, future: !h.done, op: h.done ? 1 : 0.55, vine: i < H.length - 1 ? 'block' : 'none', vineStyle: H[i + 1] && H[i + 1].done ? 'solid' : 'dashed' }));
+    return {
+      both, notBoth: !both, stage: both ? 'both' : 'portfolio', strip, stripPct: cur * 20 + '%', history,
+      pill: both ? 'ทำ Resume แล้ว · เอกสารครบ' : 'ทำ Portfolio แล้ว', pillBg: both ? '#DDF0FF' : '#EDE4FF', pillFg: both ? '#1F5A8A' : '#5B3FA8',
+      hint: both ? 'เอกสารครบแล้ว! ยื่นสมัครแล้วกด “ยื่นแล้ว” ด้านล่างได้เลย' : 'อีกนิดเดียว! ทำ Resume ให้เสร็จเพื่อปลดล็อกการยื่นสมัคร',
+      s1: both ? '✓' : '1', s1Bg: both ? '#3DBE8B' : '#FFFFFF',
+      s2Bg: both ? '#FFFFFF' : '#F1ECE6', s2Bd: both ? '#3DBE8B' : '#F1ECE6', s2Fg: both ? '#0F3D2E' : '#A1948D'
+    };
+  }
+}
+</script>
+</body>
+</html>

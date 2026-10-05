@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<div style="height:98px;width:100%;background:#FFFFFF;border-top:1px solid #F3E7DA;box-shadow:0 -6px 20px rgba(120,80,40,.06);display:grid;grid-template-columns:{{ cols }};padding:0 8px 34px;box-sizing:border-box;position:relative;font-family:'Kanit',sans-serif">
+<div style="height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px">
+<div data-anim="{{ a0 }}" style="width:60px;height:32px;border-radius:16px;background:{{ bg0 }};display:flex;align-items:center;justify-content:center">
+<svg width="24" height="24" viewBox="0 0 24 24" style="fill:none;stroke:{{ c0 }};stroke-width:2;stroke-linecap:round;stroke-linejoin:round">
+<g display="{{ studentIcon }}"><path d="M12 21 L12 12"></path><path d="M12 13 C8 13 5 10 5 6 C9 6 12 9 12 13 Z"></path><path d="M12 11 C12 7.5 14.5 5 18.5 5 C18.5 8.5 16 11 12 11 Z"></path></g>
+<g display="{{ advisorIcon }}"><path d="M3 20 L21 20"></path><path d="M6.5 20 L6.5 15"></path><path d="M6.5 15 C4.5 15 3 13.5 3 11.5 C5 11.5 6.5 13 6.5 15 Z"></path><path d="M17.5 20 L17.5 15"></path><path d="M17.5 15 C19.5 15 21 13.5 21 11.5 C19 11.5 17.5 13 17.5 15 Z"></path><path d="M12 20 L12 11"></path><circle cx="12" cy="7.5" r="3"></circle></g>
+</svg></div>
+<div style="font-size:13px;line-height:16px;font-weight:{{ w0 }};color:{{ c0 }}">{{ label0 }}</div>
+</div>
+<div style="height:64px;display:{{ showCo }};flex-direction:column;align-items:center;justify-content:center;gap:3px">
+<div data-anim="{{ a1 }}" style="width:60px;height:32px;border-radius:16px;background:{{ bg1 }};display:flex;align-items:center;justify-content:center">
+<svg width="24" height="24" viewBox="0 0 24 24" style="fill:none;stroke:{{ c1 }};stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><rect x="4" y="3" width="16" height="18" rx="2.5"></rect><path d="M9 7.5 L10 7.5 M14 7.5 L15 7.5 M9 11.5 L10 11.5 M14 11.5 L15 11.5"></path><path d="M10 21 L10 16.5 L14 16.5 L14 21"></path></svg></div>
+<div style="font-size:13px;line-height:16px;font-weight:{{ w1 }};color:{{ c1 }}">บริษัท</div>
+</div>
+<div style="height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px">
+<div data-anim="{{ a2 }}" style="width:60px;height:32px;border-radius:16px;background:{{ bg2 }};display:flex;align-items:center;justify-content:center">
+<svg width="24" height="24" viewBox="0 0 24 24" style="fill:none;stroke:{{ c2 }};stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21 C4 17 7.6 14 12 14 C16.4 14 20 17 20 21"></path></svg></div>
+<div style="font-size:13px;line-height:16px;font-weight:{{ w2 }};color:{{ c2 }}">ฉัน</div>
+</div>
+<div style="position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;background:#3B2F2F"></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:98},&quot;role&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;student&quot;,&quot;advisor&quot;],&quot;default&quot;:&quot;student&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;active&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;0&quot;,&quot;1&quot;,&quot;2&quot;],&quot;default&quot;:&quot;0&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const a = String(this.props.active ?? 0), adv = this.props.role === 'advisor';
+    const o = { label0: adv ? 'ภาพรวม' : 'ความคืบหน้า', studentIcon: adv ? 'none' : 'inline', advisorIcon: adv ? 'inline' : 'none', cols: adv ? 'repeat(2,1fr)' : 'repeat(3,1fr)', showCo: adv ? 'none' : 'flex' };
+    [0, 1, 2].forEach(i => {
+      const on = a === String(i);
+      o['bg' + i] = on ? '#3DBE8B' : 'transparent';
+      o['c' + i] = on ? '#0F3D2E' : '#8A7B76';
+      o['w' + i] = on ? 600 : 400;
+      o['a' + i] = on ? 'pop' : '';
+    });
+    return o;
+  }
+}
+</script>
+</body>
+</html>

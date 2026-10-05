@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"></helmet>
+<div style="font-family:'Kanit',sans-serif;color:#3B2F2F;width:100%">
+<div style="height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 16px">
+<div style="font:500 24px/1.2 'Kanit',sans-serif">ภาพรวมนักศึกษา</div>
+
+</div>
+<div style="padding:0 16px;font-size:13px;color:#8A7B76">นักศึกษาทั้งหมด 42 คน · เข้าสู่ระบบแล้ว 37 คน</div>
+
+<div style="padding:18px 16px 0">
+<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px"><div style="font:500 18px/1.3 'Kanit',sans-serif">สวนของรุ่น</div><div style="font-size:13px;color:#8A7B76">แตะเพื่อกรอง</div></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+<sc-for list="{{ tiles }}" as="t" hint-placeholder-count="4">
+<div data-anim="rise" data-anim-delay="{{ t.delay }}" style="background:{{ t.bg }};border-radius:20px;padding:14px;display:flex;flex-direction:column;gap:6px;min-height:132px;box-sizing:border-box">
+<div style="display:flex;justify-content:space-between;align-items:flex-start">
+<div data-anim="count" data-anim-delay="{{ t.delay }}" style="font:500 34px/1 'Kanit',sans-serif;color:{{ t.fg }};padding-top:4px">{{ t.n }}</div>
+<div style="width:50px;height:50px;border-radius:16px;background:rgba(255,255,255,.75);display:flex;align-items:center;justify-content:center"><dc-import name="Sprout" stage="{{ t.stage }}" size="{{ 44 }}" hint-size="44px,44px"></dc-import></div>
+</div>
+<div style="font-size:13px;font-weight:600;color:{{ t.fg }};margin-top:auto">{{ t.label }}</div>
+<div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:6px;border-radius:3px;background:rgba(255,255,255,.8);overflow:hidden"><div data-anim="grow-x" data-anim-delay="{{ t.delay }}" style="width:{{ t.pct }};height:100%;background:{{ t.bar }};border-radius:3px"></div></div><div style="font-size:13px;color:{{ t.fg }}">{{ t.pct }}</div></div>
+</div>
+</sc-for>
+<div data-anim="rise" data-anim-delay="360" style="grid-column:1 / -1;background:#D6F5E6;border-radius:20px;padding:14px;display:flex;align-items:center;gap:14px">
+<div style="width:64px;height:64px;border-radius:18px;background:rgba(255,255,255,.75);display:flex;align-items:center;justify-content:center;flex:none"><dc-import name="Sprout" stage="bloom" size="{{ 56 }}" hint-size="56px,56px"></dc-import></div>
+<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:6px">
+<div style="display:flex;align-items:baseline;justify-content:space-between"><div style="font-size:13px;font-weight:600;color:#146B48">ยืนยันที่ฝึกงาน</div><div data-anim="count" data-anim-delay="360" style="font:500 34px/1 'Kanit',sans-serif;color:#146B48">8</div></div>
+<div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:6px;border-radius:3px;background:rgba(255,255,255,.8);overflow:hidden"><div data-anim="grow-x" data-anim-delay="360" style="width:19%;height:100%;background:#3DBE8B;border-radius:3px"></div></div><div style="font-size:13px;color:#146B48">19%</div></div>
+</div>
+</div>
+</div>
+</div>
+
+<div style="padding:12px 16px 0">
+<div style="background:#FFFFFF;border-radius:20px;box-shadow:0 1px 2px rgba(120,80,40,.06),0 8px 24px rgba(120,80,40,.07);padding:8px 16px">
+<div style="display:flex;justify-content:space-between;align-items:center;height:44px;border-bottom:1px dashed #EADFD3"><div style="font-size:16px">ทำ Resume แล้ว (รวม)</div><div style="font:500 18px 'Kanit',sans-serif">30</div></div>
+<div style="display:flex;justify-content:space-between;align-items:center;height:44px"><div style="font-size:16px">ทำ Portfolio แล้ว (รวม)</div><div style="font:500 18px 'Kanit',sans-serif">28</div></div>
+<div style="display:flex;justify-content:space-between;align-items:center;height:48px;margin:0 -8px 4px;padding:0 8px;border-radius:12px;background:#FFF1C9;color:#8A5A00"><div style="font-size:16px;font-weight:600;display:flex;align-items:center;gap:8px"><div style="width:8px;height:8px;border-radius:50%;background:#F2C24B"></div>เอกสารครบ แต่ยังไม่ยื่น</div><div style="font:500 18px 'Kanit',sans-serif">4</div></div>
+</div>
+</div>
+
+<div style="position:sticky;top:0;z-index:2;background:#FFF8F0;padding:16px 16px 12px;display:flex;gap:8px">
+<div style="flex:1;min-width:0;height:48px;border-radius:14px;background:#FFFFFF;border:1.5px solid #E3D6C8;box-sizing:border-box;display:flex;align-items:center;gap:8px;padding:0 14px;font-size:16px;color:#A89A94;white-space:nowrap;overflow:hidden"><svg width="20" height="20" viewBox="0 0 24 24" style="fill:none;stroke:#8A7B76;stroke-width:2.2;stroke-linecap:round;flex:none"><circle cx="11" cy="11" r="7"></circle><path d="M16.5 16.5 L21 21"></path></svg>ค้นหารหัสหรือชื่อนักศึกษา…</div>
+<div style="height:48px;border-radius:14px;background:#FFFFFF;border:1.5px solid #E3D6C8;box-sizing:border-box;padding:0 12px;display:flex;align-items:center;gap:6px;font-size:16px;font-weight:600;flex:none"><svg width="20" height="20" viewBox="0 0 24 24" style="fill:none;stroke:#3B2F2F;stroke-width:2.2;stroke-linecap:round"><path d="M4 7 L20 7 M7 12 L17 12 M10 17 L14 17"></path></svg>ตัวกรอง</div>
+</div>
+<div style="padding:0 16px 10px;display:flex;justify-content:space-between;align-items:baseline"><div style="font:500 18px/1.3 'Kanit',sans-serif">รายชื่อนักศึกษา</div><div style="font-size:13px;color:#8A7B76">42 คน</div></div>
+
+<div style="padding:0 16px 24px;display:flex;flex-direction:column;gap:10px">
+<sc-for list="{{ students }}" as="s" hint-placeholder-count="4">
+<div style="background:#FFFFFF;border-radius:20px;box-shadow:0 1px 2px rgba(120,80,40,.06),0 8px 24px rgba(120,80,40,.07);padding:14px 10px 14px 16px;cursor:pointer;display:flex;align-items:center;gap:6px" data-anim="rise" data-anim-delay="{{ s.delay }}" style-active="transform:scale(.98)">
+<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;gap:8px;align-items:flex-start">
+<div style="flex:1;min-width:0">
+<sc-if value="{{ s.hasName }}"><div style="font-size:16px;font-weight:600;line-height:1.35">{{ s.name }}</div></sc-if>
+<sc-if value="{{ s.noName }}"><div style="display:inline-flex;font-size:13px;font-weight:600;color:#8A7B76;background:#F1ECE6;border-radius:999px;padding:2px 10px">(ยังไม่เข้าระบบ)</div></sc-if>
+<div style="font-size:13px;color:#8A7B76;margin-top:2px;font-variant-numeric:tabular-nums">{{ s.id }}</div>
+</div>
+<div style="display:flex;align-items:center;gap:4px;flex:none">
+<div style="height:26px;padding:0 10px;border-radius:999px;background:{{ s.bg }};color:{{ s.fg }};font-size:13px;font-weight:600;display:flex;align-items:center;white-space:nowrap">{{ s.status }}</div>
+<dc-import name="Sprout" stage="{{ s.stage }}" size="{{ 32 }}" hint-size="32px,32px"></dc-import>
+</div>
+</div>
+<div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
+<div style="height:26px;padding:0 10px;border-radius:999px;background:{{ s.rBg }};color:{{ s.rFg }};font-size:13px;font-weight:600;display:flex;align-items:center">{{ s.rText }}</div>
+<div style="height:26px;padding:0 10px;border-radius:999px;background:{{ s.pBg }};color:{{ s.pFg }};font-size:13px;font-weight:600;display:flex;align-items:center">{{ s.pText }}</div>
+<sc-if value="{{ s.ready }}"><div style="height:26px;padding:0 10px;border-radius:999px;background:#FFF1C9;color:#8A5A00;font-size:13px;font-weight:600;display:flex;align-items:center">ครบแต่ยังไม่ยื่น</div></sc-if>
+</div>
+</div>
+<svg width="22" height="22" viewBox="0 0 24 24" style="fill:none;stroke:#C9BAAE;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;flex:none"><path d="M9 6 L15 12 L9 18"></path></svg>
+</div>
+</sc-for>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:1700}}">
+class Component extends DCLogic {
+  renderVals() {
+    const ST = {
+      none: ['ยังไม่เตรียมตัว', '#F1ECE6', '#6B5A50', 'seed'], resume: ['ทำ Resume แล้ว', '#DDF0FF', '#1F5A8A', 'resume'],
+      portfolio: ['ทำ Portfolio แล้ว', '#EDE4FF', '#5B3FA8', 'portfolio'], submitted: ['ยื่นแล้ว', '#FFF1C9', '#8A5A00', 'bud'],
+      confirmed: ['ยืนยันที่ฝึกงาน', '#D6F5E6', '#146B48', 'bloom']
+    };
+    const tiles = [['none', 9, '21%', '#BBA898'], ['resume', 7, '17%', '#6DB4F0'], ['portfolio', 5, '12%', '#A58BEA'], ['submitted', 13, '31%', '#F2C24B']]
+      
+      .map(([k, n, pct, bar], i) => ({ delay: i * 90, label: ST[k][0], bg: ST[k][1], fg: ST[k][2], stage: ST[k][3], n, pct, bar }));
+    const S = [
+      { name: 'สมชาย ใจดี', id: '67080500200', st: 'confirmed', r: 1, p: 1 },
+      { name: 'กานต์ธิดา พูลสวัสดิ์', id: '67080500201', st: 'portfolio', r: 0, p: 1 },
+      { name: '', id: '67080500207', st: 'none', r: 0, p: 0 },
+      { name: 'ณัฐวุฒิ แสงทอง', id: '67080500212', st: 'submitted', r: 1, p: 1 },
+      { name: 'พิมพ์ชนก รุ่งเรือง', id: '67080500215', st: 'resume', r: 1, p: 0 },
+      { name: 'ภูมิพัฒน์ ศรีวงศ์', id: '67080500223', st: 'resume', r: 1, p: 1, ready: true }
+    ];
+    const doc = (lbl, ok) => ({ t: lbl + (ok ? ' ✓' : ' –'), bg: ok ? '#D6F5E6' : '#F6F1EB', fg: ok ? '#146B48' : '#8A7B76' });
+    const students = S.map(s => {
+      const r = doc('Resume', s.r), p = doc('Portfolio', s.p);
+      return { ...s, delay: 200 + S.indexOf(s) * 80, hasName: !!s.name, noName: !s.name, status: ST[s.st][0], bg: ST[s.st][1], fg: ST[s.st][2], stage: s.ready ? 'both' : ST[s.st][3],
+        rText: r.t, rBg: r.bg, rFg: r.fg, pText: p.t, pBg: p.bg, pFg: p.fg, hasCo: !!s.co, ready: !!s.ready };
+    });
+    return { tiles, students };
+  }
+}
+</script>
+</body>
+</html>

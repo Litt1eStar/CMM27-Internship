@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<script src="motion.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>body{margin:0;background:#EDE4D9;font-family:'Kanit',system-ui,sans-serif;color:#3B2F2F}a{color:#1E7A57}a:hover{color:#0F3D2E}.dv-turn{padding:48px 56px 44px;border-bottom:1px solid rgba(59,47,47,.1);scroll-margin-top:16px}.dv-thd{display:flex;align-items:baseline;gap:12px;margin:0 0 28px}.dv-tid{font:600 11px ui-monospace,Menlo,monospace;padding:4px 8px;background:#3B2F2F;color:#FFF8F0;border-radius:5px;text-decoration:none}.dv-tname{font:500 22px/1.2 'Kanit',sans-serif;color:#3B2F2F}.dv-tsub{font:13px/1.4 'Kanit',sans-serif;color:#8A7B76}.dv-opts{display:flex;flex-wrap:wrap;gap:56px 44px;align-items:flex-start}.dv-opt{flex:none;display:flex;flex-direction:column;gap:12px;scroll-margin-top:16px}.dv-oid{font:600 11px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(59,47,47,.1);color:#3B2F2F;border-radius:5px;text-decoration:none}.dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 13px/1.3 'Kanit',sans-serif;color:#6B5A50}.dv-opt:target .dv-oid{background:#3DBE8B;color:#0F3D2E}.dv-next{margin:28px 0 0;font:13px/1.5 'Kanit',sans-serif;color:#8A7B76}</style>
+</helmet>
+
+<section class="dv-turn" id="t0">
+<div class="dv-thd"><a class="dv-tid" href="#t0">0</a><span class="dv-tname">CMM Internship Tracker · Mobile 390×844</span><span class="dv-tsub">Style sheet — plant stages, core components. Tall frames = full long-scroll.</span></div>
+<div class="dv-opts">
+<div class="dv-opt" id="0a">
+<div class="dv-olabel"><a class="dv-oid" href="#0a">0a</a>น้องต้นกล้า · growth stages</div>
+<div style="background:#FFF8F0;border-radius:24px;padding:28px;display:grid;grid-template-columns:repeat(6,132px);gap:12px;box-shadow:0 1px 3px rgba(59,47,47,.08)">
+<sc-for list="{{ stages }}" as="g" hint-placeholder-count="6">
+<div style="background:#FFFFFF;border-radius:20px;padding:16px 8px 14px;display:flex;flex-direction:column;align-items:center;gap:10px">
+<dc-import name="Sprout" stage="{{ g.stage }}" size="{{ 88 }}" hint-size="88px,88px"></dc-import>
+<div style="display:inline-flex;align-items:center;height:28px;padding:0 10px;border-radius:999px;font-size:13px;font-weight:600;white-space:nowrap;background:{{ g.bg }};color:{{ g.fg }}">{{ g.label }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+<div class="dv-opt" id="0b">
+<div class="dv-olabel"><a class="dv-oid" href="#0b">0b</a>Components</div>
+<div style="background:#FFF8F0;border-radius:24px;padding:28px;width:700px;box-sizing:border-box;display:grid;grid-template-columns:1fr 1fr;gap:20px 28px;box-shadow:0 1px 3px rgba(59,47,47,.08)">
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="height:52px;border-radius:14px;background:#3DBE8B;color:#0F3D2E;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 0 #2E9E72;cursor:pointer;transition:transform .12s,box-shadow .12s" style-active="transform:translateY(3px);box-shadow:0 0 0 #2E9E72">ปุ่มหลัก</div>
+<div style="height:52px;border-radius:14px;background:#FFFFFF;border:1.5px solid #3DBE8B;box-sizing:border-box;color:#0F3D2E;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center">ปุ่มรอง</div>
+<div style="height:52px;border-radius:14px;background:#EFEAE5;color:#A1948D;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center">🔒 ยื่นแล้ว</div>
+<div style="font-size:13px;color:#8A7B76;margin-top:-4px">ต้องทำ Resume ให้เสร็จก่อน</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:6px">
+<div style="font-size:16px;font-weight:600">รหัสนักศึกษา</div>
+<div style="height:48px;border-radius:14px;background:#FFFFFF;border:2px solid #3DBE8B;box-shadow:0 0 0 4px #D6F5E6;box-sizing:border-box;padding:0 14px;display:flex;align-items:center;font-size:16px">6708050<div style="width:2px;height:22px;background:#3DBE8B;margin-left:1px"></div></div>
+<div style="font-size:13px;color:#8A7B76">ตัวเลข 11 หลัก</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+<div style="height:44px;padding:0 16px;border-radius:999px;background:#FFFFFF;border:1.5px solid #E3D6C8;box-sizing:border-box;font-size:16px;display:flex;align-items:center">Online</div>
+<div style="height:44px;padding:0 16px;border-radius:999px;background:#3DBE8B;color:#0F3D2E;font-size:16px;font-weight:600;display:flex;align-items:center">✓ Onsite</div>
+<div style="height:28px;padding:0 12px;border-radius:999px;background:#FFE1D2;color:#9A3F12;font-size:13px;font-weight:600;display:flex;align-items:center;align-self:center">Onsite</div>
+<div style="height:28px;padding:0 12px;border-radius:999px;background:#DDF0FF;color:#1F5A8A;font-size:13px;font-weight:600;display:flex;align-items:center;align-self:center">Online</div>
+<div style="height:28px;padding:0 12px;border-radius:999px;background:#EDE4FF;color:#5B3FA8;font-size:13px;font-weight:600;display:flex;align-items:center;align-self:center">Hybrid</div>
+</div>
+</div>
+<div style="grid-column:1 / -1;display:flex;align-items:center;gap:12px;background:#0F3D2E;color:#FFF8F0;border-radius:18px;padding:10px 16px 10px 10px;box-shadow:0 10px 28px rgba(15,61,46,.28)">
+<div style="width:44px;height:44px;border-radius:14px;background:#D6F5E6;display:flex;align-items:center;justify-content:center;flex:none"><dc-import name="Sprout" stage="portfolio" size="{{ 40 }}" hint-size="40px,40px"></dc-import></div>
+<div style="font-size:16px;font-weight:600">เก่งมาก! ทำ Portfolio เสร็จแล้ว 🎉</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="dv-turn" id="t1">
+<div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">เข้าสู่ระบบ</span><span class="dv-tsub">No tab bar</span></div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="1a">
+<div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>Login</div>
+<div data-screen-label="1a Login" style="width:390px;height:844px;position:relative;overflow:hidden;background:#FFF8F0;border-radius:46px;box-shadow:0 0 0 10px #3B2F2F,0 30px 60px rgba(59,47,47,.28);margin:10px;font-family:'Kanit',sans-serif;color:#3B2F2F">
+<div style="position:absolute;left:50%;top:-250px;transform:translateX(-50%);width:640px;height:640px;border-radius:50%;background:#E3F6EC"></div>
+<div style="position:relative"><dc-import name="StatusBar" hint-size="390px,47px"></dc-import></div>
+<svg data-anim="twinkle" width="22" height="22" viewBox="0 0 20 20" style="position:absolute;left:36px;top:110px"><path d="M10 1 Q10 10 19 10 Q10 10 10 19 Q10 10 1 10 Q10 10 10 1 Z" style="fill:#FFD66B"></path></svg>
+<svg data-anim="twinkle" width="14" height="14" viewBox="0 0 20 20" style="position:absolute;right:52px;top:96px"><path d="M10 1 Q10 10 19 10 Q10 10 10 19 Q10 10 1 10 Q10 10 10 1 Z" style="fill:#C9B6FF"></path></svg>
+<svg data-anim="float" width="30" height="30" viewBox="0 0 24 24" style="position:absolute;right:30px;top:300px"><path d="M3 21 C3 11 9 5 21 3 C19 15 13 21 3 21 Z" style="fill:#BDEBD3"></path></svg>
+<div style="position:absolute;top:96px;left:0;right:0;display:flex;flex-direction:column;align-items:center;padding:0 32px;text-align:center">
+<div data-anim="float" style="width:236px;height:236px;border-radius:50%;background:#FFFFFF;box-shadow:0 12px 30px rgba(61,190,139,.18);display:flex;align-items:center;justify-content:center"><dc-import name="Sprout" stage="both" wave="true" hold="resume" size="{{ 190 }}" hint-size="190px,190px"></dc-import></div>
+<div style="font:500 26px/1.25 'Kanit',sans-serif;margin-top:40px">CMM Internship Tracker</div>
+<div style="font-size:16px;line-height:1.55;color:#8A7B76;margin-top:10px;text-wrap:pretty">ติดตามการเตรียมตัวฝึกงาน และแบ่งปันข้อมูลบริษัทในรุ่น</div>
+</div>
+<div style="position:absolute;left:16px;right:16px;bottom:56px;display:flex;flex-direction:column;gap:12px">
+<div style="height:56px;border-radius:14px;background:#3DBE8B;color:#0F3D2E;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:12px;box-shadow:0 3px 0 #2E9E72;cursor:pointer;transition:transform .12s,box-shadow .12s" style-active="transform:translateY(3px);box-shadow:0 0 0 #2E9E72"><div style="width:30px;height:30px;border-radius:50%;background:#FFFFFF;display:flex;align-items:center;justify-content:center;font:700 17px Arial,sans-serif;color:#4285F4">G</div>เข้าสู่ระบบด้วย Google</div>
+<div style="font-size:13px;color:#8A7B76;text-align:center">ใช้อีเมล @mail.kmutt.ac.th</div>
+</div>
+<div style="position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;background:#3B2F2F"></div>
+</div>
+</div>
+
+<div class="dv-opt" id="1b">
+<div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a>Login · wrong email domain</div>
+<div data-screen-label="1b Login error" style="width:390px;height:844px;position:relative;overflow:hidden;background:#FFF8F0;border-radius:46px;box-shadow:0 0 0 10px #3B2F2F,0 30px 60px rgba(59,47,47,.28);margin:10px;font-family:'Kanit',sans-serif;color:#3B2F2F">
+<div style="position:absolute;left:50%;top:-250px;transform:translateX(-50%);width:640px;height:640px;border-radius:50%;background:#FBEDE6"></div>
+<div style="position:relative"><dc-import name="StatusBar" hint-size="390px,47px"></dc-import></div>
+<div style="position:absolute;top:96px;left:0;right:0;display:flex;flex-direction:column;align-items:center;padding:0 32px;text-align:center">
+<div style="width:236px;height:236px;border-radius:50%;background:#FFFFFF;box-shadow:0 12px 30px rgba(180,35,24,.10);display:flex;align-items:center;justify-content:center"><dc-import name="Sprout" stage="both" mood="worried" size="{{ 190 }}" hint-size="190px,190px"></dc-import></div>
+<div style="font:500 26px/1.25 'Kanit',sans-serif;margin-top:40px">CMM Internship Tracker</div>
+<div style="font-size:16px;line-height:1.55;color:#8A7B76;margin-top:10px;text-wrap:pretty">ติดตามการเตรียมตัวฝึกงาน และแบ่งปันข้อมูลบริษัทในรุ่น</div>
+</div>
+<div style="position:absolute;left:16px;right:16px;bottom:56px;display:flex;flex-direction:column;gap:12px">
+<div style="background:#FFE3E3;color:#B42318;border-radius:14px;padding:12px 14px;display:flex;gap:10px;align-items:flex-start">
+<div style="width:22px;height:22px;border-radius:50%;background:#B42318;color:#FFE3E3;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none;margin-top:1px">!</div>
+<div><div style="font-size:16px;font-weight:600;line-height:1.45">กรุณาเข้าสู่ระบบด้วยอีเมล @mail.kmutt.ac.th</div><div style="font-size:13px;margin-top:2px">คุณใช้ somchai.jaidee@gmail.com</div></div>
+</div>
+<div style="height:56px;border-radius:14px;background:#3DBE8B;color:#0F3D2E;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:12px;box-shadow:0 3px 0 #2E9E72;cursor:pointer;transition:transform .12s,box-shadow .12s" style-active="transform:translateY(3px);box-shadow:0 0 0 #2E9E72"><div style="width:30px;height:30px;border-radius:50%;background:#FFFFFF;display:flex;align-items:center;justify-content:center;font:700 17px Arial,sans-serif;color:#4285F4">G</div>เข้าสู่ระบบด้วย Google</div>
+<div style="font-size:13px;color:#8A7B76;text-align:center">ใช้อีเมล @mail.kmutt.ac.th</div>
+</div>
+<div style="position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;background:#3B2F2F"></div>
+</div>
+</div>
+
+</div>
+</section>
+
+<section class="dv-turn" id="t2">
+<div class="dv-thd"><a class="dv-tid" href="#t2">2</a><span class="dv-tname">ยืนยันรหัสนักศึกษา</span><span class="dv-tsub">First sign-in only</span></div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="2a">
+<div class="dv-olabel"><a class="dv-oid" href="#2a">2a</a>Typing · keypad open, button disabled</div>
+<div data-screen-label="2a Verify ID" style="width:390px;height:844px;position:relative;overflow:hidden;background:#FFF8F0;border-radius:46px;box-shadow:0 0 0 10px #3B2F2F,0 30px 60px rgba(59,47,47,.28);margin:10px;font-family:'Kanit',sans-serif;color:#3B2F2F">
+<dc-import name="StatusBar" hint-size="390px,47px"></dc-import>
+<div style="padding:20px 16px 0;display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;align-items:center;gap:14px">
+<div style="width:88px;height:88px;border-radius:28px;background:#FFFFFF;box-shadow:0 6px 18px rgba(120,80,40,.08);display:flex;align-items:center;justify-content:center;flex:none"><dc-import name="Sprout" stage="both" hold="tag" size="{{ 76 }}" hint-size="76px,76px"></dc-import></div>
+<div style="font:500 24px/1.25 'Kanit',sans-serif">ยืนยันรหัสนักศึกษา</div>
+</div>
+<div style="font-size:16px;line-height:1.55;text-wrap:pretty">เข้าสู่ระบบในชื่อ <span style="font-weight:600">name@mail.kmutt.ac.th</span> — กรอกรหัสนักศึกษาเพื่อเชื่อมกับข้อมูลของคุณ <span style="color:#8A7B76">(ทำครั้งเดียว)</span></div>
+<div style="display:flex;flex-direction:column;gap:6px;margin-top:4px">
+<div style="font-size:16px;font-weight:600">รหัสนักศึกษา</div>
+<div style="height:48px;border-radius:14px;background:#FFFFFF;border:2px solid #3DBE8B;box-shadow:0 0 0 4px #D6F5E6;box-sizing:border-box;padding:0 14px;display:flex;align-items:center;font-size:16px;letter-spacing:1.5px;font-variant-numeric:tabular-nums">6708050<div style="width:2px;height:22px;background:#3DBE8B;margin-left:1px"></div></div>
+<div style="display:flex;justify-content:space-between;font-size:13px;color:#8A7B76"><div>ตัวเลข 11 หลัก</div><div style="font-variant-numeric:tabular-nums">7/11</div></div>
+</div>
+<div style="font-size:16px;font-weight:600;color:#1E7A57;text-decoration:underline;height:44px;display:flex;align-items:center">ใช้บัญชีอื่น</div>
+</div>
+<div style="position:absolute;left:0;right:0;bottom:0">
+<div style="background:#FFFFFF;border-top:1px solid #F3E7DA;padding:10px 16px">
+<div style="height:52px;border-radius:14px;background:#EFEAE5;color:#A1948D;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center">ยืนยัน</div>
+</div>
+<div style="background:#E9E3DC;padding:6px 6px 0;display:grid;grid-template-columns:repeat(3,1fr);gap:6px">
+<sc-for list="{{ keys }}" as="k" hint-placeholder-count="12">
+<div style="height:46px;border-radius:8px;background:{{ k.bg }};box-shadow:{{ k.sh }};display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:-apple-system,system-ui,sans-serif;color:#3B2F2F"><div style="font-size:24px;line-height:26px">{{ k.n }}</div><div style="font-size:9px;letter-spacing:2px;font-weight:600;line-height:10px">{{ k.l }}</div></div>
+</sc-for>
+</div>
+<div style="height:34px;background:#E9E3DC;position:relative"><div style="position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;background:#3B2F2F"></div></div>
+</div>
+</div>
+</div>
+
+<sc-for list="{{ idErrors }}" as="e" hint-placeholder-count="2">
+<div class="dv-opt" id="{{ e.id }}">
+<div class="dv-olabel"><a class="dv-oid" href="{{ e.href }}">{{ e.id }}</a>{{ e.caption }}</div>
+<div data-screen-label="2 Verify ID error" style="width:390px;height:844px;position:relative;overflow:hidden;background:#FFF8F0;border-radius:46px;box-shadow:0 0 0 10px #3B2F2F,0 30px 60px rgba(59,47,47,.28);margin:10px;font-family:'Kanit',sans-serif;color:#3B2F2F">
+<dc-import name="StatusBar" hint-size="390px,47px"></dc-import>
+<div style="padding:20px 16px 0;display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;align-items:center;gap:14px">
+<div style="width:88px;height:88px;border-radius:28px;background:#FFFFFF;box-shadow:0 6px 18px rgba(120,80,40,.08);display:flex;align-items:center;justify-content:center;flex:none"><dc-import name="Sprout" stage="both" hold="tag" mood="worried" size="{{ 76 }}" hint-size="76px,76px"></dc-import></div>
+<div style="font:500 24px/1.25 'Kanit',sans-serif">ยืนยันรหัสนักศึกษา</div>
+</div>
+<div style="font-size:16px;line-height:1.55;text-wrap:pretty">เข้าสู่ระบบในชื่อ <span style="font-weight:600">name@mail.kmutt.ac.th</span> — กรอกรหัสนักศึกษาเพื่อเชื่อมกับข้อมูลของคุณ <span style="color:#8A7B76">(ทำครั้งเดียว)</span></div>
+<div style="display:flex;flex-direction:column;gap:6px;margin-top:4px">
+<div style="font-size:16px;font-weight:600">รหัสนักศึกษา</div>
+<div style="height:48px;border-radius:14px;background:#FFF7F7;border:1.5px solid #B42318;box-sizing:border-box;padding:0 14px;display:flex;align-items:center;font-size:16px;letter-spacing:1.5px;font-variant-numeric:tabular-nums">{{ e.value }}</div>
+<div style="display:flex;justify-content:flex-end;font-size:13px;color:#8A7B76"><div>11/11</div></div>
+<div style="background:#FFE3E3;color:#B42318;border-radius:14px;padding:12px 14px;display:flex;gap:10px;align-items:flex-start">
+<div style="width:22px;height:22px;border-radius:50%;background:#B42318;color:#FFE3E3;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none;margin-top:1px">!</div>
+<div style="font-size:16px;line-height:1.5;text-wrap:pretty">{{ e.msg }}</div>
+</div>
+</div>
+</div>
+<div style="position:absolute;left:16px;right:16px;bottom:44px;display:flex;flex-direction:column;gap:6px">
+<div style="height:52px;border-radius:14px;background:#3DBE8B;color:#0F3D2E;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 0 #2E9E72;cursor:pointer;transition:transform .12s,box-shadow .12s" style-active="transform:translateY(3px);box-shadow:0 0 0 #2E9E72">ยืนยัน</div>
+<div style="height:48px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;color:#1E7A57;text-decoration:underline">ใช้บัญชีอื่น</div>
+</div>
+<div style="position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;background:#3B2F2F"></div>
+</div>
+</div>
+</sc-for>
+
+</div>
+</section>
+
+<section class="dv-turn" id="t3">
+<div class="dv-thd"><a class="dv-tid" href="#t3">3</a><span class="dv-tname">ความคืบหน้าของฉัน</span><span class="dv-tsub">Student home · tab “ความคืบหน้า”</span></div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="3a">
+<div class="dv-olabel"><a class="dv-oid" href="#3a">3a</a>First screen · Portfolio done</div>
+<div data-screen-label="3a Student home" style="width:390px;height:844px;position:relative;overflow:hidden;background:#FFF8F0;border-radius:46px;box-shadow:0 0 0 10px #3B2F2F,0 30px 60px rgba(59,47,47,.28);margin:10px;font-family:'Kanit',sans-serif;color:#3B2F2F">
+<dc-import name="StatusBar" hint-size="390px,47px"></dc-import>
+<dc-import name="StudentHome" state="portfolio" hint-size="390px,1500px"></dc-import>
+<div style="position:absolute;left:0;right:0;bottom:0;z-index:4"><dc-import name="TabBar" role="student" active="0" hint-size="390px,98px"></dc-import></div>
+</div>
+</div>
+
+<div class="dv-opt" id="3b">
+<div class="dv-olabel"><a class="dv-oid" href="#3b">3b</a>Long scroll · full page</div>
+<div data-screen-label="3b Student home long" style="width:390px;min-height:844px;position:relative;overflow:hidden;background:#FFF8F0;border-radius:46px;box-shadow:0 0 0 10px #3B2F2F,0 30px 60px rgba(59,47,47,.28);margin:10px;font-family:'Kanit',sans-serif;color:#3B2F2F;display:flex;flex-direction:column">
+<dc-import name="StatusBar" hint-size="390px,47px"></dc-import>
+<dc-import name="StudentHome" state="portfolio" hint-size="390px,1500px"></dc-import>
+<dc-import name="TabBar" role="student" active="0" hint-size="390px,98px"></dc-import>
+</div>
+</div>
+
+<div class="dv-opt" id="3c">
+<div class="dv-olabel"><a class="dv-oid" href="#3c">3c</a>Both documents done · sticky “ยื่นแล้ว” + toast</div>
+<div data-screen-label="3c Both docs done" style="width:390px;height:844px;position:relative;overflow:hidden;background:#FFF8F0;border-radius:46px;box-shadow:0 0 0 10px #3B2F2F,0 30px 60px rgba(59,47,47,.28);margin:10px;font-family:'Kanit',sans-serif;color:#3B2F2F">
+<dc-import name="StatusBar" hint-size="390px,47px"></dc-import>
+<dc-import name="StudentHome" state="both" hint-size="390px,1500px"></dc-import>
+<div data-anim="toast" style="position:absolute;left:16px;right:16px;bottom:194px;z-index:5;display:flex;align-items:center;gap:12px;background:#0F3D2E;color:#FFF8F0;border-radius:18px;padding:10px 16px 10px 10px;box-shadow:0 10px 28px rgba(15,61,46,.28)">
+<div style="width:44px;height:44px;border-radius:14px;background:#D6F5E6;display:flex;align-items:center;justify-content:center;flex:none"><dc-import name="Sprout" stage="both" size="{{ 40 }}" hint-size="40px,40px"></dc-import></div>
+<div><div style="font-size:16px;font-weight:600">เก่งมาก! ทำ Resume เสร็จแล้ว 🎉</div><div style="font-size:13px;color:#BDEBD3">เอกสารครบ ต้นกล้าแตกใบคู่แล้ว</div></div>
+</div>
+<div style="position:absolute;left:0;right:0;bottom:98px;z-index:4;background:#FFFFFF;border-top:1px solid #F3E7DA;box-shadow:0 -6px 20px rgba(120,80,40,.08);padding:10px 16px 12px;display:flex;flex-direction:column;gap:6px">
+<div style="font-size:13px;color:#8A7B76;text-align:center">ส่งใบสมัครให้บริษัทแล้ว? กดเพื่อบันทึก</div>
+<div style="height:52px;border-radius:14px;background:#3DBE8B;color:#0F3D2E;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 3px 0 #2E9E72;cursor:pointer;transition:transform .12s,box-shadow .12s" style-active="transform:translateY(3px);box-shadow:0 0 0 #2E9E72"><svg width="20" height="20" viewBox="0 0 24 24" style="fill:none;stroke:#0F3D2E;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round"><path d="M21 3 L10 14 M21 3 L14 21 L10 14 L3 10 Z"></path></svg>ยื่นแล้ว</div>
+</div>
+<div style="position:absolute;left:0;right:0;bottom:0;z-index:4"><dc-import name="TabBar" role="student" active="0" hint-size="390px,98px"></dc-import></div>
+</div>
+</div>
+
+<div class="dv-opt" id="3d">
+<div class="dv-olabel"><a class="dv-oid" href="#3d">3d</a>Sheet · confirm Resume</div>
+<div data-screen-label="3d Confirm resume sheet" style="width:390px;height:844px;position:relative;overflow:hidden;background:#FFF8F0;border-radius:46px;box-shadow:0 0 0 10px #3B2F2F,0 30px 60px rgba(59,47,47,.28);margin:10px;font-family:'Kanit',sans-serif;color:#3B2F2F">
+<dc-import name="StatusBar" hint-size="390px,47px"></dc-import>
+<dc-import name="StudentHome" state="portfolio" hint-size="390px,1500px"></dc-import>
+<div style="position:absolute;left:0;right:0;bottom:0;z-index:4"><dc-import name="TabBar" role="student" active="0" hint-size="390px,98px"></dc-import></div>
+<div data-anim="fade" style="position:absolute;inset:0;background:rgba(59,47,47,.45);z-index:5"></div>
+<div data-anim="sheet" style="position:absolute;left:0;right:0;bottom:0;z-index:6;background:#FFFFFF;border-radius:28px 28px 0 0;padding:10px 16px 42px;box-shadow:0 -10px 30px rgba(59,47,47,.12);display:flex;flex-direction:column;align-items:center;text-align:center">
+<div style="width:40px;height:5px;border-radius:3px;background:#E3D6C8;margin-bottom:18px"></div>
+<div style="width:108px;height:108px;border-radius:50%;background:#FFF8F0;display:flex;align-items:center;justify-content:center"><dc-import name="Sprout" stage="both" size="{{ 92 }}" hint-size="92px,92px"></dc-import></div>
+<div style="font:500 24px/1.3 'Kanit',sans-serif;margin-top:14px">ยืนยันว่าทำ Resume เสร็จแล้ว?</div>
+<div style="font-size:16px;line-height:1.55;color:#8A7B76;margin-top:8px;text-wrap:pretty">ระบบจะบันทึกวันและเวลาไว้ในประวัติ และจะย้อนกลับขั้นตอนนี้ไม่ได้</div>
+<div style="margin-top:12px;font-size:13px;color:#6B5A50;background:#F1ECE6;border-radius:999px;padding:4px 12px">จะบันทึกเป็น 12 ก.ย. 2569 21:30</div>
+<div style="align-self:stretch;display:flex;flex-direction:column;gap:10px;margin-top:22px">
+<div style="height:52px;border-radius:14px;background:#3DBE8B;color:#0F3D2E;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 0 #2E9E72;cursor:pointer;transition:transform .12s,box-shadow .12s" style-active="transform:translateY(3px);box-shadow:0 0 0 #2E9E72">ยืนยัน</div>
+<div style="height:52px;border-radius:14px;background:#FFFFFF;border:1.5px solid #3DBE8B;box-sizing:border-box;color:#0F3D2E;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center">ยกเลิก</div>
+</div>
+<div style="position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;background:#3B2F2F"></div>
+</div>
+</div>
+</div>
+
+<div class="dv-opt" id="3e">
+<div class="dv-olabel"><a class="dv-oid" href="#3e">3e</a>Sheet · confirm internship (overall, no company)</div>
+<div data-screen-label="3e Confirm company sheet" style="width:390px;height:844px;position:relative;overflow:hidden;background:#FFF8F0;border-radius:46px;box-shadow:0 0 0 10px #3B2F2F,0 30px 60px rgba(59,47,47,.28);margin:10px;font-family:'Kanit',sans-serif;color:#3B2F2F">
+<dc-import name="StatusBar" hint-size="390px,47px"></dc-import>
+<dc-import name="StudentHome" state="both" hint-size="390px,1500px"></dc-import>
+<div data-anim="fade" style="position:absolute;inset:0;background:rgba(59,47,47,.45);z-index:5"></div>
+<div data-anim="sheet" style="position:absolute;left:0;right:0;bottom:0;z-index:6;background:#FFFFFF;border-radius:28px 28px 0 0;padding:10px 16px 42px;box-shadow:0 -10px 30px rgba(59,47,47,.12);display:flex;flex-direction:column;align-items:center;text-align:center">
+<div style="width:40px;height:5px;border-radius:3px;background:#E3D6C8;margin-bottom:18px"></div>
+<div style="width:108px;height:108px;border-radius:50%;background:#D6F5E6;display:flex;align-items:center;justify-content:center"><dc-import name="Sprout" stage="bloom" size="{{ 92 }}" hint-size="92px,92px"></dc-import></div>
+<div style="font:500 24px/1.3 'Kanit',sans-serif;margin-top:14px">ยืนยันว่าได้ที่ฝึกงานแล้ว?</div>
+<div style="font-size:16px;line-height:1.55;color:#8A7B76;margin-top:8px;text-wrap:pretty">ระบบจะบันทึกวันและเวลาไว้ในประวัติ</div>
+<div style="align-self:stretch;margin-top:14px;background:#FFF1C9;color:#8A5A00;border-radius:14px;padding:10px 12px;display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.5;text-align:left"><svg width="18" height="18" viewBox="0 0 24 24" style="fill:none;stroke:#8A5A00;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;flex:none;margin-top:1px"><path d="M12 3 L22 20 L2 20 Z M12 10 L12 14 M12 17 L12 17.01"></path></svg><div>เมื่อยืนยันแล้วจะย้อนสถานะไม่ได้</div></div>
+<div style="align-self:stretch;display:flex;flex-direction:column;gap:10px;margin-top:20px">
+<div style="height:52px;border-radius:14px;background:#3DBE8B;color:#0F3D2E;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 0 #2E9E72;cursor:pointer;transition:transform .12s,box-shadow .12s" style-active="transform:translateY(3px);box-shadow:0 0 0 #2E9E72">ยืนยัน</div>
+<div style="height:52px;border-radius:14px;background:#FFFFFF;border:1.5px solid #3DBE8B;box-sizing:border-box;color:#0F3D2E;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center">ยกเลิก</div>
+</div>
+<div style="position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;background:#3B2F2F"></div>
+</div>
+</div>
+</div>
+
+<div class="dv-opt" id="3f">
+<div class="dv-olabel"><a class="dv-oid" href="#3f">3f</a>Celebration · full bloom</div>
+<div data-screen-label="3f Celebration" style="width:390px;height:844px;position:relative;overflow:hidden;background:#FFF8F0;border-radius:46px;box-shadow:0 0 0 10px #3B2F2F,0 30px 60px rgba(59,47,47,.28);margin:10px;font-family:'Kanit',sans-serif;color:#3B2F2F">
+<div data-anim="glow" style="position:absolute;left:50%;top:120px;transform:translateX(-50%);width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,#D6F5E6 0%,rgba(214,245,230,0) 68%)"></div>
+<sc-for list="{{ confetti }}" as="f" hint-placeholder-count="0">
+<div data-anim="fall" style="position:absolute;left:{{ f.l }};top:{{ f.t }};width:{{ f.w }};height:{{ f.h }};border-radius:{{ f.rad }};background:{{ f.bg }};transform:{{ f.rot }}"></div>
+</sc-for>
+<div style="position:relative"><dc-import name="StatusBar" hint-size="390px,47px"></dc-import></div>
+<div style="position:absolute;top:150px;left:0;right:0;display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 28px">
+<div data-anim="bloom-in" style="width:240px;height:240px;border-radius:50%;background:#FFFFFF;box-shadow:0 0 0 14px rgba(214,245,230,.7),0 20px 40px rgba(61,190,139,.2);display:flex;align-items:center;justify-content:center"><dc-import name="Sprout" stage="bloom" wave="true" size="{{ 196 }}" hint-size="196px,196px"></dc-import></div>
+<div data-anim="rise" data-anim-delay="700" style="font:500 30px/1.25 'Kanit',sans-serif;margin-top:40px">ยินดีด้วย! 🎉</div>
+<div style="font-size:18px;line-height:1.5;margin-top:8px;text-wrap:pretty">ยืนยันที่ฝึกงานแล้ว ต้นกล้าบานเต็มที่!</div>
+<div style="margin-top:16px;height:36px;padding:0 14px;border-radius:999px;background:#D6F5E6;color:#146B48;font-size:13px;font-weight:600;display:flex;align-items:center">ยืนยันที่ฝึกงาน</div>
+<div style="font-size:13px;color:#8A7B76;margin-top:12px">บันทึกเมื่อ 2 ต.ค. 2569 15:45</div>
+</div>
+<div style="position:absolute;left:16px;right:16px;bottom:48px"><div style="height:56px;border-radius:14px;background:#3DBE8B;color:#0F3D2E;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 0 #2E9E72;cursor:pointer;transition:transform .12s,box-shadow .12s" style-active="transform:translateY(3px);box-shadow:0 0 0 #2E9E72">กลับหน้าหลัก</div></div>
+<div style="position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;background:#3B2F2F"></div>
+</div>
+</div>
+
+</div>
+</section>
+
+<section class="dv-turn" id="t4">
+<div class="dv-thd"><a class="dv-tid" href="#t4">4</a><span class="dv-tname">ทำเนียบบริษัท</span><span class="dv-tsub">Tab “บริษัท”</span></div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="4a">
+<div class="dv-olabel"><a class="dv-oid" href="#4a">4a</a>Directory · student</div>
+<div data-screen-label="4a Directory" style="width:390px;height:844px;position:relative;overflow:hidden;background:#FFF8F0;border-radius:46px;box-shadow:0 0 0 10px #3B2F2F,0 30px 60px rgba(59,47,47,.28);margin:10px;font-family:'Kanit',sans-serif;color:#3B2F2F">
+<dc-import name="StatusBar" hint-size="390px,47px"></dc-import>
+<dc-import name="Directory" role="student" hint-size="390px,1800px"></dc-import>
+<div data-anim="breathe" style="position:absolute;right:16px;bottom:114px;height:60px;padding:0 22px 0 10px;border-radius:30px;background:#3DBE8B;box-shadow:0 4px 0 #2E9E72,0 12px 28px rgba(15,61,46,.3);display:flex;align-items:center;gap:10px;z-index:3;color:#0F3D2E;font-size:18px;font-weight:600"><div style="width:40px;height:40px;border-radius:50%;background:#0F3D2E;display:flex;align-items:center;justify-content:center"><svg width="22" height="22" viewBox="0 0 24 24" style="fill:none;stroke:#D6F5E6;stroke-width:2.8;stroke-linecap:round"><path d="M12 5 L12 19 M5 12 L19 12"></path></svg></div>เพิ่มบริษัท</div>
+<div style="position:absolute;left:0;right:0;bottom:0;z-index:4"><dc-import name="TabBar" role="student" active="1" hint-size="390px,98px"></dc-import></div>
+</div>
+</div>
+
+<div class="dv-opt" id="4f">
+<div class="dv-olabel"><a class="dv-oid" href="#4f">4f</a>Company card · website มี / ไม่มี</div>
+<div style="display:flex;gap:24px;align-items:flex-start">
+<div style="display:flex;flex-direction:column;gap:8px"><div style="font-size:13px;font-weight:600;color:#146B48">① มี URL — แตะเพื่อเปิดเว็บไซต์</div><div style="width:390px;background:#FFF8F0;border-radius:24px;box-shadow:0 1px 3px rgba(59,47,47,.08)"><dc-import name="Directory" bare="true" ids="0" hint-size="390px,380px"></dc-import></div></div>
+<div style="display:flex;flex-direction:column;gap:8px"><div style="font-size:13px;font-weight:600;color:#8A7B76">② ไม่มี URL — แสดงเป็นแถวเส้นประ แตะไม่ได้</div><div style="width:390px;background:#FFF8F0;border-radius:24px;box-shadow:0 1px 3px rgba(59,47,47,.08)"><dc-import name="Directory" bare="true" ids="1" hint-size="390px,380px"></dc-import></div></div>
+</div>
+</div>
+
+<div class="dv-opt" id="4b">
+<div class="dv-olabel"><a class="dv-oid" href="#4b">4b</a>Filter sheet</div>
+<div data-screen-label="4b Filter sheet" style="width:390px;height:844px;position:relative;overflow:hidden;background:#FFF8F0;border-radius:46px;box-shadow:0 0 0 10px #3B2F2F,0 30px 60px rgba(59,47,47,.28);margin:10px;font-family:'Kanit',sans-serif;color:#3B2F2F">
+<dc-import name="StatusBar" hint-size="390px,47px"></dc-import>
+<dc-import name="Directory" role="student" hint-size="390px,1800px"></dc-import>
+<div data-anim="fade" style="position:absolute;inset:0;background:rgba(59,47,47,.45);z-index:5"></div>
+<div data-anim="sheet" style="position:absolute;left:0;right:0;bottom:0;z-index:6;background:#FFFFFF;border-radius:28px 28px 0 0;box-shadow:0 -10px 30px rgba(59,47,47,.12);display:flex;flex-direction:column">
+<div style="padding:10px 16px 0;display:flex;flex-direction:column;gap:18px">
+<div style="width:40px;height:5px;border-radius:3px;background:#E3D6C8;margin:0 auto"></div>
+<div style="font:500 24px/1.3 'Kanit',sans-serif">ตัวกรอง</div>
+<div>
+<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;padding-top:0"><div style="font:500 18px/1.3 'Kanit',sans-serif">ประเภทธุรกิจ</div><div style="font-size:13px;color:#8A7B76">เลือกแล้ว 2</div></div>
+<div style="display:flex;flex-wrap:wrap;gap:8px">
+<sc-for list="{{ bizChips }}" as="c" hint-placeholder-count="12">
+<div style="min-height:44px;padding:8px 14px;box-sizing:border-box;border-radius:999px;background:{{ c.bg }};color:{{ c.fg }};border:1.5px solid {{ c.bd }};font-size:16px;font-weight:{{ c.w }};display:flex;align-items:center;line-height:1.3">{{ c.label }}</div>
+</sc-for>
+</div>
+</div>
+<div style="height:4px"></div>
+</div>
+<div style="padding:12px 16px 42px;border-top:1px solid #F3E7DA;display:grid;grid-template-columns:1fr 1.6fr;gap:10px;position:relative">
+<div style="height:52px;border-radius:14px;background:#FFFFFF;border:1.5px solid #3DBE8B;box-sizing:border-box;color:#0F3D2E;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center">ล้าง</div>
+<div style="height:52px;border-radius:14px;background:#3DBE8B;color:#0F3D2E;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 0 #2E9E72;cursor:pointer;transition:transform .12s,box-shadow .12s" style-active="transform:translateY(3px);box-shadow:0 0 0 #2E9E72">แสดง 6 บริษัท</div>
+<div style="position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;background:#3B2F2F"></div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="dv-opt" id="4c">
+<div class="dv-olabel"><a class="dv-oid" href="#4c">4c</a>Empty state</div>
+<div data-screen-label="4c Directory empty" style="width:390px;height:844px;position:relative;overflow:hidden;background:#FFF8F0;border-radius:46px;box-shadow:0 0 0 10px #3B2F2F,0 30px 60px rgba(59,47,47,.28);margin:10px;font-family:'Kanit',sans-serif;color:#3B2F2F">
+<dc-import name="StatusBar" hint-size="390px,47px"></dc-import>
+<dc-import name="Directory" role="student" empty="true" hint-size="390px,700px"></dc-import>
+<div style="position:absolute;left:0;right:0;bottom:0;z-index:4"><dc-import name="TabBar" role="student" active="1" hint-size="390px,98px"></dc-import></div>
+</div>
+</div>
+
+<div class="dv-opt" id="4d">
+<div class="dv-olabel"><a class="dv-oid" href="#4d">4d</a>Full-height sheet · เพิ่มบริษัท (duplicate-name error)</div>
+<div data-screen-label="4d Add company" style="width:390px;height:844px;position:relative;overflow:hidden;background:#FFF8F0;border-radius:46px;box-shadow:0 0 0 10px #3B2F2F,0 30px 60px rgba(59,47,47,.28);margin:10px;font-family:'Kanit',sans-serif;color:#3B2F2F">
+<dc-import name="StatusBar" hint-size="390px,47px"></dc-import>
+<dc-import name="Directory" role="student" hint-size="390px,1800px"></dc-import>
+<div data-anim="fade" style="position:absolute;inset:0;background:rgba(59,47,47,.45);z-index:5"></div>
+<div data-anim="sheet" style="position:absolute;left:0;right:0;bottom:0;top:54px;z-index:6;background:#FFFFFF;border-radius:28px 28px 0 0;box-shadow:0 -10px 30px rgba(59,47,47,.12);display:flex;flex-direction:column">
+<div style="padding:10px 16px 8px">
+<div style="width:40px;height:5px;border-radius:3px;background:#E3D6C8;margin:0 auto 10px"></div>
+<div style="display:flex;align-items:center;justify-content:space-between"><div style="font:500 24px/1.3 'Kanit',sans-serif">เพิ่มบริษัท</div><div style="width:44px;height:44px;border-radius:14px;background:#FFF8F0;display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" style="fill:none;stroke:#3B2F2F;stroke-width:2.4;stroke-linecap:round"><path d="M6 6 L18 18 M18 6 L6 18"></path></svg></div></div>
+</div>
+<div style="flex:1;min-height:0;overflow:hidden;padding:4px 16px 0;display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;flex-direction:column;gap:6px">
+<div style="font-size:16px;font-weight:600">ชื่อบริษัท <span style="color:#B42318">*</span></div>
+<div style="height:48px;border-radius:14px;background:#FFF7F7;border:1.5px solid #B42318;box-sizing:border-box;padding:0 14px;display:flex;align-items:center;font-size:16px">Pixel Forge Studio</div>
+<div style="font-size:13px;color:#B42318;display:flex;align-items:center;gap:6px"><div style="width:16px;height:16px;border-radius:50%;background:#B42318;color:#FFE3E3;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center">!</div>มีบริษัทชื่อนี้ในระบบแล้ว</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:6px">
+<div style="font-size:16px;font-weight:600">ประเภทธุรกิจ (อ้างอิงจาก JobDB) <span style="color:#B42318">*</span></div>
+<div style="height:48px;border-radius:14px;background:#FFFFFF;border:1.5px solid #E3D6C8;box-sizing:border-box;padding:0 14px;display:flex;align-items:center;justify-content:space-between;font-size:16px">งานออกแบบ<svg width="20" height="20" viewBox="0 0 24 24" style="fill:none;stroke:#8A7B76;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round"><path d="M6 9 L12 15 L18 9"></path></svg></div>
+</div>
+<div style="display:flex;flex-direction:column;gap:6px">
+<div style="font-size:16px;font-weight:600">เว็บไซต์บริษัท <span style="font-weight:400;color:#8A7B76">(ไม่บังคับ)</span></div>
+<div style="height:48px;border-radius:14px;background:#FFFFFF;border:1.5px solid #E3D6C8;box-sizing:border-box;padding:0 14px;display:flex;align-items:center;font-size:16px;color:#A89A94">https://example.com</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="font-size:16px;font-weight:600">รูปแบบการฝึกงาน <span style="color:#B42318">*</span></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<sc-for list="{{ modeChips }}" as="c" hint-placeholder-count="3">
+<div style="min-height:44px;padding:8px 16px;box-sizing:border-box;border-radius:999px;background:{{ c.bg }};color:{{ c.fg }};border:1.5px solid {{ c.bd }};font-size:16px;font-weight:{{ c.w }};display:flex;align-items:center">{{ c.label }}</div>
+</sc-for>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:6px">
+<div style="font-size:16px;font-weight:600">หมายเหตุ <span style="font-weight:400;color:#8A7B76">(ไม่บังคับ)</span></div>
+<div style="height:80px;border-radius:14px;background:#FFFFFF;border:1.5px solid #E3D6C8;box-sizing:border-box;padding:12px 14px;font-size:16px;color:#A89A94">เช่น ตำแหน่งที่รับ, ช่วงเวลาที่เปิดรับ</div>
+</div>
+</div>
+<div style="padding:12px 16px 42px;border-top:1px solid #F3E7DA;position:relative">
+<div style="height:52px;border-radius:14px;background:#3DBE8B;color:#0F3D2E;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 0 #2E9E72;cursor:pointer;transition:transform .12s,box-shadow .12s" style-active="transform:translateY(3px);box-shadow:0 0 0 #2E9E72">บันทึก</div>
+<div style="position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;background:#3B2F2F"></div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</section>
+
+<section class="dv-turn" id="t5">
+<div class="dv-thd"><a class="dv-tid" href="#t5">5</a><span class="dv-tname">ภาพรวมนักศึกษา</span><span class="dv-tsub">Advisor home · tab “ภาพรวม”</span></div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="5a">
+<div class="dv-olabel"><a class="dv-oid" href="#5a">5a</a>First screen · cohort garden</div>
+<div data-screen-label="5a Advisor home" style="width:390px;height:844px;position:relative;overflow:hidden;background:#FFF8F0;border-radius:46px;box-shadow:0 0 0 10px #3B2F2F,0 30px 60px rgba(59,47,47,.28);margin:10px;font-family:'Kanit',sans-serif;color:#3B2F2F">
+<dc-import name="StatusBar" hint-size="390px,47px"></dc-import>
+<dc-import name="AdvisorHome" hint-size="390px,1700px"></dc-import>
+<div data-anim="breathe" style="position:absolute;right:16px;bottom:114px;height:60px;padding:0 22px 0 10px;border-radius:30px;background:#3DBE8B;box-shadow:0 4px 0 #2E9E72,0 12px 28px rgba(15,61,46,.3);display:flex;align-items:center;gap:10px;z-index:3;color:#0F3D2E;font-size:18px;font-weight:600"><div style="width:40px;height:40px;border-radius:50%;background:#0F3D2E;display:flex;align-items:center;justify-content:center"><svg width="22" height="22" viewBox="0 0 24 24" style="fill:none;stroke:#D6F5E6;stroke-width:2.8;stroke-linecap:round"><path d="M12 5 L12 19 M5 12 L19 12"></path></svg></div>เพิ่มนักศึกษา</div>
+<div style="position:absolute;left:0;right:0;bottom:0;z-index:4"><dc-import name="TabBar" role="advisor" active="0" hint-size="390px,98px"></dc-import></div>
+</div>
+</div>
+
+<div class="dv-opt" id="5b">
+<div class="dv-olabel"><a class="dv-oid" href="#5b">5b</a>Long scroll · full page</div>
+<div data-screen-label="5b Advisor home long" style="width:390px;min-height:844px;position:relative;overflow:hidden;background:#FFF8F0;border-radius:46px;box-shadow:0 0 0 10px #3B2F2F,0 30px 60px rgba(59,47,47,.28);margin:10px;font-family:'Kanit',sans-serif;color:#3B2F2F;display:flex;flex-direction:column">
+<dc-import name="StatusBar" hint-size="390px,47px"></dc-import>
+<dc-import name="AdvisorHome" hint-size="390px,1700px"></dc-import>
+<div data-anim="breathe" style="position:absolute;right:16px;bottom:114px;height:60px;padding:0 22px 0 10px;border-radius:30px;background:#3DBE8B;box-shadow:0 4px 0 #2E9E72,0 12px 28px rgba(15,61,46,.3);display:flex;align-items:center;gap:10px;z-index:3;color:#0F3D2E;font-size:18px;font-weight:600"><div style="width:40px;height:40px;border-radius:50%;background:#0F3D2E;display:flex;align-items:center;justify-content:center"><svg width="22" height="22" viewBox="0 0 24 24" style="fill:none;stroke:#D6F5E6;stroke-width:2.8;stroke-linecap:round"><path d="M12 5 L12 19 M5 12 L19 12"></path></svg></div>เพิ่มนักศึกษา</div>
+<dc-import name="TabBar" role="advisor" active="0" hint-size="390px,98px"></dc-import>
+</div>
+</div>
+
+<div class="dv-opt" id="5c">
+<div class="dv-olabel"><a class="dv-oid" href="#5c">5c</a>Filter sheet · สถานะ / Resume / Portfolio</div>
+<div data-screen-label="5c Advisor filter" style="width:390px;height:844px;position:relative;overflow:hidden;background:#FFF8F0;border-radius:46px;box-shadow:0 0 0 10px #3B2F2F,0 30px 60px rgba(59,47,47,.28);margin:10px;font-family:'Kanit',sans-serif;color:#3B2F2F">
+<dc-import name="StatusBar" hint-size="390px,47px"></dc-import>
+<dc-import name="AdvisorHome" hint-size="390px,1700px"></dc-import>
+<div data-anim="fade" style="position:absolute;inset:0;background:rgba(59,47,47,.45);z-index:5"></div>
+<div data-anim="sheet" style="position:absolute;left:0;right:0;bottom:0;z-index:6;background:#FFFFFF;border-radius:28px 28px 0 0;box-shadow:0 -10px 30px rgba(59,47,47,.12);display:flex;flex-direction:column">
+<div style="padding:10px 16px 16px;display:flex;flex-direction:column;gap:18px">
+<div style="width:40px;height:5px;border-radius:3px;background:#E3D6C8;margin:0 auto"></div>
+<div style="font:500 24px/1.3 'Kanit',sans-serif">ตัวกรอง</div>
+<div>
+<div style="font:500 18px/1.3 'Kanit',sans-serif;margin-bottom:10px">สถานะ</div>
+<div style="display:flex;flex-wrap:wrap;gap:8px">
+<sc-for list="{{ statusChips }}" as="c" hint-placeholder-count="6">
+<div style="min-height:44px;padding:8px 14px;box-sizing:border-box;border-radius:999px;background:{{ c.bg }};color:{{ c.fg }};border:1.5px solid {{ c.bd }};font-size:16px;font-weight:{{ c.w }};display:flex;align-items:center;line-height:1.3">{{ c.label }}</div>
+</sc-for>
+</div>
+</div>
+<div>
+<div style="font:500 18px/1.3 'Kanit',sans-serif;margin-bottom:10px">Resume</div>
+<div style="display:flex;flex-wrap:wrap;gap:8px">
+<sc-for list="{{ docChips }}" as="c" hint-placeholder-count="3">
+<div style="min-height:44px;padding:8px 14px;box-sizing:border-box;border-radius:999px;background:{{ c.bg }};color:{{ c.fg }};border:1.5px solid {{ c.bd }};font-size:16px;font-weight:{{ c.w }};display:flex;align-items:center;line-height:1.3">{{ c.label }}</div>
+</sc-for>
+</div>
+</div>
+<div>
+<div style="font:500 18px/1.3 'Kanit',sans-serif;margin-bottom:10px">Portfolio</div>
+<div style="display:flex;flex-wrap:wrap;gap:8px">
+<sc-for list="{{ docChips }}" as="c" hint-placeholder-count="3">
+<div style="min-height:44px;padding:8px 14px;box-sizing:border-box;border-radius:999px;background:{{ c.bg }};color:{{ c.fg }};border:1.5px solid {{ c.bd }};font-size:16px;font-weight:{{ c.w }};display:flex;align-items:center;line-height:1.3">{{ c.label }}</div>
+</sc-for>
+</div>
+</div>
+</div>
+<div style="padding:12px 16px 42px;border-top:1px solid #F3E7DA;display:grid;grid-template-columns:1fr 1.6fr;gap:10px;position:relative">
+<div style="height:52px;border-radius:14px;background:#FFFFFF;border:1.5px solid #3DBE8B;box-sizing:border-box;color:#0F3D2E;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center">ล้าง</div>
+<div style="height:52px;border-radius:14px;background:#3DBE8B;color:#0F3D2E;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 0 #2E9E72;cursor:pointer;transition:transform .12s,box-shadow .12s" style-active="transform:translateY(3px);box-shadow:0 0 0 #2E9E72">แสดง 13 คน</div>
+<div style="position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;background:#3B2F2F"></div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="dv-opt" id="5d">
+<div class="dv-olabel"><a class="dv-oid" href="#5d">5d</a>Student detail · full screen (scrolled)</div>
+<div data-screen-label="5d Student detail" style="width:390px;min-height:844px;position:relative;overflow:hidden;background:#FFF8F0;border-radius:46px;box-shadow:0 0 0 10px #3B2F2F,0 30px 60px rgba(59,47,47,.28);margin:10px;font-family:'Kanit',sans-serif;color:#3B2F2F">
+<dc-import name="StatusBar" hint-size="390px,47px"></dc-import>
+<div style="height:56px;display:flex;align-items:center;gap:6px;padding:0 8px">
+<div style="width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" style="fill:none;stroke:#3B2F2F;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round"><path d="M15 5 L8 12 L15 19"></path></svg></div>
+<div style="font:500 18px/1.3 'Kanit',sans-serif">ข้อมูลนักศึกษา</div>
+</div>
+<div style="padding:4px 16px 48px;display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;align-items:center;gap:12px;padding:0 4px">
+<div style="flex:1;min-width:0"><div style="font:500 24px/1.3 'Kanit',sans-serif">สมชาย ใจดี</div><div style="font-size:13px;color:#8A7B76;margin-top:4px">อัปเดตล่าสุด 2 ต.ค. 2569 15:45</div></div>
+<div style="width:128px;height:128px;border-radius:50%;background:#D6F5E6;display:flex;align-items:center;justify-content:center;flex:none"><dc-import name="Sprout" stage="bloom" size="{{ 108 }}" hint-size="108px,108px"></dc-import></div>
+</div>
+<div style="background:#FFFFFF;border-radius:20px;box-shadow:0 1px 2px rgba(120,80,40,.06),0 8px 24px rgba(120,80,40,.07);padding:4px 16px">
+<div style="display:flex;justify-content:space-between;align-items:center;min-height:52px;border-bottom:1px dashed #EADFD3;gap:12px"><div style="font-size:13px;color:#8A7B76">รหัสนักศึกษา</div><div style="font-size:16px;font-weight:600;font-variant-numeric:tabular-nums">67080500200</div></div>
+<div style="display:flex;justify-content:space-between;align-items:center;min-height:52px;border-bottom:1px dashed #EADFD3;gap:12px"><div style="font-size:13px;color:#8A7B76">สถานะ</div><div style="height:28px;padding:0 12px;border-radius:999px;background:#D6F5E6;color:#146B48;font-size:13px;font-weight:600;display:flex;align-items:center">ยืนยันที่ฝึกงาน</div></div>
+<div style="display:flex;justify-content:space-between;align-items:center;min-height:52px;border-bottom:1px dashed #EADFD3;gap:12px"><div style="font-size:13px;color:#8A7B76">เอกสาร</div><div style="display:flex;gap:6px"><div style="height:26px;padding:0 10px;border-radius:999px;background:#D6F5E6;color:#146B48;font-size:13px;font-weight:600;display:flex;align-items:center">✓ Resume</div><div style="height:26px;padding:0 10px;border-radius:999px;background:#D6F5E6;color:#146B48;font-size:13px;font-weight:600;display:flex;align-items:center">✓ Portfolio</div></div></div>
+<div style="padding:12px 0;display:flex;flex-direction:column;gap:8px"><div style="font-size:13px;color:#8A7B76">อีเมล</div><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><div style="font-size:16px;min-width:0;overflow:hidden;text-overflow:ellipsis">somchai.j@mail.kmutt.ac.th</div><div style="height:32px;padding:0 10px;border-radius:999px;border:1.5px solid #F6C9C4;box-sizing:border-box;color:#B42318;font-size:13px;font-weight:600;display:flex;align-items:center;flex:none">ยกเลิกการผูก</div></div></div>
+</div>
+<div style="background:#FFFFFF;border-radius:20px;box-shadow:0 1px 2px rgba(120,80,40,.06),0 8px 24px rgba(120,80,40,.07);padding:20px">
+<div style="font:500 18px/1.3 'Kanit',sans-serif;margin-bottom:16px">ไทม์ไลน์สถานะ</div>
+<sc-for list="{{ events }}" as="e" hint-placeholder-count="5">
+<div style="display:flex;gap:12px">
+<div style="width:26px;display:flex;flex-direction:column;align-items:center;flex:none">
+<svg width="26" height="26" viewBox="0 0 24 24" style="flex:none"><path d="M4 20 C4 11 10 5 20 4 C19 14 13 20 4 20 Z" fill="{{ e.leaf }}" style="stroke:#2F5D4B;stroke-width:1.6;stroke-linejoin:round"></path><path d="M4 20 L13 11" style="fill:none;stroke:#2F5D4B;stroke-width:1.6;stroke-linecap:round"></path></svg>
+<div style="flex:1;width:0;border-left:3px dotted #9EDDC2;margin:4px 0;display:{{ e.vine }}"></div>
+</div>
+<div style="flex:1;min-width:0;padding-bottom:20px;display:flex;flex-direction:column;gap:4px">
+<div style="font-size:16px;font-weight:600;line-height:26px">{{ e.title }}</div>
+<div style="font-size:13px;color:#8A7B76;font-variant-numeric:tabular-nums">{{ e.time }}</div>
+<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:13px;color:#8A7B76;margin-top:2px">สถานะ:<div style="height:24px;padding:0 8px;border-radius:999px;background:{{ e.fromBg }};color:{{ e.fromFg }};font-weight:600;display:flex;align-items:center">{{ e.fromLabel }}</div>→<div style="height:24px;padding:0 8px;border-radius:999px;background:{{ e.toBg }};color:{{ e.toFg }};font-weight:600;display:flex;align-items:center">{{ e.toLabel }}</div></div>
+<sc-if value="{{ e.hasNote }}"><div style="align-self:flex-start;font-size:13px;color:#6B5A50;background:#F1ECE6;border-radius:999px;padding:2px 10px;margin-top:2px">{{ e.note }}</div></sc-if>
+<sc-if value="{{ e.hasCo }}"><div style="margin-top:4px"><dc-import name="Sprout" stage="bloom" size="{{ 44 }}" hint-size="44px,44px"></dc-import></div></sc-if>
+</div>
+</div>
+</sc-for>
+</div>
+</div>
+<div style="position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;background:#3B2F2F"></div>
+</div>
+</div>
+
+<div class="dv-opt" id="5e">
+<div class="dv-olabel"><a class="dv-oid" href="#5e">5e</a>Sheet · เพิ่มนักศึกษาในรายชื่อ</div>
+<div data-screen-label="5e Add student" style="width:390px;height:844px;position:relative;overflow:hidden;background:#FFF8F0;border-radius:46px;box-shadow:0 0 0 10px #3B2F2F,0 30px 60px rgba(59,47,47,.28);margin:10px;font-family:'Kanit',sans-serif;color:#3B2F2F">
+<dc-import name="StatusBar" hint-size="390px,47px"></dc-import>
+<dc-import name="AdvisorHome" hint-size="390px,1700px"></dc-import>
+<div data-anim="fade" style="position:absolute;inset:0;background:rgba(59,47,47,.45);z-index:5"></div>
+<div data-anim="sheet" style="position:absolute;left:0;right:0;bottom:0;z-index:6;background:#FFFFFF;border-radius:28px 28px 0 0;box-shadow:0 -10px 30px rgba(59,47,47,.12);overflow:hidden">
+<div style="padding:10px 16px 14px;display:flex;flex-direction:column;gap:14px">
+<div style="width:40px;height:5px;border-radius:3px;background:#E3D6C8;margin:0 auto"></div>
+<div style="font:500 24px/1.3 'Kanit',sans-serif">เพิ่มนักศึกษาในรายชื่อ</div>
+<div style="display:flex;flex-direction:column;gap:6px">
+<div style="font-size:16px;font-weight:600">รหัสนักศึกษา <span style="color:#B42318">*</span></div>
+<div style="height:48px;border-radius:14px;background:#FFFFFF;border:2px solid #3DBE8B;box-shadow:0 0 0 4px #D6F5E6;box-sizing:border-box;padding:0 14px;display:flex;align-items:center;font-size:16px;letter-spacing:1.5px;font-variant-numeric:tabular-nums">6708050024<div style="width:2px;height:22px;background:#3DBE8B;margin-left:1px"></div></div>
+<div style="display:flex;justify-content:space-between;font-size:13px;color:#8A7B76"><div>ตัวเลข 11 หลัก</div><div>10/11</div></div>
+</div>
+<div style="display:flex;flex-direction:column;gap:6px">
+<div style="font-size:16px;font-weight:600">ชื่อ-นามสกุล</div>
+<div style="height:48px;border-radius:14px;background:#FFFFFF;border:1.5px solid #E3D6C8;box-sizing:border-box;padding:0 14px;display:flex;align-items:center;font-size:16px;color:#A89A94">เช่น สมหญิง รักเรียน</div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1.6fr;gap:10px;margin-top:4px">
+<div style="height:52px;border-radius:14px;background:#FFFFFF;border:1.5px solid #3DBE8B;box-sizing:border-box;color:#0F3D2E;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center">ยกเลิก</div>
+<div style="height:52px;border-radius:14px;background:#EFEAE5;color:#A1948D;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center">เพิ่ม</div>
+</div>
+</div>
+<div style="background:#E9E3DC;padding:6px 6px 0;display:grid;grid-template-columns:repeat(3,1fr);gap:6px">
+<sc-for list="{{ keys }}" as="k" hint-placeholder-count="12">
+<div style="height:46px;border-radius:8px;background:{{ k.bg }};box-shadow:{{ k.sh }};display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:-apple-system,system-ui,sans-serif;color:#3B2F2F"><div style="font-size:24px;line-height:26px">{{ k.n }}</div><div style="font-size:9px;letter-spacing:2px;font-weight:600;line-height:10px">{{ k.l }}</div></div>
+</sc-for>
+</div>
+<div style="height:34px;background:#E9E3DC;position:relative"><div style="position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;background:#3B2F2F"></div></div>
+</div>
+</div>
+</div>
+
+</div>
+</section>
+
+<section class="dv-turn" id="t6">
+<div class="dv-thd"><a class="dv-tid" href="#t6">6</a><span class="dv-tname">ฉัน</span><span class="dv-tsub">Profile · tab “ฉัน”</span></div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="6a">
+<div class="dv-olabel"><a class="dv-oid" href="#6a">6a</a>Student</div>
+<div data-screen-label="6a Profile student" style="width:390px;height:844px;position:relative;overflow:hidden;background:#FFF8F0;border-radius:46px;box-shadow:0 0 0 10px #3B2F2F,0 30px 60px rgba(59,47,47,.28);margin:10px;font-family:'Kanit',sans-serif;color:#3B2F2F">
+<dc-import name="StatusBar" hint-size="390px,47px"></dc-import>
+<div style="height:56px;display:flex;align-items:center;padding:0 16px"><div style="font:500 24px/1.2 'Kanit',sans-serif">ฉัน</div></div>
+<div style="padding:12px 16px 0;display:flex;flex-direction:column;align-items:center;text-align:center">
+<div style="position:relative;width:116px;height:116px">
+<div style="width:116px;height:116px;border-radius:50%;background:#EDE4FF;color:#5B3FA8;font:500 46px/1 'Kanit',sans-serif;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 5px #FFFFFF,0 10px 24px rgba(120,80,40,.12)">ส</div>
+<div style="position:absolute;right:-6px;bottom:-4px;width:46px;height:46px;border-radius:50%;background:#FFFFFF;box-shadow:0 4px 12px rgba(120,80,40,.15);display:flex;align-items:center;justify-content:center"><dc-import name="Sprout" stage="portfolio" size="{{ 38 }}" hint-size="38px,38px"></dc-import></div>
+</div>
+<div style="font:500 24px/1.3 'Kanit',sans-serif;margin-top:18px">สมชาย ใจดี</div>
+<div style="font-size:16px;color:#8A7B76;margin-top:2px;font-variant-numeric:tabular-nums">67080500200</div>
+<div style="font-size:16px;color:#8A7B76">somchai.j@mail.kmutt.ac.th</div>
+</div>
+<div style="padding:24px 16px 0;display:flex;flex-direction:column;gap:12px">
+<div style="background:#FFFFFF;border-radius:20px;box-shadow:0 1px 2px rgba(120,80,40,.06),0 8px 24px rgba(120,80,40,.07);padding:16px;display:flex;align-items:center;justify-content:space-between;gap:12px">
+<div style="display:flex;flex-direction:column;gap:6px;align-items:flex-start"><div style="font-size:13px;color:#8A7B76">สถานะปัจจุบัน</div><div style="height:28px;padding:0 12px;border-radius:999px;background:#EDE4FF;color:#5B3FA8;font-size:13px;font-weight:600;display:flex;align-items:center">ทำ Portfolio แล้ว</div></div>
+<div style="font-size:13px;color:#8A7B76;text-align:right">เข้าร่วมเมื่อ<br>1 ก.ย. 2569</div>
+</div>
+<div style="background:#FFFFFF;border-radius:20px;box-shadow:0 1px 2px rgba(120,80,40,.06),0 8px 24px rgba(120,80,40,.07);height:56px;padding:0 16px;display:flex;align-items:center;gap:12px;color:#B42318;font-size:16px;font-weight:600">
+<svg width="22" height="22" viewBox="0 0 24 24" style="fill:none;stroke:#B42318;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round"><path d="M14 4 L18 4 C19.1 4 20 4.9 20 6 L20 18 C20 19.1 19.1 20 18 20 L14 20 M10 16 L6 12 L10 8 M6 12 L16 12"></path></svg>
+<div style="flex:1">ออกจากระบบ</div>
+</div>
+</div>
+<div style="position:absolute;left:0;right:0;bottom:118px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:13px;color:#8A7B76"><div style="font-weight:600">CMM Internship Tracker</div><div>เวอร์ชัน 1.0.0</div></div>
+<div style="position:absolute;left:0;right:0;bottom:0;z-index:4"><dc-import name="TabBar" role="student" active="2" hint-size="390px,98px"></dc-import></div>
+</div>
+</div>
+
+<div class="dv-opt" id="6b">
+<div class="dv-olabel"><a class="dv-oid" href="#6b">6b</a>Advisor</div>
+<div data-screen-label="6b Profile advisor" style="width:390px;height:844px;position:relative;overflow:hidden;background:#FFF8F0;border-radius:46px;box-shadow:0 0 0 10px #3B2F2F,0 30px 60px rgba(59,47,47,.28);margin:10px;font-family:'Kanit',sans-serif;color:#3B2F2F">
+<dc-import name="StatusBar" hint-size="390px,47px"></dc-import>
+<div style="height:56px;display:flex;align-items:center;padding:0 16px"><div style="font:500 24px/1.2 'Kanit',sans-serif">ฉัน</div></div>
+<div style="padding:12px 16px 0;display:flex;flex-direction:column;align-items:center;text-align:center">
+<div style="width:116px;height:116px;border-radius:50%;background:#FFF1C9;color:#8A5A00;font:500 46px/1 'Kanit',sans-serif;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 5px #FFFFFF,0 10px 24px rgba(120,80,40,.12)">ว</div>
+<div style="font:500 24px/1.3 'Kanit',sans-serif;margin-top:18px">ผศ.ดร. วรรณา ศรีงาม</div>
+<div style="margin-top:6px;height:28px;padding:0 12px;border-radius:999px;background:#D6F5E6;color:#146B48;font-size:13px;font-weight:600;display:flex;align-items:center">อาจารย์ที่ปรึกษา</div>
+<div style="font-size:16px;color:#8A7B76;margin-top:6px">wanna.sri@mail.kmutt.ac.th</div>
+</div>
+<div style="padding:24px 16px 0">
+<div style="background:#FFFFFF;border-radius:20px;box-shadow:0 1px 2px rgba(120,80,40,.06),0 8px 24px rgba(120,80,40,.07);height:56px;padding:0 16px;display:flex;align-items:center;gap:12px;color:#B42318;font-size:16px;font-weight:600">
+<svg width="22" height="22" viewBox="0 0 24 24" style="fill:none;stroke:#B42318;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round"><path d="M14 4 L18 4 C19.1 4 20 4.9 20 6 L20 18 C20 19.1 19.1 20 18 20 L14 20 M10 16 L6 12 L10 8 M6 12 L16 12"></path></svg>
+<div style="flex:1">ออกจากระบบ</div>
+</div>
+</div>
+<div style="position:absolute;left:0;right:0;bottom:118px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:13px;color:#8A7B76"><div style="font-weight:600">CMM Internship Tracker</div><div>เวอร์ชัน 1.0.0</div></div>
+<div style="position:absolute;left:0;right:0;bottom:0;z-index:4"><dc-import name="TabBar" role="advisor" active="2" hint-size="390px,98px"></dc-import></div>
+</div>
+</div>
+
+</div>
+<p class="dv-next">Try next: “animate the toast and confetti” · “make <a class="dv-oid" href="#5a">5a</a> tiles show a selected/filtered state” · “turn <a class="dv-oid" href="#3a">3a</a>–<a class="dv-oid" href="#3f">3f</a> into a clickable prototype”</p>
+</section></x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;motion&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;lively&quot;,&quot;calm&quot;,&quot;off&quot;],&quot;default&quot;:&quot;lively&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  componentDidMount() { this.applyMotion(); }
+  componentDidUpdate() { this.applyMotion(); }
+  applyMotion() {
+    const m = this.props.motion ?? 'lively';
+    if (m === this._m) return;
+    this._m = m; window.__cmmMode = m;
+    const go = () => window.CMMotion ? window.CMMotion.setMode(m) : setTimeout(go, 100);
+    go();
+  }
+  renderVals() {
+    const chip = (label, sel) => ({ label: sel ? '✓ ' + label : label, bg: sel ? '#3DBE8B' : '#FFFFFF', fg: sel ? '#0F3D2E' : '#3B2F2F', bd: sel ? '#3DBE8B' : '#E3D6C8', w: sel ? 600 : 400 });
+    const ST = {
+      none: ['ยังไม่เตรียมตัว', '#F1ECE6', '#6B5A50', 'seed', '#E6D8C8'], resume: ['ทำ Resume แล้ว', '#DDF0FF', '#1F5A8A', 'resume', '#9CD2FF'],
+      portfolio: ['ทำ Portfolio แล้ว', '#EDE4FF', '#5B3FA8', 'portfolio', '#C9B6FF'], submitted: ['ยื่นแล้ว', '#FFF1C9', '#8A5A00', 'bud', '#FFD66B'],
+      confirmed: ['ยืนยันที่ฝึกงาน', '#D6F5E6', '#146B48', 'bloom', '#86D9AE']
+    };
+    const stages = [
+      { stage: 'seed', label: 'ยังไม่เตรียมตัว', bg: '#F1ECE6', fg: '#6B5A50' }, { stage: 'resume', label: 'ทำ Resume แล้ว', bg: '#DDF0FF', fg: '#1F5A8A' },
+      { stage: 'portfolio', label: 'ทำ Portfolio แล้ว', bg: '#EDE4FF', fg: '#5B3FA8' }, { stage: 'both', label: 'เอกสารครบ', bg: '#E4ECFF', fg: '#3E4FA0' },
+      { stage: 'bud', label: 'ยื่นแล้ว', bg: '#FFF1C9', fg: '#8A5A00' }, { stage: 'bloom', label: 'ยืนยันที่ฝึกงาน', bg: '#D6F5E6', fg: '#146B48' }
+    ];
+    const L = ['', 'ABC', 'DEF', 'GHI', 'JKL', 'MNO', 'PQRS', 'TUV', 'WXYZ'];
+    const keys = [...L.map((l, i) => ({ n: String(i + 1), l })), { n: '', l: '' }, { n: '0', l: '' }, { n: '⌫', l: '' }]
+      .map(k => ({ ...k, bg: k.n && k.n !== '⌫' ? '#FFFFFF' : 'transparent', sh: k.n && k.n !== '⌫' ? '0 1px 0 #B9AFA5' : 'none' }));
+    const idErrors = [
+      { id: '2b', href: '#2b', caption: 'Error · ID not on roster', value: '67080500299', msg: 'ไม่พบรหัสนักศึกษานี้ในรายชื่อ กรุณาติดต่ออาจารย์ที่ปรึกษา' },
+      { id: '2c', href: '#2c', caption: 'Error · ID linked to another account', value: '67080500200', msg: 'รหัสนักศึกษานี้ถูกผูกกับบัญชีอื่นแล้ว กรุณาติดต่ออาจารย์ที่ปรึกษา' }
+    ];
+    const M = { Onsite: ['#FFE1D2', '#9A3F12'], Online: ['#DDF0FF', '#1F5A8A'], Hybrid: ['#EDE4FF', '#5B3FA8'] };
+    const AV = [['#FFE1D2', '#9A3F12'], ['#DDF0FF', '#1F5A8A'], ['#EDE4FF', '#5B3FA8'], ['#FFF1C9', '#8A5A00'], ['#D6F5E6', '#146B48'], ['#FFE3EC', '#A3345B']];
+    const pick = [['Pixel Forge Studio', 'งานออกแบบ', 'Onsite'], ['Moonbeam Media', 'โปรดักชั่น งานโฆษณา และสื่อออนไลน์', 'Hybrid'], ['Siam Story Channel', 'ผลิตรายการโทรทัศน์', 'Onsite'], ['Kanom Creative', 'ผลิตสื่อออนไลน์และออฟไลน์', 'Online'], ['LearnLab Thailand', 'งานการศึกษา งานฝึกอบรม', 'Hybrid'], ['Nimbus Interactive', 'งานไอที', 'Online']]
+      .map(([name, type, mode], i) => ({ name, type, mode, letter: name[0], avBg: AV[i][0], avFg: AV[i][1], mBg: M[mode][0], mFg: M[mode][1], rowBg: i === 0 ? '#EFFAF4' : '#FFFFFF', rowBd: i === 0 ? '#3DBE8B' : '#F0E6DB', radioBd: i === 0 ? '#3DBE8B' : '#D9CBBE', dot: i === 0 ? 'block' : 'none' }));
+    const cols = ['#3DBE8B', '#FFD66B', '#9CD2FF', '#C9B6FF', '#FFB5B5', '#FFB088'];
+    const rnd = (i, n) => { const x = Math.sin(i * 12.9898 + n * 78.233) * 43758.5453; return x - Math.floor(x); };
+    const confetti = Array.from({ length: 30 }, (_, i) => { const sq = i % 3 !== 0; return { l: Math.round(rnd(i, 1) * 366 + 6) + 'px', t: Math.round(rnd(i, 2) * 400 + 60) + 'px', w: sq ? '8px' : '8px', h: sq ? '14px' : '8px', rad: sq ? '2px' : '50%', bg: cols[i % 6], rot: 'rotate(' + Math.round(rnd(i, 3) * 360) + 'deg)' }; });
+    const biz = ['โปรดักชั่น งานโฆษณา และสื่อออนไลน์', 'ผลิตรายการโทรทัศน์', 'ผลิตสื่อออนไลน์และออฟไลน์', 'งานออกแบบ', 'งานการศึกษา งานฝึกอบรม', 'งานวิศวกรรม', 'งานบริการ งานท่องเที่ยว', 'งานไอที', 'งานประกันภัย', 'งานการตลาด', 'งานอสังหาริมทรัพย์', 'งานขาย'];
+    const bizChips = biz.map((b, i) => chip(b, i === 0 || i === 3));
+    const srcChips = ['ทั้งหมด', 'ข้อมูลจากรุ่นพี่', 'ข้อมูลจากเพื่อนร่วมรุ่น'].map((s, i) => chip(s, i === 0));
+    const modeChips = ['Onsite', 'Online', 'Hybrid'].map((s, i) => chip(s, i === 0));
+    const fromChips = ['ข้อมูลจากรุ่นพี่', 'ข้อมูลจากเพื่อนร่วมรุ่น'].map((s, i) => chip(s, i === 0));
+    const statusChips = ['ทั้งหมด', 'ยังไม่เตรียมตัว', 'ทำ Resume แล้ว', 'ทำ Portfolio แล้ว', 'ยื่นแล้ว', 'ยืนยันที่ฝึกงาน'].map((s, i) => chip(s, i === 4));
+    const docChips = ['ทั้งหมด', 'ทำแล้ว', 'ยังไม่ทำ'].map((s, i) => chip(s, i === 0));
+    const E = [
+      { title: 'เริ่มต้นสถานะ: ยังไม่เตรียมตัว', time: '1 ก.ย. 2569 10:12:44', note: 'นำเข้าจากแบบฟอร์ม', from: null, to: 'none' },
+      { title: 'ทำ Portfolio เสร็จ', time: '8 ก.ย. 2569 17:05:10', from: 'none', to: 'portfolio' },
+      { title: 'ทำ Resume เสร็จ', time: '12 ก.ย. 2569 21:30:02', from: 'portfolio', to: 'resume' },
+      { title: 'เอกสารครบ และยื่นสมัครแล้ว', time: '20 ก.ย. 2569 09:00:00', from: 'resume', to: 'submitted' },
+      { title: 'ยืนยันที่ฝึกงาน', time: '2 ต.ค. 2569 15:45:31', from: 'submitted', to: 'confirmed', co: true }
+    ];
+    const events = E.map((e, i) => ({
+      ...e, hasNote: !!e.note, hasCo: !!e.co, leaf: ST[e.to][4], vine: i < E.length - 1 ? 'block' : 'none',
+      fromLabel: e.from ? ST[e.from][0] : '—', fromBg: e.from ? ST[e.from][1] : 'transparent', fromFg: e.from ? ST[e.from][2] : '#8A7B76',
+      toLabel: ST[e.to][0], toBg: ST[e.to][1], toFg: ST[e.to][2]
+    }));
+    return { stages, keys, idErrors, pick, confetti, bizChips, srcChips, modeChips, fromChips, statusChips, docChips, events };
+  }
+}
+</script>
+</body>
+</html>
