@@ -31,7 +31,7 @@ Owner: **Claude** = agent · **You** = needs your confirmation, accounts or eyes
 | 8 | B. Foundation | Logic: status, dates, initials, colours | Claude | 6 | ✅ |
 | 9 | B. Foundation | Logic: timeline/history, companies, roster queries | Claude | 8 | ✅ |
 | 10 | B. Foundation | Sprout mascot + motion engine | Claude | 7 | ✅ |
-| 11 | B. Foundation | Shared UI: icons, sheet, toast, banner, FAB, chips, ID field, count-up | Claude | 10 | ⬜ |
+| 11 | B. Foundation | Shared UI: icons, sheet, toast, banner, FAB, chips, ID field, count-up | Claude | 10 | ✅ |
 | 12 | B. Foundation | App frame, tab bar, auth state, routes | Claude | 11 | ⬜ |
 | 13 | C. Screens | 1a/1b Login | Claude | 12 | ⬜ |
 | 14 | C. Screens | 2a–2c Verify student ID | Claude | 12 | ⬜ |
@@ -1980,7 +1980,7 @@ export default function Sprout({ stage = 'both', size = 80, mood = 'happy', hold
 - Create: `client/src/components/Icons.jsx`, `client/src/components/ui.jsx`, `client/src/components/Sheet.jsx`, `client/src/components/Toast.jsx`, `client/src/components/StudentIdField.jsx`
 - Create: `client/src/lib/errors.js`
 
-- [ ] **Step 1: Write `client/src/components/Icons.jsx`** (paths copied from the design's inline SVGs)
+- [x] **Step 1: Write `client/src/components/Icons.jsx`** (paths copied from the design's inline SVGs)
 
 ```jsx
 function Svg({ size = 20, color = 'currentColor', width = 2.2, children, style }) {
@@ -2069,7 +2069,7 @@ export const TabPersonIcon = (p) => (
 );
 ```
 
-- [ ] **Step 2: Write `client/src/components/ui.jsx`**
+- [x] **Step 2: Write `client/src/components/ui.jsx`**
 
 ```jsx
 import { useEffect, useState } from 'react';
@@ -2144,7 +2144,7 @@ export function CountUp({ value, delay = 0 }) {
 }
 ```
 
-- [ ] **Step 3: Write `client/src/components/Sheet.jsx`**
+- [x] **Step 3: Write `client/src/components/Sheet.jsx`**
 
 ```jsx
 import { useEffect } from 'react';
@@ -2192,7 +2192,7 @@ export default function Sheet({ open, onClose, label, full = false, grabberGap =
 }
 ```
 
-- [ ] **Step 4: Write `client/src/components/Toast.jsx`**
+- [x] **Step 4: Write `client/src/components/Toast.jsx`**
 
 ```jsx
 import { useEffect } from 'react';
@@ -2224,7 +2224,7 @@ export default function Toast({ toast, onDone, bottom }) {
 }
 ```
 
-- [ ] **Step 5: Write `client/src/components/StudentIdField.jsx`**
+- [x] **Step 5: Write `client/src/components/StudentIdField.jsx`**
 
 ```jsx
 /** 11-digit student ID input with the n/11 counter (2a–2c, 5e). */
@@ -2254,7 +2254,7 @@ export default function StudentIdField({ id, value, onChange, invalid = false, r
 }
 ```
 
-- [ ] **Step 6: Write `client/src/lib/errors.js`**
+- [x] **Step 6: Write `client/src/lib/errors.js`**
 
 ```js
 /** Thai messages for API error codes. Unknown codes fall back to a generic message. */
@@ -2275,9 +2275,9 @@ const MESSAGES = {
 export const errorText = (err) => MESSAGES[err?.code] || 'เกิดข้อผิดพลาด ลองใหม่อีกครั้ง';
 ```
 
-- [ ] **Step 7: Build:** `npm run build` → `✓ built`.
+- [x] **Step 7: Build:** `npm run build` → `✓ built`.
 
-- [ ] **Step 8: Commit:** `git add client/src/components client/src/lib/errors.js && git commit -m "feat(client): icons, chips, pills, sheet, toast, ID field, error messages"`
+- [x] **Step 8: Commit:** `git add client/src/components client/src/lib/errors.js && git commit -m "feat(client): icons, chips, pills, sheet, toast, ID field, error messages"`
 
 ---
 
