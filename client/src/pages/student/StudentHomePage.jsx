@@ -4,7 +4,11 @@ import { CheckIcon, SendIcon } from '../../components/Icons';
 import { ErrorBanner } from '../../components/ui';
 import { api } from '../../lib/api';
 import { errorText } from '../../lib/errors';
-import { isConfirmed, isReady, isSubmitted } from '../../lib/status';
+import { isConfirmed, isReady, isSubmitted, toastFor } from '../../lib/status';
+import { eventTime } from '../../lib/timeline';
+import Toast from '../../components/Toast';
+import ActionSheet from './ActionSheet';
+import Celebration from './Celebration';
 import { HeroCard, HistoryCard, STICKY_BAR_HEIGHT, StepsCard, StickyActionBar } from './ProgressParts';
 
 function barFor(p) {
@@ -23,6 +27,9 @@ export default function StudentHomePage() {
   const [events, setEvents] = useState([]);
   const [error, setError] = useState(null);
   const [sheet, setSheet] = useState(null);
+  const [toast, setToast] = useState(null);
+  const [celebrate, setCelebrate] = useState(false);
+  const clearToast = useCallback(() => setToast(null), []);
 
   const load = useCallback(async () => {
     try {
@@ -40,6 +47,13 @@ export default function StudentHomePage() {
   useEffect(() => {
     load();
   }, [load]);
+
+  async function handleDone(action, updated) {
+    setSheet(null);
+    await load();
+    if (action === 'CONFIRM') setCelebrate(true);
+    else setToast({ id: Date.now(), ...toastFor(action, updated) });
+  }
 
   if (!progress) {
     return (
@@ -67,6 +81,10 @@ export default function StudentHomePage() {
         <HistoryCard events={events} />
       </div>
       {bar && <StickyActionBar {...bar} onClick={() => setSheet(bar.action)} />}
+      {sheet && <ActionSheet action={sheet} progress={progress} onClose={() => setSheet(null)} onDone={handleDone} />}
+      <Toast toast={toast} onDone={clearToast}
+        bottom={`calc(64px + env(safe-area-inset-bottom) + ${bar ? STICKY_BAR_HEIGHT + 12 : 12}px)`} />
+      {celebrate && <Celebration at={eventTime(events, 'INTERNSHIP_CONFIRMED')} onClose={() => setCelebrate(false)} />}
     </>
   );
 }

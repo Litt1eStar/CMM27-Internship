@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { homeHint, isReady, lockedSubmitHint, stageFor, statusPill, stepIndex } from './status';
+import { homeHint, isReady, lockedSubmitHint, progressAfter, stageFor, statusPill, stepIndex, toastFor } from './status';
 
 const p = (current_status, r = false, pf = false) => ({ current_status, is_resume_ready: r, is_portfolio_ready: pf });
 
@@ -37,4 +37,19 @@ test('ready = both documents, not yet submitted', () => {
   expect(isReady(p('RESUME_DONE', true, true))).toBe(true);
   expect(isReady(p('APPLICATIONS_SUBMITTED', true, true))).toBe(false);
   expect(isReady(p('RESUME_DONE', true))).toBe(false);
+});
+
+test('progressAfter predicts the state the sheet will show', () => {
+  expect(stageFor(progressAfter(p('PORTFOLIO_DONE', false, true), 'COMPLETE_RESUME'))).toBe('both');
+  expect(stageFor(progressAfter(p('RESUME_DONE', true, true), 'SUBMIT'))).toBe('bud');
+  expect(stageFor(progressAfter(p('APPLICATIONS_SUBMITTED', true, true), 'CONFIRM'))).toBe('bloom');
+});
+
+test('toast copy (design 3c + extrapolated)', () => {
+  expect(toastFor('COMPLETE_RESUME', p('RESUME_DONE', true, true)))
+    .toEqual({ title: 'เก่งมาก! ทำ Resume เสร็จแล้ว 🎉', sub: 'เอกสารครบ ต้นกล้าแตกใบคู่แล้ว', stage: 'both' });
+  expect(toastFor('COMPLETE_PORTFOLIO', p('PORTFOLIO_DONE', false, true)))
+    .toEqual({ title: 'เก่งมาก! ทำ Portfolio เสร็จแล้ว 🎉', sub: 'ต้นกล้าแตกใบแรกแล้ว', stage: 'portfolio' });
+  expect(toastFor('SUBMIT', p('APPLICATIONS_SUBMITTED', true, true)))
+    .toEqual({ title: 'ยื่นสมัครแล้ว! 🎉', sub: 'ต้นกล้าออกดอกตูมแล้ว', stage: 'bud' });
 });

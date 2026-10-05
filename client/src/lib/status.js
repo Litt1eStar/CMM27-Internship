@@ -59,3 +59,28 @@ export function statusPill(p) {
   const s = STATUS[p.current_status];
   return { label: stageFor(p) === 'both' ? `${s.label} · เอกสารครบ` : s.label, bg: s.bg, fg: s.fg };
 }
+
+/** What progress will look like after an action (used to preview the sprout). */
+export function progressAfter(p, action) {
+  switch (action) {
+    case 'COMPLETE_RESUME':
+      return { ...p, is_resume_ready: true, current_status: 'RESUME_DONE' };
+    case 'COMPLETE_PORTFOLIO':
+      return { ...p, is_portfolio_ready: true, current_status: 'PORTFOLIO_DONE' };
+    case 'SUBMIT':
+      return { ...p, current_status: 'APPLICATIONS_SUBMITTED' };
+    default:
+      return { ...p, current_status: 'INTERNSHIP_CONFIRMED' };
+  }
+}
+
+/** Success toast after an action; p is the progress returned by the API. */
+export function toastFor(action, p) {
+  if (action === 'SUBMIT') return { title: 'ยื่นสมัครแล้ว! 🎉', sub: 'ต้นกล้าออกดอกตูมแล้ว', stage: 'bud' };
+  const doc = action === 'COMPLETE_RESUME' ? 'Resume' : 'Portfolio';
+  return {
+    title: `เก่งมาก! ทำ ${doc} เสร็จแล้ว 🎉`,
+    sub: docsComplete(p) ? 'เอกสารครบ ต้นกล้าแตกใบคู่แล้ว' : 'ต้นกล้าแตกใบแรกแล้ว',
+    stage: stageFor(p),
+  };
+}

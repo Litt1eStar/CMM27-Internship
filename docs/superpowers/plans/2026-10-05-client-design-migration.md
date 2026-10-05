@@ -36,7 +36,7 @@ Owner: **Claude** = agent · **You** = needs your confirmation, accounts or eyes
 | 13 | C. Screens | 1a/1b Login | Claude | 12 | ✅ |
 | 14 | C. Screens | 2a–2c Verify student ID | Claude | 12 | ✅ |
 | 15 | C. Screens | 3a–3c Student home | Claude | 12 | ✅ |
-| 16 | C. Screens | 3d/3e action sheets, toast, 3f celebration | Claude | 15 | ⬜ |
+| 16 | C. Screens | 3d/3e action sheets, toast, 3f celebration | Claude | 15 | ✅ |
 | 17 | C. Screens | 4a/4c/4f Directory + company card | Claude | 12 | ⬜ |
 | 18 | C. Screens | 4b filter sheet, 4d add/edit sheet, delete sheet | Claude | 17 | ⬜ |
 | 19 | C. Screens | 5a–5c Advisor home + filter sheet | Claude | 12 | ⬜ |
@@ -3021,7 +3021,7 @@ export default function StudentHomePage() {
 - Create: `client/src/pages/student/ActionSheet.jsx`, `client/src/pages/student/Celebration.jsx`
 - Modify: `client/src/pages/student/StudentHomePage.jsx`
 
-- [ ] **Step 1: Add failing tests to `client/src/lib/status.test.js`**
+- [x] **Step 1: Add failing tests to `client/src/lib/status.test.js`**
 
 Add `progressAfter, toastFor` to the import from `./status`, then append:
 
@@ -3042,9 +3042,9 @@ test('toast copy (design 3c + extrapolated)', () => {
 });
 ```
 
-- [ ] **Step 2: Run, expect failure:** `npm test` → `progressAfter is not a function`.
+- [x] **Step 2: Run, expect failure:** `npm test` → `progressAfter is not a function`.
 
-- [ ] **Step 3: Append to `client/src/lib/status.js`**
+- [x] **Step 3: Append to `client/src/lib/status.js`**
 
 ```js
 /** What progress will look like after an action (used to preview the sprout). */
@@ -3073,9 +3073,9 @@ export function toastFor(action, p) {
 }
 ```
 
-- [ ] **Step 4: Run:** `npm test` → all pass.
+- [x] **Step 4: Run:** `npm test` → all pass.
 
-- [ ] **Step 5: Write `client/src/pages/student/ActionSheet.jsx`** (3d for documents and ยื่นแล้ว, 3e for confirming)
+- [x] **Step 5: Write `client/src/pages/student/ActionSheet.jsx`** (3d for documents and ยื่นแล้ว, 3e for confirming)
 
 ```jsx
 import { useState } from 'react';
@@ -3143,7 +3143,7 @@ export default function ActionSheet({ action, progress, onClose, onDone }) {
 }
 ```
 
-- [ ] **Step 6: Write `client/src/pages/student/Celebration.jsx`** (3f; confetti generator copied from the design's `renderVals`)
+- [x] **Step 6: Write `client/src/pages/student/Celebration.jsx`** (3f; confetti generator copied from the design's `renderVals`)
 
 ```jsx
 import { createPortal } from 'react-dom';
@@ -3197,7 +3197,7 @@ export default function Celebration({ at, onClose }) {
 }
 ```
 
-- [ ] **Step 7: Wire them into `client/src/pages/student/StudentHomePage.jsx`**
+- [x] **Step 7: Wire them into `client/src/pages/student/StudentHomePage.jsx`**
 
 Add imports:
 
@@ -3237,9 +3237,9 @@ and render these after the sticky bar, inside the fragment:
       {celebrate && <Celebration at={eventTime(events, 'INTERNSHIP_CONFIRMED')} onClose={() => setCelebrate(false)} />}
 ```
 
-- [ ] **Step 8: Build and test:** `npm run build && npm test` → both pass.
+- [x] **Step 8: Build and test:** `npm run build && npm test` → both pass.
 
-- [ ] **Step 9: Commit:** `git add client/src && git commit -m "feat(client): action sheets, success toast and celebration (3d–3f)"`
+- [x] **Step 9: Commit:** `git add client/src && git commit -m "feat(client): action sheets, success toast and celebration (3d–3f)"`
 
 ---
 
