@@ -7,15 +7,9 @@ import { requireProfile } from '../middleware/auth.js';
 const router = Router();
 router.use(requireProfile('STUDENT'));
 
-const actionBody = z
-  .object({
-    action: z.enum(['COMPLETE_RESUME', 'COMPLETE_PORTFOLIO', 'SUBMIT', 'CONFIRM']),
-    company_id: z.string().uuid().optional(),
-  })
-  .refine((b) => b.action !== 'CONFIRM' || b.company_id, {
-    message: 'company_id is required to confirm an internship',
-    path: ['company_id'],
-  });
+const actionBody = z.object({
+  action: z.enum(['COMPLETE_RESUME', 'COMPLETE_PORTFOLIO', 'SUBMIT', 'CONFIRM']),
+});
 
 async function loadProgress(userId) {
   return unwrap(await supabase.from('student_roster').select('*').eq('id', userId).single());
@@ -30,8 +24,8 @@ router.get(
 );
 
 /**
- * POST /api/me/actions  { action, company_id? }
- * All guard rules (prerequisites, forward-only, company required) are
+ * POST /api/me/actions  { action }
+ * All guard rules (prerequisites, forward-only) are
  * enforced atomically by the student_apply_action() SQL function.
  */
 router.post(
@@ -42,7 +36,6 @@ router.post(
       await supabase.rpc('student_apply_action', {
         p_user_id: req.profile.id,
         p_action: body.action,
-        p_company_id: body.company_id ?? null,
         p_actor_id: req.profile.id,
       })
     );

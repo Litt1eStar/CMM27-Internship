@@ -4,11 +4,12 @@ import { fromDbError, HttpError } from '../src/lib/errors.js';
 
 const cases = [
   [{ message: 'PREREQ_NOT_MET: both Resume and Portfolio must be complete' }, 422, 'PREREQ_NOT_MET', 'both Resume and Portfolio must be complete'],
-  [{ message: 'COMPANY_REQUIRED: choose a company' }, 422, 'COMPANY_REQUIRED'],
+  // Removed in migration 002: no longer domain codes.
+  [{ message: 'COMPANY_REQUIRED: gone' }, 500, 'DB_ERROR'],
   [{ message: 'INVALID_TRANSITION: submit first' }, 409, 'INVALID_TRANSITION'],
   [{ message: 'ALREADY_DONE: done' }, 409, 'ALREADY_DONE'],
   [{ message: 'FORWARD_ONLY: no going back' }, 409, 'FORWARD_ONLY'],
-  [{ message: 'COMPANY_NOT_FOUND: missing' }, 404, 'COMPANY_NOT_FOUND'],
+  [{ message: 'COMPANY_NOT_FOUND: gone' }, 500, 'DB_ERROR'],
   [{ message: 'IMMUTABLE_LOG: nope' }, 409, 'IMMUTABLE_LOG'],
   [{ message: 'dup', code: '23505' }, 409, 'DUPLICATE'],
   [{ message: 'fk', code: '23503' }, 409, 'IN_USE'],

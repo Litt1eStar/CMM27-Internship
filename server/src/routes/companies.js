@@ -12,11 +12,17 @@ const SOURCES = ['SENIOR', 'CLASSMATE'];
 const companyBody = z.object({
   name: z.string().trim().min(1).max(200),
   business_type_id: z.coerce.number().int().positive(),
-  url: z
-    .string()
-    .trim()
-    .max(500)
-    .regex(/^https?:\/\/\S+$/i, 'URL must start with http:// or https://'),
+  // Optional: empty string or null clears it. Validated when present.
+  url: z.preprocess(
+    (v) => (typeof v === 'string' && v.trim() === '' ? null : v),
+    z
+      .string()
+      .trim()
+      .max(500)
+      .regex(/^https?:\/\/\S+$/i, 'URL must start with http:// or https://')
+      .nullable()
+      .optional()
+  ),
   work_mode: z.enum(WORK_MODES),
   source_type: z.enum(SOURCES),
   note: z.string().trim().max(1000).optional().nullable(),
@@ -125,18 +131,13 @@ router.patch(
   })
 );
 
-/** DELETE /api/companies/:id — creator or advisor; blocked if a student confirmed it. */
+/** DELETE /api/companies/:id — creator or advisor. */
 router.delete(
   '/companies/:id',
   requireProfile(),
   asyncHandler(async (req, res) => {
     await loadEditable(req);
-    const { error } = await supabase.from('companies').delete().eq('id', req.params.id);
-    if (error?.code === '23503') {
-      throw new HttpError(409, 'COMPANY_IN_USE',
-        'A student has confirmed this company, so it cannot be deleted');
-    }
-    if (error) unwrap({ error });
+    unwrap(await supabase.from('companies').delete().eq('id', req.params.id));
     res.status(204).end();
   })
 );
