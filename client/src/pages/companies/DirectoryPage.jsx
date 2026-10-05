@@ -77,7 +77,7 @@ export default function DirectoryPage() {
       <header className="px-4 pt-2 pb-3">
         <h1 className="title-sheet">ทำเนียบบริษัท</h1>
         <p className="mt-1 pr-12 text-[13px] leading-[1.55] text-pretty text-muted">
-          ข้อมูลบริษัทที่เพื่อนในรุ่นรวบรวมไว้ ทั้งจากประสบการณ์รุ่นพี่และที่ค้นหาเอง
+          ข้อมูลบริษัทที่เพื่อน ๆ ในรุ่นช่วยกันรวบรวมไว้
         </p>
       </header>
 
