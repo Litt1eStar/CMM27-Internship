@@ -5,6 +5,7 @@ import Sprout from '../../components/Sprout';
 import { BackIcon, LeafIcon } from '../../components/Icons';
 import { ErrorBanner, Pill } from '../../components/ui';
 import { api } from '../../lib/api';
+import { navigateWithTransition } from '../../lib/transitions';
 import { errorText } from '../../lib/errors';
 import { formatThaiDateTime } from '../../lib/format';
 import { STATUS, stageFor } from '../../lib/status';
@@ -82,7 +83,7 @@ export default function StudentDetailPage() {
     load();
   }, [load]);
 
-  const back = () => (window.history.state?.idx > 0 ? navigate(-1) : navigate('/'));
+  const back = () => navigateWithTransition(navigate, window.history.state?.idx > 0 ? -1 : '/');
   const s = data?.student;
   const events = data?.timeline.map(eventView) ?? [];
 
@@ -97,7 +98,7 @@ export default function StudentDetailPage() {
 
       {s && (
         <div className="flex flex-col gap-4 px-4 pt-1 pb-12">
-          <div className="flex items-center gap-3 px-1">
+          <div className="flex items-center gap-3 px-1" style={{ viewTransitionName: `student-${id}` }}>
             <div className="min-w-0 flex-1">
               <h2 className="title-sheet">{s.full_name || '(ยังไม่เข้าระบบ)'}</h2>
               <p className="hint mt-1">อัปเดตล่าสุด {formatThaiDateTime(s.updated_at)}</p>

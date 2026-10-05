@@ -14,7 +14,7 @@ function DocPill({ name, done }) {
 export default function StudentRow({ row, delay, onClick }) {
   const s = STATUS[row.current_status];
   return (
-    <button type="button" onClick={onClick} data-anim="rise" data-anim-delay={delay}
+    <button type="button" onClick={onClick} data-anim="rise" data-anim-delay={delay} style={{ viewTransitionName: `student-${row.id}` }}
       className="card flex w-full items-center gap-1.5 py-[14px] pr-[10px] pl-4 text-left active:scale-[.98]">
       <div className="flex min-w-0 flex-1 flex-col gap-[10px]">
         <div className="flex items-start gap-2">

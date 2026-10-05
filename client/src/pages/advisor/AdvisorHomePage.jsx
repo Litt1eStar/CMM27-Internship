@@ -4,6 +4,7 @@ import Sprout from '../../components/Sprout';
 import { FilterIcon, SearchIcon } from '../../components/Icons';
 import { CountUp, ErrorBanner, Fab } from '../../components/ui';
 import { api } from '../../lib/api';
+import { navigateWithTransition } from '../../lib/transitions';
 import { errorText } from '../../lib/errors';
 import { EMPTY_ROSTER, percent, rosterFilterCount, rosterQuery } from '../../lib/roster';
 import { STATUS } from '../../lib/status';
@@ -168,7 +169,7 @@ export default function AdvisorHomePage() {
       </div>
       <div className="flex flex-col gap-[10px] px-4 pb-[120px]">
         {rows?.map((row, i) => (
-          <StudentRow key={row.id} row={row} delay={200 + Math.min(i, 6) * 80} onClick={() => navigate(`/students/${row.id}`)} />
+          <StudentRow key={row.id} row={row} delay={200 + Math.min(i, 6) * 80} onClick={() => navigateWithTransition(navigate, `/students/${row.id}`)} />
         ))}
       </div>
 

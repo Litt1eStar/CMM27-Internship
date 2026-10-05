@@ -33,7 +33,7 @@ export default function ProfilePage() {
             {thaiInitial(name)}
           </div>
           {!isAdvisor && (
-            <div className="absolute -right-1.5 -bottom-1 flex size-[46px] items-center justify-center rounded-full bg-white shadow-[0_4px_12px_rgba(120,80,40,.15)]">
+            <div className="absolute -right-1.5 -bottom-1 flex size-[46px] items-center justify-center rounded-full bg-white shadow-[0_4px_12px_rgba(120,80,40,.15)]" style={{ viewTransitionName: 'my-sprout' }}>
               <Sprout stage={stageFor(p)} size={38} />
             </div>
           )}

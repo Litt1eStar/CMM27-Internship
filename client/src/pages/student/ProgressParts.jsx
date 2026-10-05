@@ -24,7 +24,7 @@ export function HeroCard({ progress, name }) {
           <h2 className="text-2xl leading-[1.25] font-medium">{name ? `สวัสดี ${name} 👋` : 'สวัสดี 👋'}</h2>
           <Pill bg={pill.bg} fg={pill.fg}>{pill.label}</Pill>
         </div>
-        <div data-anim="pop" className="flex size-[124px] flex-none items-center justify-center rounded-full bg-cream">
+        <div data-anim="pop" className="flex size-[124px] flex-none items-center justify-center rounded-full bg-cream" style={{ viewTransitionName: 'my-sprout' }}>
           <Sprout stage={stageFor(progress)} size={104} />
         </div>
       </div>

@@ -1,4 +1,5 @@
-import { NavLink } from 'react-router';
+import { NavLink, useLocation, useNavigate } from 'react-router';
+import { navigateWithTransition } from '../lib/transitions';
 import { TabBuildingIcon, TabGardenIcon, TabPersonIcon, TabSproutIcon } from './Icons';
 
 const TABS = {
@@ -15,13 +16,24 @@ const TABS = {
 
 export default function TabBar({ role }) {
   const tabs = TABS[role];
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const order = tabs.map((t) => t.to);
+
+  // Plain left clicks only; let modified clicks (new tab etc.) behave normally.
+  const go = (to) => (e) => {
+    if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    if (to !== pathname) navigateWithTransition(navigate, to, { from: pathname, order });
+  };
+
   return (
     <nav
       className="fixed inset-x-0 bottom-0 z-40 mx-auto grid max-w-[430px] border-t border-line-soft glass-white px-2 pb-[env(safe-area-inset-bottom)] shadow-[0_-6px_20px_rgba(120,80,40,.06)]"
-      style={{ gridTemplateColumns: `repeat(${tabs.length}, 1fr)` }}
+      style={{ gridTemplateColumns: `repeat(${tabs.length}, 1fr)`, viewTransitionName: 'tabbar' }}
     >
       {tabs.map(({ to, label, Icon, end }) => (
-        <NavLink key={to} to={to} end={end} className="flex h-16 flex-col items-center justify-center gap-[3px]">
+        <NavLink key={to} to={to} end={end} onClick={go(to)} className="flex h-16 flex-col items-center justify-center gap-[3px]">
           {({ isActive }) => (
             <>
               <span
